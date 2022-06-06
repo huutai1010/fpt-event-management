@@ -63,7 +63,7 @@
                         <a href="#"><img src="./img/F Event.png" alt="..."></a>
                     </div>
                     <div class="header_nav">
-                        <a class="active" href="#">
+                        <a class="active" href="profile.jsp">
                             <img src="./img/Avatar_Chuong_San.jpg" alt="">
 
                             <span><%= loginUser.getEmail()%></span>
@@ -74,7 +74,7 @@
                         <div class="bars">
                             <a class="Bar__fa" href="#"><i class="fa fa-bars"></i>
                                 <div class="bar__child">
-                                    <a href=""><span>Profile</span></a>
+                                    <a href=" profile.jsp "><span>Profile</span></a>
                                     <a href="MainController?action=Logout"><span>Logout</span></a>
                                 </div>
                             </a>
