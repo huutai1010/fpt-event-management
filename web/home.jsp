@@ -4,6 +4,9 @@
     Author     : DELL
 --%>
 
+<%@page import="java.util.List"%>
+<%@page import="sample.dto.EventDTO"%>
+<%@page import="sample.dto.UserDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -39,6 +42,21 @@
     </head>
     <body>
         <div class="wrapper">
+            <!-- Lay attribute user -->
+            <%
+                UserDTO loginUser = (UserDTO) session.getAttribute("LOGIN_USER");
+                if (loginUser == null || !loginUser.getRoleName().equals("US")) {
+                    response.sendRedirect("login.jsp");
+                    return;
+                }
+                String searchEve = request.getParameter("searchEve");
+                if (searchEve == null) {
+                    searchEve = "";
+                }
+
+            %>
+
+
             <header id="header" class="header">
                 <div class="header_container container">
                     <div class="header_logo">
@@ -46,8 +64,9 @@
                     </div>
                     <div class="header_nav">
                         <a class="active" href="#">
-                            <img src="./img/02-3.jpg" alt="">
-                            <span>Nguyễn Văn A</span>
+                            <img src="./img/Avatar_Chuong_San.jpg" alt="">
+
+                            <span><%= loginUser.getEmail()%></span>
                         </a>
                         <a class="notification" href="#">
                             <i class="fa fa-bell"></i>
@@ -127,148 +146,87 @@
                 </header>
                 <main class="portfolio-main">
                     <div class="container ">
-                        <ul class="nav nav-pills mb-3 justify-content-center" role="tablist">
-                            <li class="nav-item" role="presentation">
-                                <a class="nav-link active" data-toggle="pill" href="#all">Happening</a>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <a class="nav-link" data-toggle="pill" href="#Illustration">coming</a>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <a class="nav-link" data-toggle="pill" href="#Photography">Took place</a>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <a class="nav-link" data-toggle="pill" href="#Webside">Followed</a>
-                            </li>
-                        </ul>
+                        <div>
+                            <!--Search Event Of User-->
+                            <div>
+                                <form action="MainController" method="GET">
+                                    <div class="input-group">                                                                    
+                                        <input type="text" name="searchEve" value="<%= searchEve%>" placeholder="Search">
+                                        <input type="submit" name="action" value="FindEvent"/>
+                                    </div>  
+                                </form>
+                            </div>
+                            <div>
+                                <ul class="nav nav-pills mb-3 justify-content-center" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link active" data-toggle="pill" href="#all">Happening</a>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link" data-toggle="pill" href="#Illustration">Coming</a>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link" data-toggle="pill" href="#Photography">Completted</a>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link" data-toggle="pill" href="#Webside">Followed</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!--Category-->
                         <div class="tab-content">
+                            <!--list-happening-->
                             <div class="tab-pane fade show active" id="all">
+                                <!--start-list-->            
                                 <div class="row">
+                                    <%
+                                        List<EventDTO> listEventInUser = (List<EventDTO>) session.getAttribute("LIST_EVENT_USER");
+                                        if (listEventInUser != null) {
+                                            if (listEventInUser.size() > 0) {
+                                                for (EventDTO event : listEventInUser) {
+
+                                    %>
                                     <div class="col-4">
                                         <div class="item shadow overflow-hidden mb-4">
-                                            <img src="./img/g1.jpg" alt="g1" class="d-block w-100" />
+                                            <img src="<%= event.getImage()%>" alt="g1" class="d-block w-100" />
                                             <div class="info p-3 text-center">
-                                                <h3>Ngày hội tiếng nhật FPT</h3>
-                                                <p>Tuesday,28/6/2022 </p>
-                                                <p>Câu lạ bộ Tiếng nhật FPT</p>
+                                                <h3><%= event.getEventName()%></h3>
+                                                <p>Start Time: <%= event.getStartTime()%> </p>
+                                                <p>End Time: <%= event.getEndTime()%></p>
+                                                <p>Fomality: <%= event.getFomality()%></p>
                                                 <div class="content__detail">
-                                                    <div class="content__detail-icon">
-                                                        <i class="fa fa-heart"></i>
-                                                        <span>100 followed</span>
-                                                    </div>
+                                                    <!--                                                    <div class="content__detail-icon">
+                                                                                                            <i class="fa fa-heart"></i>
+                                                                                                            <span>100 followed</span>
+                                                                                                        </div>-->
                                                     <div class="content__detail-btn">
-                                                        <a href="#"><button class="btn btn-success">Deltai</button></a>
+                                                        <a href="detailUser.jsp"><button class="btn btn-success">Detail</button></a>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-12 col-sm-6 col-md-4">
-                                        <div class="item shadow overflow-hidden mb-4">
-                                            <img src="./img/g2.jpg" alt="g1" class="d-block w-100" />
-                                            <div class="info p-3 text-center">
-                                                <h3>Ngày hội tiếng nhật FPT</h3>
-                                                <p>Tuesday,28/6/2022 </p>
-                                                <p>Câu lạ bộ Tiếng nhật FPT</p>
-                                                <div class="content__detail">
-                                                    <div class="content__detail-icon">
-                                                        <i class="fa fa-heart"></i>
-                                                        <span>100 followed</span>
-                                                    </div>
-                                                    <div class="content__detail-btn">
-                                                        <a href="#"><button class="btn btn-success">Deltai</button></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-6 col-md-4">
-                                        <div class="item shadow overflow-hidden mb-4">
-                                            <img src="./img/g3.jpg" alt="g1" class="d-block w-100" />
-                                            <div class="info p-3 text-center">
-                                                <h3>Ngày hội tiếng nhật FPT</h3>
-                                                <p>Tuesday,28/6/2022 </p>
-                                                <p>Câu lạ bộ Tiếng nhật FPT</p>
-                                                <div class="content__detail">
-                                                    <div class="content__detail-icon">
-                                                        <i class="fa fa-heart"></i>
-                                                        <span>100 followed</span>
-                                                    </div>
-                                                    <div class="content__detail-btn">
-                                                        <a href="#"><button class="btn btn-success">Deltai</button></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-6 col-md-4">
-                                        <div class="item shadow overflow-hidden mb-4">
-                                            <img src="./img/g4.jpg" alt="g1" class="d-block w-100" />
-                                            <div class="info p-3 text-center">
-                                                <h3>Ngày hội tiếng nhật FPT</h3>
-                                                <p>Tuesday,28/6/2022 </p>
-                                                <p>Câu lạ bộ Tiếng nhật FPT</p>
-                                                <div class="content__detail">
-                                                    <div class="content__detail-icon">
-                                                        <i class="fa fa-heart"></i>
-                                                        <span>100 followed</span>
-                                                    </div>
-                                                    <div class="content__detail-btn">
-                                                        <a href="#"><button class="btn btn-success">Deltai</button></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-6 col-md-4">
-                                        <div class="item shadow overflow-hidden mb-4">
-                                            <img src="./img/g5.jpg" alt="g1" class="d-block w-100" />
-                                            <div class="info p-3 text-center">
-                                                <h3>Ngày hội tiếng nhật FPT</h3>
-                                                <p>Tuesday,28/6/2022 </p>
-                                                <p>Câu lạ bộ Tiếng nhật FPT</p>
-                                                <div class="content__detail">
-                                                    <div class="content__detail-icon">
-                                                        <i class="fa fa-heart"></i>
-                                                        <span>100 followed</span>
-                                                    </div>
-                                                    <div class="content__detail-btn">
-                                                        <a href="#"><button class="btn btn-success">Deltai</button></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-6 col-md-4">
-                                        <div class="item shadow overflow-hidden mb-4">
-                                            <img src="./img/g6.jpg" alt="g1" class="d-block w-100" />
-                                            <div class="info p-3 text-center">
-                                                <h3>Ngày hội tiếng nhật FPT</h3>
-                                                <p>Tuesday,28/6/2022 </p>
-                                                <p>Câu lạ bộ Tiếng nhật FPT</p>
-                                                <div class="content__detail">
-                                                    <div class="content__detail-icon">
-                                                        <i class="fa fa-heart"></i>
-                                                        <span>100 followed</span>
-                                                    </div>
-                                                    <div class="content__detail-btn">
-                                                        <a href="#"><button class="btn btn-success">Deltai</button></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <%                                        }
+                                            }
+                                        }
+
+                                    %>
                                 </div>
-                            </div>
+                            </div> 
+                            <!--end-list-->                                                
+
+                            <!--up-coming-->
                             <div class="tab-pane fade" id="Illustration">
-                                <div class="row">
+                                <!--start-time-->
+                                <div class="row">                                                                   
                                     <div class="col-12 col-sm-6 col-md-4">
                                         <div class="item shadow overflow-hidden mb-4">
                                             <img src="./img/g1.jpg" alt="g1" class="d-block w-100" />
                                             <div class="info p-3 text-center">
                                                 <h3>Ngày hội tiếng nhật FPT</h3>
                                                 <p>Tuesday,28/6/2022 </p>
-                                                <p>Câu lạ bộ Tiếng nhật FPT</p>
+                                                <p>Câu lạc bộ Tiếng nhật FPT</p>
                                                 <div class="content__detail">
                                                     <div class="content__detail-icon">
                                                         <i class="fa fa-heart"></i>
@@ -280,49 +238,15 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-12 col-sm-6 col-md-4">
-                                        <div class="item shadow overflow-hidden mb-4">
-                                            <img src="./img/g2.jpg" alt="g1" class="d-block w-100" />
-                                            <div class="info p-3 text-center">
-                                                <h3>Ngày hội tiếng nhật FPT</h3>
-                                                <p>Tuesday,28/6/2022 </p>
-                                                <p>Câu lạ bộ Tiếng nhật FPT</p>
-                                                <div class="content__detail">
-                                                    <div class="content__detail-icon">
-                                                        <i class="fa fa-heart"></i>
-                                                        <span>100 followed</span>
-                                                    </div>
-                                                    <div class="content__detail-btn">
-                                                        <a href="#"><button class="btn btn-success">Deltai</button></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-6 col-md-4">
-                                        <div class="item shadow overflow-hidden mb-4">
-                                            <img src="./img/g3.jpg" alt="g1" class="d-block w-100" />
-                                            <div class="info p-3 text-center">
-                                                <h3>Ngày hội tiếng nhật FPT</h3>
-                                                <p>Tuesday,28/6/2022 </p>
-                                                <p>Câu lạ bộ Tiếng nhật FPT</p>
-                                                <div class="content__detail">
-                                                    <div class="content__detail-icon">
-                                                        <i class="fa fa-heart"></i>
-                                                        <span>100 followed</span>
-                                                    </div>
-                                                    <div class="content__detail-btn">
-                                                        <a href="#"><button class="btn btn-success">Deltai</button></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    </div>                                                                    
                                 </div>
-                            </div>
 
+                            </div>
+                            <!--end-list-->
+
+                            <!--completted-->
                             <div class="tab-pane fade" id="Photography">
+                                <!--start-list-->
                                 <div class="row">
                                     <div class="col-12 col-sm-6 col-md-4">
                                         <div class="item shadow overflow-hidden mb-4">
@@ -343,29 +267,13 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-12 col-sm-6 col-md-4">
-                                        <div class="item shadow overflow-hidden mb-4">
-                                            <img src="./img/g5.jpg" alt="g1" class="d-block w-100" />
-                                            <div class="info p-3 text-center">
-                                                <h3>Ngày hội tiếng nhật FPT</h3>
-                                                <p>Tuesday,28/6/2022 </p>
-                                                <p>Câu lạ bộ Tiếng nhật FPT</p>
-                                                <div class="content__detail">
-                                                    <div class="content__detail-icon">
-                                                        <i class="fa fa-heart"></i>
-                                                        <span>100 followed</span>
-                                                    </div>
-                                                    <div class="content__detail-btn">
-                                                        <a href="#"><button class="btn btn-success">Deltai</button></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
-
+                            <!--end-list-->
+                             
+                            <!--Followed-->
                             <div class="tab-pane fade" id="Webside">
+                                <!--start-list-->
                                 <div class="row">
                                     <div class="col-12 col-sm-6 col-md-4">
                                         <div class="item shadow overflow-hidden mb-4">
@@ -380,7 +288,7 @@
                                                         <span>100 followed</span>
                                                     </div>
                                                     <div class="content__detail-btn">
-                                                        <a href="#"><button class="btn btn-success">Deltai</button></a>
+                                                        <a href="#"><button class="btn btn-success">Detail</button></a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -388,6 +296,9 @@
                                     </div>
                                 </div>
                             </div>
+                            <!--end-list-->
+
+                            <!--ll-->
                         </div>
                     </div>
                 </main>

@@ -13,8 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import sample.dao.UserDAO;
-import sample.users.UserDTO;
-
+import sample.dto.UserDTO;
 
 /**
  *
@@ -25,7 +24,8 @@ public class LoginController extends HttpServlet {
 
     private static final String ERROR = "login.jsp";
     private static final String US = "US";
-    private static final String USER_PAGE = "home.jsp";
+
+    private static final String USER_PAGE = "MainController?action=FindEvent&searchEve=";
     private static final String AD = "AD";
     private static final String ADMIN_PAGE = "admin.jsp";
     private static final String MT = "MT";

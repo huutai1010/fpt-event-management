@@ -4,66 +4,42 @@
  */
 package sample.controllers;
 
-import com.group4.errors.UserError;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import sample.dao.UserDAO;
-import sample.regex.ValidateAnEmail;
-import sample.dto.UserDTO;
+import javax.servlet.http.HttpSession;
+import sample.dto.EventDTO;
+import sample.dao.EventDao;
 
 /**
  *
  * @author Acer
  */
-@WebServlet(name = "SignUpController", urlPatterns = {"/SignUpController"})
-public class SignUpController extends HttpServlet {
+@WebServlet(name = "FindEventController", urlPatterns = {"/FindEventController"})
+public class FindEventController extends HttpServlet {
 
-    private static final String ERROR = "sign.jsp";
+    private static final String ERROR = "error.jsp";
     private static final String SUCCESS = "home.jsp";
-  //
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
-        ValidateAnEmail regex = new ValidateAnEmail();
-        UserError userError = new UserError();
         try {
-            String email = request.getParameter("userEmail");
-            String password = request.getParameter("password");
-            String confirm = request.getParameter("confirm");
-            UserDAO dao = new UserDAO();
-            boolean checkValidation = true;
-            if (regex.valEmail(email) == false) {
-                checkValidation = false;
-                userError.setEmailError("Email need to type format Ex:ThanhTran@gmail.com");
-            }
-
-            if (!password.equals(confirm)) {
-                checkValidation = false;
-                userError.setConfirmError("Two passwords are not the same!!");
-            }
-            if (checkValidation) {
-                // UserDTO user = new UserDTO(email, password, 0, "", "US", 1, "");
-              //  UserDTO user = new UserDTO(0, "", password, email, "US", 1, "");
-                UserDTO user = new UserDTO(0, email, password, "", "", "US", 1);
-                boolean checkCreate = dao.create(user);
-                if (checkCreate) {
-                    url = SUCCESS;
-                    
-                }
-            } else {
-                request.setAttribute("USER_ERROR", userError);
+            HttpSession session = request.getSession();
+            String searchEve = request.getParameter("searchEve");
+            EventDao dao = new EventDao();
+            List<EventDTO> listEvents = dao.getListEvents(searchEve);
+            if (listEvents.size() > 0) {
+                session.setAttribute("LIST_EVENT_USER", listEvents);
+                url = SUCCESS;
             }
         } catch (Exception e) {
-            if (e.toString().contains("duplicate")) {
-                userError.setEmailError("The duplicate Email Please type again!!");
-                request.setAttribute("USER_ERROR", userError);
-            }
-            log("Error at CreateUserController: " + e.toString());
+            log("Error at SearchController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
