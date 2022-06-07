@@ -8,7 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import sample.users.UserDTO;
+import sample.dto.UserDTO;
 import sample.utils.DBUtils;
 
 public class UserDAO {

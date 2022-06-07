@@ -31,7 +31,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
         <link rel="stylesheet" href="./lib/WOW-master/css/libs/animate.css" />
         <!-- CSS -->
-        <link rel="stylesheet" href="./CSS/style.css">
+        <link rel="stylesheet" href="./CSS/style.css">7
         <title>Login Page</title>
     </head>
     <body>
