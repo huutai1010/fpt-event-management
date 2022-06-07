@@ -64,7 +64,7 @@
                     </div>
                     <div class="header_nav">
                         <a class="active" href="profile.jsp">
-                            <img src="./img/Avatar_Chuong_San.jpg" alt="">
+                            <img src="<%= loginUser.getUrlAvatar() %>" alt="">
 
                             <span><%= loginUser.getEmail()%></span>
                         </a>

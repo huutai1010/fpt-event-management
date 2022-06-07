@@ -13,7 +13,7 @@ import sample.utils.DBUtils;
 
 public class UserDAO {
 
-    private static final String LOGIN = "SELECT u.userID, u.userName, u.roleID, r.roleName FROM tblUsers u, tblRoles r WHERE u.roleID = r.roleID and u.email =? AND u.password =? AND u.status=1 ";
+    private static final String LOGIN = "SELECT u.userID, u.userName, u.roleID, u.avatar, r.roleName FROM tblUsers u, tblRoles r WHERE u.roleID = r.roleID and u.email =? AND u.password =? AND u.status=1 ";
 
     private static final String CREATE_USER = "INSERT INTO tblUsers(email, password, username, avatar, roleID, status) VALUES(?,?,NULL,NULL,1,1)";
 
@@ -33,8 +33,8 @@ public class UserDAO {
                     int userID = Integer.parseInt(rs.getString("userID"));
                     String userName = rs.getString("userName");
                     String roleName = rs.getString("roleName");
-
-                    user = new UserDTO(userID, userEmail, "", userName, "", roleName, 1);
+                    String urlAvatar = rs.getString("avatar");
+                    user = new UserDTO(userID, userEmail, "", userName, urlAvatar, roleName, 1);
 
                 }
             }

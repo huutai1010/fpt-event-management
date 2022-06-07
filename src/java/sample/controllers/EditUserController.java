@@ -5,7 +5,9 @@
 package sample.controllers;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,43 +16,16 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Acer
  */
-public class MainController extends HttpServlet {
+@WebServlet(name = "EditUserController", urlPatterns = {"/EditUserController"})
+public class EditUserController extends HttpServlet {
 
-    private static final String ERROR = "error.jsp";
-    private static final String LOGIN = "Login";
-    private static final String LOGIN_CONTROLLER = "LoginController";
-    private static final String SIGNUP = "signUp";
-    private static final String SIGNUP_CONTROLLER = "SignUpController";
-    private static final String LOGOUT = "Logout";
-    private static final String LOGOUT_CONTROLLER = "LogoutController";
-    private static final String FINDEVENT = "FindEvent";
-    private static final String FINDEVENT_CONTROLLER = "FindEventController";
-    private static final String EDITUSER = "editProfile";
-    private static final String EDITUSER_CONTROLLER = "EditUserController";
+    private static final String ERROR = "EditProfileUser.jsp";
+    private static final String SUCCESS = "profile.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
-        try {
-            String action = request.getParameter("action");
 
-            if (LOGIN.equals(action)) {
-                url = LOGIN_CONTROLLER;
-            } else if (SIGNUP.equals(action)) {
-                url = SIGNUP_CONTROLLER;
-            } else if (LOGOUT.equals(action)) {
-                url = LOGOUT_CONTROLLER;
-            }else if (FINDEVENT.equals(action)) {
-                url = FINDEVENT_CONTROLLER;
-            }else if (EDITUSER.equals(action)) {
-                url = EDITUSER_CONTROLLER;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            request.getRequestDispatcher(url).forward(request, response);
-        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -1,4 +1,7 @@
+<%@page import="sample.dto.UserDTO"%>
 <!doctype html>
+
+
 <html lang="en">
 
     <head>
@@ -33,6 +36,13 @@
     </head>
 
     <body>
+        <%
+            UserDTO loginUser = (UserDTO) session.getAttribute("LOGIN_USER");
+            if (loginUser == null || !loginUser.getRoleName().equals("US")) {
+                response.sendRedirect("login.jsp");
+                return;
+            }
+        %>
         <header class="header">
             <div class="header_container container">
                 <div class="header__logo">
@@ -40,9 +50,9 @@
                 </div>
                 <div class="header__nav">
                     <div class="action">
-                        <a href="#">
-                            <img src="./img/02-3.jpg" alt="">
-                            <span>Nguyen van  A</span>
+                        <a href="profile.jsp">
+                            <img src="<%= loginUser.getUrlAvatar() %>" alt="null">
+                            <span><%= loginUser.getEmail() %></span>
                         </a>
                     </div>
 
@@ -57,7 +67,7 @@
 
                         <div id="menu" class="bar__child">
                             <ul>
-                                <li><i class="fa fa-user"></i><a href="#">Profile</a></li>
+                                <li><i class="fa fa-user"></i><a href="profile.jsp">Profile</a></li>
                                 <li><i class="fa fa-sign-out-alt"></i><a href="MainController?action=Logout">Logout</a></li>
                             </ul>
                         </div>

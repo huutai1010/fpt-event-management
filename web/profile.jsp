@@ -48,7 +48,7 @@
                     <div class="header__nav">
                         <div class="action">
                             <a href="profile.jsp">
-                                <img src="./img/02-3.jpg" alt="">
+                                <img src="<%= loginUser.getUrlAvatar() %>" alt="">
                                 <span><%= loginUser.getEmail() %></span>
                             </a>
                         </div>
@@ -76,7 +76,7 @@
                 <div class="container">
                     <div class="profile">
                         <div class="profile__left">
-                            <img src="./img/02-3.jpg" width="150" alt="...">
+                            <img src="<%= loginUser.getUrlAvatar() %>" width="150" alt="...">
                             <p>Avatar</p>
                         </div>
 
@@ -85,14 +85,15 @@
                             <div class="info_data">
                                 <div class="info">
                                     <h4>Email:</h4>
-                                    <p>nguyenvana@fpt.edu.vn</p>
+                                    <p><%= loginUser.getEmail() %></p>
                                 </div>
                                 <div class="info">
                                     <h4>Name:</h4>
-                                    <p>Nguy?n V?n A</p>
+                                    <p><%= loginUser.getUserName() %></p>
                                 </div>
                             </div>
-                            <a href="#"><button><i class="fa fa-edit"></i>Edit profile</button></a>
+                            <a href="EditProfileUser.jsp"><button><i class="fa fa-edit"></i>Edit profile</button></a>  
+                            <!--<a href="MainController?action=EditProfile&userEmail=<%= loginUser.getEmail() %>&userName=<%= loginUser.getUserName()%>&avatar=<%= loginUser.getUrlAvatar() %>"><button><i class="fa fa-edit"></i>Edit profile</button></a>-->
                         </div>
                     </div>
                 </div>
