@@ -46,9 +46,9 @@ public class SignUpController extends HttpServlet {
                 checkValidation = false;
                 userError.setConfirmError("Two passwords are not the same!!");
             }
+            
+            //
             if (checkValidation) {
-                // UserDTO user = new UserDTO(email, password, 0, "", "US", 1, "");
-              //  UserDTO user = new UserDTO(0, "", password, email, "US", 1, "");
                 UserDTO user = new UserDTO(0, email, password, "", "", "US", 1);
                 boolean checkCreate = dao.create(user);
                 if (checkCreate) {
