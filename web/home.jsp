@@ -69,7 +69,7 @@
     <link rel="stylesheet" href="./lib/WOW-master/css/libs/animate.css" />
 
     <!-- CSS -->
-    <link rel="stylesheet" href="CSS/style.css" />
+    <link rel="stylesheet" href="CSS/style.css"/>
   </head>
 
   <body>
