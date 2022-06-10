@@ -69,7 +69,7 @@
     <link rel="stylesheet" href="./lib/WOW-master/css/libs/animate.css" />
 
     <!-- CSS -->
-    <link rel="stylesheet" href="./CSS/style.css" />
+    <link rel="stylesheet" href="CSS/style.css" />
   </head>
 
   <body>
@@ -85,7 +85,7 @@
             <a href="#contact">Contact us</a>
           </div>
           <div class="header_icon">
-            <a href="#">
+            <a href="sign.jsp">
               <i class="fa fa-user">
                 <span>Login</span>
               </i>

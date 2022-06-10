@@ -7,15 +7,17 @@ package sample.controllers;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author maihuutai
+ * @author Acer
  */
-public class MaiController extends HttpServlet {
+@WebServlet(name = "SignUpController", urlPatterns = {"/SignUpController"})
+public class SignUpController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,10 +36,10 @@ public class MaiController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet MaiController</title>");            
+            out.println("<title>Servlet SignUpController</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet MaiController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet SignUpController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
