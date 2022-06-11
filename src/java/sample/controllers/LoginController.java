@@ -5,7 +5,6 @@
 package sample.controllers;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,8 +23,8 @@ public class LoginController extends HttpServlet {
 
     private static final String ERROR = "sign.jsp";
     private static final String US = "US";
-    private static final String USER_PAGE1 = "home.jsp";
-    private static final String USER_PAGE = "MainController?action=FindEvent&searchEve=";
+    private static final String USER_PAGE = "MainController?searchEvent=&action=Search";
+    //private static final String USER_PAGE = "MainController?action=FindEvent&searchEve=";
     private static final String AD = "AD";
     private static final String ADMIN_PAGE = "admin.jsp";
     private static final String MT = "MT";
@@ -49,7 +48,7 @@ public class LoginController extends HttpServlet {
                 if (AD.equals(roleName)) {
                     url = ADMIN_PAGE;
                 } else if (US.equals(roleName)) {
-                    url = USER_PAGE1;
+                    url = USER_PAGE;
                 } else if (MT.equals(roleName)) {
                     url = MENTOR_PAGE;
                 } else {

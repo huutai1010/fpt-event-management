@@ -6,45 +6,37 @@ package sample.controllers;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author maihuutai
+ * @author DELL
  */
-public class MainController extends HttpServlet {
+@WebServlet(name = "LogOutController", urlPatterns = {"/LogOutController"})
+public class LogOutController extends HttpServlet {
 
-    private static final String ERROR = "error.jsp";
-    private static final String LOGIN = "Login";
-    private static final String LOGIN_CONTROLLER = "LoginController";
-    private static final String SIGNUP = "signUp";
-    private static final String SIGNUP_CONTROLLER = "SignUpController";
-    private static final String LOGOUT="Logout";
-    private static final String LOGOUT_CONTROLLER="LogOutController";
-    private static final String SEARCH = "Search";
-    private static final String SEARCH_CONTROLLER="SearchController";
-
+    private final static String ERROR="login.jsp";
+    private final static String SUCCESS="login.jsp";
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
+        String url=ERROR;
         try {
-            String action = request.getParameter("action");
-            if (LOGIN.equals(action)) {
-                url = LOGIN_CONTROLLER;
-            }else if(SIGNUP.equals(action)) {
-                url = SIGNUP_CONTROLLER;
-            }else if(LOGOUT.equals(action)) {
-                url = LOGOUT_CONTROLLER;
-            }else if(SEARCH.equals(action)) {
-                url =SEARCH_CONTROLLER;
+            HttpSession session = request.getSession();
+            if(session != null){
+                session.invalidate();
+                url=SUCCESS;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            request.getRequestDispatcher(url).forward(request, response);
+        } catch(Exception e){
+            log("Error at LogoutController!" +e.toString());
+        } finally{
+            response.sendRedirect(url);
+            //request.getRequestDispatcher(url).forward(request, response);
         }
     }
 
