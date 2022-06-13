@@ -51,10 +51,6 @@
                     response.sendRedirect("login.jsp");
                     return;
                 }
-                /*String searchEve = request.getParameter("searchEve");
-                if (searchEve == null) {
-                    searchEve = "";
-                }*/
 
             %>
             <header class="header">
@@ -64,9 +60,9 @@
                     </div>
                     <div class="header__nav">
                         <div class="action">
-                            <a href="">
-                                <img src="./img/02-3.jpg" alt="">
-                                <span><%= loginUser.getUserName()%></span>
+                            <a href="profile.jsp">
+                                <img src="<%= loginUser.getUrlAvatar() %>" alt="">
+                                <span><%= loginUser.getEmail()%></span>
                             </a>
                         </div>
 
@@ -84,8 +80,8 @@
                             <div id="menu" class="bar__child">
                                 <div class="child">
                                     <ul>
-                                        <li><i class="fa fa-user"></i><a href="">Profile</a></li>
-                                        <li><i class="fa fa-sign-out-alt"></i><a href="">Logout</a></li>
+                                        <li><i class="fa fa-user"></i><a href="#">Profile</a></li>
+                                        <li><i class="fa fa-sign-out-alt"></i><a href="#">Logout</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -99,8 +95,9 @@
             <!-- Phần dưới đây thì copy y chang bên login.jsp  -->
 
 
-            <%                EventDAO eventDAO = new EventDAO();
-                
+            <%
+                EventDAO eventDAO = new EventDAO();
+
                 List<EventDTO> listAllEvents = eventDAO.getAllEvents();
                 List<EventDTO> listHappeningEvents = new ArrayList();
                 List<EventDTO> listComingEvents = new ArrayList();
@@ -199,10 +196,11 @@
                 if (error == null) {
                     error = "";
                 }
-                String searchEvent = request.getParameter("searchEvent");
-                if (searchEvent == null) {
-                    searchEvent = "";
+                String searchKeyWordHome = request.getParameter("searchKeyWordHome");
+                if (searchKeyWordHome == null) {
+                    searchKeyWordHome = "";
                 }
+
             %>
             <section class="portfolio">
                 <header class="portfolio-header text-5m-center text-right text-lg-left">
@@ -215,9 +213,10 @@
                     <div class="container">
                         <div class="nav">
                             <div class="nav_search">
+                                <%-- Dong nay search o trang da login --%>
                                 <form action="MainController" class="search-bar">
-                                    <input type="text" name="searchEvent" value="<%= searchEvent %>" />                                   
-                                    <button type="submit" name="action" value="Search"><i class="fa fa-search"></i></button>
+                                    <input type="text" name="searchKeyWordHome" value="<%= searchKeyWordHome%>" />                                   
+                                    <button type="submit" name="action" value="SearchHome"><i class="fa fa-search"></i></button>
                                 </form>
                             </div>
                             <div class="nav_btn">
@@ -237,7 +236,7 @@
                                     </li>
                                     <li class="nav-item" role="presentation">
                                         <a class="nav-link" data-toggle="pill" href="#Illustration">
-                                            coming
+                                            Coming
                                         </a>
                                     </li>
                                     <li class="nav-item" role="presentation">
@@ -265,12 +264,12 @@
                             <div class="tab-pane fade show active" id="all0">
 
                                 <div class="row">
-                                    <%  
-                                      List<EventDTO> listEventHome = (List<EventDTO>) request.getAttribute("LIST_EVENT_HOME");
-                                      if(listEventHome != null){
-                                        if(listEventHome.size() > 0){
-                                            for (EventDTO eventHome : listEventHome) {
-                                        
+                                    <%
+                                        List<EventDTO> listEventHome = (List<EventDTO>) request.getAttribute("LIST_EVENT_HOME");
+                                        if (listEventHome != null) {
+                                            if (listEventHome.size() > 0) {
+                                                for (EventDTO eventHome : listEventHome) {
+
                                     %>
                                     <!--Start One Event-->
                                     <div class="col-12 col-sm-6 col-md-4">
@@ -283,10 +282,10 @@
                                                     />
                                                 <div class="info p-3 text-center">
                                                     <h3><%= eventHome.getEventName()%></h3>
-                                                    <p><%= eventHome.getStartTime().toString()%></p>
-                                                    <p><%= eventHome.getEndTime().toString()%></p>
+                                                    <p>Start Time: <%= eventHome.getStartTime().toString()%></p>
+                                                    <p>End Time: <%= eventHome.getEndTime().toString()%></p>
 
-                                                    <p><%= eventHome.getLocationName()%></p>
+                                                    <p>Location: <%= eventHome.getLocationName()%></p>
                                                     <div class="content__detail">
                                                         <div class="content__detail-icon">
                                                             <i class="fa fa-heart"></i>
@@ -299,8 +298,39 @@
                                     </div>
                                     <!--End One Event-->
                                     <%
-                                             }
-                                        }       
+                                            }
+                                        }
+                                    } else {
+                                        for (EventDTO eventLogin : listAllEvents) {
+                                    %>
+                                    <div class="col-12 col-sm-6 col-md-4">
+                                        <div class="item shadow overflow-hidden mb-4">
+                                            <a href="#" target="_blank">
+                                                <img
+                                                    src="<%=eventLogin.getImage()%>"
+                                                    alt="g1"
+                                                    class="d-block w-100"
+                                                    />
+                                                <div class="info p-3 text-center">
+                                                    <h3><%=eventLogin.getEventName()%></h3>
+                                                    <p>Start Time: <%=eventLogin.getStartTime().toString()%></p>
+                                                    <p>End Time: <%=eventLogin.getEndTime().toString()%></p>
+
+                                                    <p>Location: <%=eventLogin.getLocationName()%></p>
+                                                    <div class="content__detail">
+                                                        <div class="content__detail-icon">
+                                                            <i class="fa fa-heart"></i>
+                                                            <span>100 followed</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <%
+                                            }
+
                                         }
                                     %>
                                 </div>
@@ -328,9 +358,9 @@
                                                     />
                                                 <div class="info p-3 text-center">
                                                     <h3><%=happeningEvent.getEventName()%></h3>
-                                                    <p><%=happeningEvent.getStartTime().toString()%></p>
-                                                    <p><%=happeningEvent.getEndTime().toString()%></p>
-                                                    <p><%=happeningEvent.getLocationName()%></p>
+                                                    <p>Start Time: <%=happeningEvent.getStartTime().toString()%></p>
+                                                    <p>End Time: <%=happeningEvent.getEndTime().toString()%></p>
+                                                    <p>Location: <%=happeningEvent.getLocationName()%></p>
                                                     <div class="content__detail">
                                                         <div class="content__detail-icon">
                                                             <i class="fa fa-heart"></i>
@@ -355,10 +385,7 @@
                             <div class="tab-pane fade" id="Illustration">
                                 <div class="row">
                                     <%
-                                        for (EventDTO comingEvent : listComingEvents
-
-                                        
-                                            ) {
+                                        for (EventDTO comingEvent : listComingEvents) {
                                     %>
                                     <!--Start One Event-->
                                     <div class="col-12 col-sm-6 col-md-4">
@@ -371,9 +398,9 @@
                                                     />
                                                 <div class="info p-3 text-center">
                                                     <h3><%=comingEvent.getEventName()%></h3>
-                                                    <p><%=comingEvent.getStartTime().toString()%></p>
-                                                    <p><%=comingEvent.getEndTime().toString()%></p>
-                                                    <p><%=comingEvent.getLocationName()%></p>
+                                                    <p>Start Time: <%=comingEvent.getStartTime().toString()%></p>
+                                                    <p>End Time: <%=comingEvent.getEndTime().toString()%></p>
+                                                    <p>Location: <%=comingEvent.getLocationName()%></p>
                                                     <div class="content__detail">
                                                         <div class="content__detail-icon">
                                                             <i class="fa fa-heart"></i>
@@ -395,10 +422,7 @@
                             <div class="tab-pane fade" id="Photography">
                                 <div class="row">
                                     <%
-                                        for (EventDTO tookPlaceEvent : listTookPlaceEvents
-
-                                        
-                                            ) {
+                                        for (EventDTO tookPlaceEvent : listTookPlaceEvents) {
                                     %>
                                     <div class="col-12 col-sm-6 col-md-4">
                                         <div class="item shadow overflow-hidden mb-4">
@@ -409,10 +433,10 @@
                                                     class="d-block w-100"
                                                     />
                                                 <div class="info p-3 text-center">
-                                                    <h3><%=tookPlaceEvent.getEventName()%>T</h3>
-                                                    <p><%=tookPlaceEvent.getStartTime().toString()%></p>
-                                                    <p><%=tookPlaceEvent.getEndTime().toString()%></p>
-                                                    <p><%=tookPlaceEvent.getLocationName()%></p>
+                                                    <h3><%=tookPlaceEvent.getEventName()%></h3>
+                                                    <p>Start Time: <%=tookPlaceEvent.getStartTime().toString()%></p>
+                                                    <p>End Time: <%=tookPlaceEvent.getEndTime().toString()%></p>
+                                                    <p>Location: <%=tookPlaceEvent.getLocationName()%></p>
                                                     <div class="content__detail">
                                                         <div class="content__detail-icon">
                                                             <i class="fa fa-heart"></i>
@@ -556,7 +580,7 @@
 
 
         <!-- Optional JavaScript -->
-        <!-- <script src="./index.js"></script> -->
+        <script src="./index.js"></script>
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
                 integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

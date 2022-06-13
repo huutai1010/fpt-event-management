@@ -16,8 +16,13 @@ import sample.utils.DBUtils;
  * @author Acer
  */
 public class UserDAO {
-    
+
     private static final String LOGIN = "SELECT u.userID, u.userName, u.address, u.phone, u.roleID, r.roleName, u.avatar FROM tblUsers u, tblRoles r WHERE u.roleID = r.roleID and u.email =? AND u.password =? AND u.status=1 ";
+
+    private static final String CREATE_USER = "INSERT INTO tblUsers(email, password, userName, avatar, phone, address, roleID, status) VALUES(?,?,NULL,NULL,NULL,NULL,N'R1',1)";
+
+    private static final String UPDATE_USER = "UPDATE tblUsers SET userName = ?, phone = ?, address = ? WHERE email = ? ";
+
     public UserDTO checkLogin(String userEmail, String password) throws SQLException {
         UserDTO user = null;
         Connection conn = null;
@@ -56,5 +61,55 @@ public class UserDAO {
         }
         return user;
     }
-    
+
+    public boolean create(UserDTO user) throws ClassNotFoundException, SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(CREATE_USER);
+                ptm.setString(1, user.getEmail());
+                ptm.setString(2, user.getPassword());
+                check = ptm.executeUpdate() > 0 ? true : false;
+            }
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+
+    public boolean updateUser(UserDTO user) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(UPDATE_USER);
+                ptm.setString(1, user.getUserName());
+                ptm.setString(2, user.getPhone());
+                ptm.setString(3, user.getAddress());
+                ptm.setString(4, user.getEmail());
+                check = ptm.executeUpdate() > 0 ? true : false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                ptm.close();
+            }
+        }
+        return check;
+    }
+
 }

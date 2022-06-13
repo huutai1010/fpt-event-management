@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import sample.dao.EventDAO;
 import sample.dto.EventDTO;
 
@@ -29,13 +30,13 @@ public class SearchController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            String searchEvent = request.getParameter("searchEvent");    
+            String searchKeyWordHome = request.getParameter("searchKeyWordHome");    
             
             EventDAO dao = new EventDAO();
-            if (searchEvent != null) {
-                List<EventDTO> listEvent = dao.getListEvent(searchEvent);
-                if (listEvent.size() > 0) {
-                    request.setAttribute("LIST_EVENT_HOME", listEvent);
+            if (searchKeyWordHome != null) {
+                List<EventDTO> listEventHome = dao.getListEvent(searchKeyWordHome);
+                if (listEventHome.size() > 0) {                   
+                    request.setAttribute("LIST_EVENT_HOME", listEventHome);
                     url = SUCCESS;
                 }
             }           

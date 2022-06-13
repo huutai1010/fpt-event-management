@@ -19,7 +19,7 @@ var x = setInterval(function () {
 
     // Output the result in an element with id="demo"
     document.getElementById("demo").innerHTML = days + "d " + hours + "h "
-        + minutes + "m " + seconds + "s ";
+            + minutes + "m " + seconds + "s ";
     // If the count down is over, write some text 
     if (distance < 0) {
         clearInterval(x);
@@ -47,7 +47,7 @@ var x = setInterval(function () {
 
     // Output the result in an element with id="demo"
     document.getElementById("demo2").innerHTML = days + "d " + hours + "h "
-        + minutes + "m " + seconds + "s ";
+            + minutes + "m " + seconds + "s ";
     // If the count down is over, write some text 
     if (distance < 0) {
         clearInterval(x);
@@ -75,10 +75,25 @@ var x = setInterval(function () {
 
     // Output the result in an element with id="demo"
     document.getElementById("demo3").innerHTML = days + "d " + hours + "h "
-        + minutes + "m " + seconds + "s ";
+            + minutes + "m " + seconds + "s ";
     // If the count down is over, write some text 
     if (distance < 0) {
         clearInterval(x);
         document.getElementById("demo3").innerHTML = "EXPIRED";
     }
 }, 1000);
+
+document.getElementById('btn_nav').onclick = function () {
+    let menu = document.getElementById('menu');
+    let blur = document.getElementById('blur');
+    menu.style.visibility = 'visible';
+    blur.style.display = 'block';
+    menu.style.opacity = '1';
+
+    blur.onclick = function () {
+        menu.style.visibility = 'hidden';
+        menu.style.opacity = '0';
+        blur.style.display = 'none';
+
+    }
+}   

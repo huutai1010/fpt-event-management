@@ -23,9 +23,13 @@ public class MainController extends HttpServlet {
     private static final String SIGNUP_CONTROLLER = "SignUpController";
     private static final String LOGOUT="Logout";
     private static final String LOGOUT_CONTROLLER="LogOutController";
-    private static final String SEARCH = "Search";
-    private static final String SEARCH_CONTROLLER="SearchController";
-
+    private static final String SEARCHHOME = "SearchHome";
+    private static final String SEARCH_HOME_CONTROLLER="SearchController";
+    private static final String SEARCHLOGIN = "SearchLogin";
+    private static final String SEARCH_LOGIN_CONTROLLER ="SearchLoginController";
+    private static final String EDITUSER = "Edit";
+    private static final String EDITUSER_CONTROLLER = "EditUserController";
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -38,8 +42,12 @@ public class MainController extends HttpServlet {
                 url = SIGNUP_CONTROLLER;
             }else if(LOGOUT.equals(action)) {
                 url = LOGOUT_CONTROLLER;
-            }else if(SEARCH.equals(action)) {
-                url =SEARCH_CONTROLLER;
+            }else if(SEARCHHOME.equals(action)) {
+                url =SEARCH_HOME_CONTROLLER;
+            }else if(SEARCHLOGIN.equals(action)) {
+                url =SEARCH_LOGIN_CONTROLLER;
+            }else if(EDITUSER.equals(action)) {
+                url = EDITUSER_CONTROLLER;
             }
         } catch (Exception e) {
             e.printStackTrace();

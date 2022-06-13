@@ -5,6 +5,7 @@
 --%>
 
 
+<%@page import="sample.UserError"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -16,10 +17,10 @@
     </head>
     <body>
         <%
-//            UserError userError = (UserError) request.getAttribute("USER_ERROR");
-//            if (userError == null) {
-//                userError = new UserError();
-//            }
+            UserError userError = (UserError) request.getAttribute("USER_ERROR");
+            if (userError == null) {
+                userError = new UserError();
+            }
         %>
 
         <h2>Weekly Coding Challenge #1: Sign in/up Form</h2>
@@ -33,11 +34,11 @@
                     <span>or use your email for registration</span>
                     
                     <input type="email" placeholder="Email" name="userEmail" required="" />
-                   
+                    <%= userError.getEmailError() %>
                     <input type="password" placeholder="Password" name="password" required="" />
                     
                     <input type="password" placeholder="Confirm" name="confirm" required=""/>
-                   
+                    <%= userError.getConfirmError()%></br>
                     <button type="submit" name="action" value="signUp">Sign Up</button> </br>
                     <button type="reset"  value="Reset">Reset</button>
                 </form>

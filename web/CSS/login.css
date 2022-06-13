@@ -178,6 +178,20 @@ body{
     text-decoration: none;
     color: #000;
  }
+ 
+ .tab-content .item img {
+    display: block;
+    width: 100%;
+    height: 345px;
+    -o-border-image: cover;
+    object-fit: cover;
+    -o-object-position: center;
+    object-position: center;
+    background-image: cover;
+    background-repeat: none;
+    background-position: cover;
+}
+ 
  .portfolio-main .item:hover .info{
      border: 1px solid #35a22c;
      border-top: none;
