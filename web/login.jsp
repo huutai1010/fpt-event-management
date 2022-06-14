@@ -241,11 +241,7 @@
                                             Took place
                                         </a>
                                     </li>
-                                    <li class="nav-item" role="presentation">
-                                        <a class="nav-link" data-toggle="pill" href="#Webside">
-                                            Followed
-                                        </a>
-                                    </li>
+                                    
                                 </ul>
                             </div>
                         </div>
@@ -452,34 +448,7 @@
                             </div>
                             <!-- End Tab 4-->
 
-                            <!-- Start Tab 5-->
-                            <div class="tab-pane fade" id="Webside">
-                                <div class="row">
-                                    <div class="col-12 col-sm-6 col-md-4">
-                                        <div class="item shadow overflow-hidden mb-4">
-                                            <a href="#" target="_blank">
-                                                <img
-                                                    src="./img/g6.jpg"
-                                                    alt="g1"
-                                                    class="d-block w-100"
-                                                    />
-                                                <div class="info p-3 text-center">
-                                                    <h3>Ngày hội tiếng nhật FPT</h3>
-                                                    <p>Tuesday,28/6/2022</p>
-                                                    <p>Câu lạ bộ Tiếng nhật FPT</p>
-                                                    <div class="content__detail">
-                                                        <div class="content__detail-icon">
-                                                            <i class="fa fa-heart"></i>
-                                                            <span>100 followed</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Tab 5-->
+                            
                         </div>
                         <!--End Tab Content-->
 
