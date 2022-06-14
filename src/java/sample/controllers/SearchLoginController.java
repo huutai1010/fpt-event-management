@@ -30,12 +30,12 @@ public class SearchLoginController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            String searchKeyWordLogin = request.getParameter("searchKeyWordLogin");
+            String searchKeyword = request.getParameter("searchKeyword");
             EventDAO dao = new EventDAO();
-            if (searchKeyWordLogin != null) {
-                List<EventDTO> listEventLogin = dao.getListEventLogin(searchKeyWordLogin);
-                if (listEventLogin.size() > 0) {
-                    request.setAttribute("LIST_EVENT_LOGIN", listEventLogin);
+            if (searchKeyword != null) {
+                List<EventDTO> listSearchEvents = dao.getSearchEvents(searchKeyword);
+                if (listSearchEvents.size() > 0) {
+                    request.setAttribute("LIST_SEARCH_EVENTS", listSearchEvents);
                     url = SUCCESS;
                 }
             }

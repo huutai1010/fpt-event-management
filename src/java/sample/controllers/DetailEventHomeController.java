@@ -11,37 +11,35 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import sample.dao.EventDAO;
+import sample.dto.EventDTO;
 
 /**
  *
- * @author DELL
+ * @author maihuutai
  */
-@WebServlet(name = "DetailEventControllerLogin", urlPatterns = {"/DetailEventControllerLogin"})
-public class DetailEventControllerLogin extends HttpServlet {
+@WebServlet(name = "DetailEventHomeController", urlPatterns = {"/DetailEventHomeController"})
+public class DetailEventHomeController extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    private static final String ERROR = "home.jsp";
+    private static final String SUCCESS = "detailHome.jsp";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet DetailEventControllerLogin</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet DetailEventControllerLogin at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        String url = ERROR;
+        try {
+            String eventID = request.getParameter("eventID");
+            EventDAO dao = new EventDAO();
+            EventDTO oneEvent = dao.getDetailEvent(eventID);          
+            if (oneEvent != null) {
+                request.setAttribute("DETAIL_EVENT", oneEvent);
+                url = SUCCESS;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            request.getRequestDispatcher(url).forward(request, response);
         }
     }
 

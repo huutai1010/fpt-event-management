@@ -4,6 +4,8 @@
     Author     : DELL
 --%>
 
+<%@page import="sample.dto.UserDTO"%>
+<%@page import="sample.dto.EventDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -36,6 +38,11 @@
         <link rel="stylesheet" href="CSS/DetailLogin.css">
     </head>
     <body>
+        <%
+            EventDTO event = (EventDTO) request.getAttribute("DETAIL_EVENT");
+            UserDTO loginUser = (UserDTO) session.getAttribute("LOGIN_USER");
+            
+        %>
         <div id="blur" class="blur">
 
         </div>
@@ -48,8 +55,8 @@
                     <div class="header__nav">
                         <div class="action">
                             <a href="#">
-                                <img src="./img/02-3.jpg" alt="">
-                                <span>Nguyễn Văn A</span>
+                                <img src="<%=loginUser.getUrlAvatar()%>" alt="">
+                                <span><%=loginUser.getUserName()%></span>
                             </a>
                         </div>
 
@@ -80,7 +87,7 @@
             <main>
                 <section class="background">
                     <div class="background_img">
-                        <img src="./img/g1.jpg" alt="...">
+                        <img src="<%=event.getImage()%>" alt="...">
                     </div>
                 </section>
 
@@ -96,24 +103,24 @@
                             </div>
 
                             <div class="event_info">
-                                <h2>Sự kiện Nhạc cụ truyền thống</h2>
+                                <h2><%=event.getEventName()%></h2>
                                 <div class="info">
                                     <div class="info_date">
                                         <p>
                                             <i class="fa fa-clock"></i>
-                                            Thứ 4, 8 Tháng 6 2022 (08:00 AM - 11:00 AM)
+                                            <%=event.getStartTime().toString()%> - <%=event.getEndTime().toString()%>
                                         </p>
                                     </div>
                                     <div class="info_address">
                                         <p>
                                             <i class="fa fa-map-marker-alt"></i>
-                                            Thư Viện đại học FPT HCM
+                                            <%=event.getLocationName()%>
                                         </p>
                                     </div>
                                 </div>
                             </div>
                             <div class="choose">
-                                <button class="btn btn-success">Register</button>
+                                <button class="btn btn-success"><%= event.getTicketPrice() == 0 ? "Register" : "Buy Ticket" %></button>
                                 <button class="btn btn-primary">Follow</button>
                                 <p>100 Follow</p>
                                 <p></p>
@@ -138,22 +145,20 @@
                             <h3>Giới thiệu</h3>
                         </div>
                         <div class="intro_content">
-                            <div class="content-right">
+                            <!--<div class="content-right">
                                 <img src="./img/g1.jpg" alt="...">
-                                <p>Sự kiện nhạc cụ dân tộc </p>
-                            </div>
+                                <p><%=event.getEventName()%> </p>
+                            </div>-->
                             <div class="content-left">
                                 <h3>Thông tin chung</h3>
 
-                                <p class="param">Sự kiện nhằm giao lưu vắn hóa về các loại nhạc cụ,
-                                    giúp sinh viên hiểu hơn về về các loại nhạc cụ. Khi tham gia các bạn sẽ được
-                                    nhận các phần quá nhỏ từ ban tổ chức.
+                                <p class="param">
+                                    <%=event.getEventDetail()%>
                                 </p>
                                 <p>Địa điểm diễn ra sự kiện</p>
                                 <ul>
-                                    <li>Thư viên đại học FPT HCM</li>
-                                    <li>Lô E2a-7, Đường D1, Đ. D1, Long Thạnh Mỹ, Thành Phố Thủ Đức, Thành phố Hồ Chí Minh
-                                    </li>
+                                    <li><%=event.getLocationName()%></li>
+                                    
                                 </ul>
                                 <p>Thơi gian tổ chức</p>
                                 <ul>

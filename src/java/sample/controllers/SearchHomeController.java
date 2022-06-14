@@ -5,39 +5,43 @@
 package sample.controllers;
 
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import sample.dao.EventDAO;
 import sample.dto.EventDTO;
-
 
 /**
  *
  * @author DELL
  */
-@WebServlet(name = "DetailEventController", urlPatterns = {"/DetailEventController"})
-public class DetailEventController extends HttpServlet {
+@WebServlet(name = "SearchController", urlPatterns = {"/SearchController"})
+public class SearchHomeController extends HttpServlet {
 
-    private static final String ERROR = "login.jsp";
-    private static final String SUCCESS = "Detail.jsp";
-
+    private static final String ERROR = "home.jsp";
+    private static final String SUCCESS = "home.jsp";
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            String eventID = request.getParameter("eventID");
+            String searchKeyword = request.getParameter("searchKeyword");    
+            
             EventDAO dao = new EventDAO();
-            EventDTO oneEvent = dao.getDetailEvent(eventID);          
-            if (oneEvent != null) {
-                request.setAttribute("ONE_EVENT_DETAIL", oneEvent);
-                url = SUCCESS;
-            }
+            if (searchKeyword != null) {
+                List<EventDTO> listSearchEvents = dao.getSearchEvents(searchKeyword);
+                if (listSearchEvents.size() > 0) {                   
+                    request.setAttribute("LIST_SEARCH_EVENTS", listSearchEvents);
+                    url = SUCCESS;
+                }
+            }           
         } catch (Exception e) {
-            e.printStackTrace();
+            log("Error at SearchController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

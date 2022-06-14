@@ -23,14 +23,16 @@ public class MainController extends HttpServlet {
     private static final String SIGNUP_CONTROLLER = "SignUpController";
     private static final String LOGOUT="Logout";
     private static final String LOGOUT_CONTROLLER="LogOutController";
-    private static final String SEARCHHOME = "SearchHome";
-    private static final String SEARCH_HOME_CONTROLLER="SearchController";
-    private static final String SEARCHLOGIN = "SearchLogin";
+    private static final String SEARCH_HOME = "SearchHome";
+    private static final String SEARCH_HOME_CONTROLLER="SearchHomeController";
+    private static final String SEARCH_LOGIN = "SearchLogin";
     private static final String SEARCH_LOGIN_CONTROLLER ="SearchLoginController";
     private static final String EDITUSER = "Edit";
     private static final String EDITUSER_CONTROLLER = "EditUserController";
-    private static final String DETAIL_EVENT="ShowEventDetail";
-    private static final String DETAIL_EVENT_CONTROLLER="DetailEventController";
+    private static final String DETAIL_EVENT_LOGIN="ShowDetailEventLogin";
+    private static final String DETAIL_EVENT_LOGIN_CONTROLLER="DetailEventLoginController";
+    private static final String DETAIL_EVENT_HOME="ShowDetailEventHome";
+    private static final String DETAIL_EVENT_HOME_CONTROLLER="DetailEventHomeController";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -44,14 +46,16 @@ public class MainController extends HttpServlet {
                 url = SIGNUP_CONTROLLER;
             }else if(LOGOUT.equals(action)) {
                 url = LOGOUT_CONTROLLER;
-            }else if(SEARCHHOME.equals(action)) {
+            }else if(SEARCH_HOME.equals(action)) {
                 url =SEARCH_HOME_CONTROLLER;
-            }else if(SEARCHLOGIN.equals(action)) {
+            }else if(SEARCH_LOGIN.equals(action)) {
                 url =SEARCH_LOGIN_CONTROLLER;
             }else if(EDITUSER.equals(action)) {
                 url = EDITUSER_CONTROLLER;
-            }else if(DETAIL_EVENT.equals(action)) {
-                url = DETAIL_EVENT_CONTROLLER;
+            }else if(DETAIL_EVENT_LOGIN.equals(action)) {
+                url = DETAIL_EVENT_LOGIN_CONTROLLER;
+            } else if(DETAIL_EVENT_HOME.equals(action)) {
+                url = DETAIL_EVENT_HOME_CONTROLLER;
             }
         } catch (Exception e) {
             e.printStackTrace();

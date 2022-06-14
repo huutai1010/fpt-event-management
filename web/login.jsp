@@ -194,9 +194,9 @@
                 if (error == null) {
                     error = "";
                 }
-                String searchKeyWordLogin = request.getParameter("searchKeyWordLogin");
-                if (searchKeyWordLogin == null) {
-                    searchKeyWordLogin = "";
+                String searchKeyword = request.getParameter("searchKeyword");
+                if (searchKeyword == null) {
+                    searchKeyword = "";
                 }
             %>
 
@@ -210,10 +210,10 @@
                     <div class="container">
                         <div class="nav">
                             <div class="nav_search">
-                                <!-- Dong nay search o trang chua login -->
+                                <!-- Search events through keyword -->
                                 <form action="MainController" class="search-bar">
-                                    <input type="text"  name="searchKeyWordLogin" value="<%= searchKeyWordLogin%>" placeholder="Search" />
-                                    <button type="submit" value="SearchLogin" name="action"><i class="fa fa-search"></i></button>
+                                    <input type="text"  name="searchKeyword" value="<%= searchKeyword%>" placeholder="Search" />
+                                    <button type="submit" name="action" value="SearchLogin" ><i class="fa fa-search"></i></button>
                                 </form>
                             </div>
                             <div class="nav_btn">
@@ -259,10 +259,10 @@
                                 <div class="row">
                                     <%
                                         
-                                        List<EventDTO> listEventLogin = (List<EventDTO>) request.getAttribute("LIST_EVENT_LOGIN");
-                                        if (listEventLogin != null) {
-                                            if (listEventLogin.size() > 0) {
-                                                for (EventDTO eventHome : listEventLogin) {
+                                        List<EventDTO> listSearchEvents = (List<EventDTO>) request.getAttribute("LIST_SEARCH_EVENTS");
+                                        if (listSearchEvents != null) {
+                                            if (listSearchEvents.size() > 0) {
+                                                for (EventDTO searchEvent : listSearchEvents) {
 
                                     %>
                                     <!--Start One Event-->
@@ -270,16 +270,16 @@
                                         <div class="item shadow overflow-hidden mb-4">
                                             <a href="#" target="_blank">
                                                 <img
-                                                    src="<%= eventHome.getImage() %>"
+                                                    src="<%= searchEvent.getImage() %>"
                                                     alt="g1"
                                                     class="d-block w-100"
                                                     />
                                                 <div class="info p-3 text-center">
-                                                    <h3><%= eventHome.getEventName() %></h3>
-                                                    <p>Start Time: <%=eventHome.getStartTime().toString()%></p>
-                                                    <p>End Time: <%=eventHome.getEndTime().toString()%></p>
+                                                    <h3><%= searchEvent.getEventName() %></h3>
+                                                    <p>Start Time: <%=searchEvent.getStartTime().toString()%></p>
+                                                    <p>End Time: <%=searchEvent.getEndTime().toString()%></p>
 
-                                                    <p>Location: <%=eventHome.getLocationName()%></p>
+                                                    <p>Location: <%=searchEvent.getLocationName()%></p>
                                                     <div class="content__detail">
                                                         <div class="content__detail-icon">
                                                             <i class="fa fa-heart"></i>
@@ -295,24 +295,24 @@
                                             }
                                         }
                                     } else {
-                                        for (EventDTO eventLogin : listAllEvents) {
+                                        for (EventDTO event : listAllEvents) {
                                             
                                     %>
                                     
                                     <div class="col-12 col-sm-6 col-md-4">
                                         <div class="item shadow overflow-hidden mb-4">
-                                            <a href="MainController?action=ShowEventDetail&eventID=<%= eventLogin.getEventID()%>" target="_blank">
+                                            <a href="MainController?action=ShowDetailEventLogin&eventID=<%= event.getEventID()%>" target="_blank">
                                                 <img
-                                                    src="<%=eventLogin.getImage()%>"
+                                                    src="<%=event.getImage()%>"
                                                     alt="g1"
                                                     class="d-block w-100"
                                                     />
                                                 <div class="info p-3 text-center">
-                                                    <h3><%=eventLogin.getEventName()%></h3>
-                                                    <p>Start Time: <%=eventLogin.getStartTime().toString()%></p>
-                                                    <p>End Time: <%=eventLogin.getEndTime().toString()%></p>
+                                                    <h3><%=event.getEventName()%></h3>
+                                                    <p>Start Time: <%=event.getStartTime().toString()%></p>
+                                                    <p>End Time: <%=event.getEndTime().toString()%></p>
 
-                                                    <p>Location: <%=eventLogin.getLocationName()%></p>
+                                                    <p>Location: <%=event.getLocationName()%></p>
                                                     <div class="content__detail">
                                                         <div class="content__detail-icon">
                                                             <i class="fa fa-heart"></i>
@@ -339,7 +339,8 @@
                             <div class="tab-pane fade" id="all">
                                 <!--Start List Of Event-->
                                 <div class="row">
-                                    <%                                        for (EventDTO happeningEvent : listHappeningEvents) {
+                                    <%                                        
+                                        for (EventDTO happeningEvent : listHappeningEvents) {
                                     %>
                                     <!--Start One Event-->
                                     <div class="col-12 col-sm-6 col-md-4">
