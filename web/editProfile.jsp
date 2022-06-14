@@ -98,7 +98,7 @@
                 </div>
                 <div class="btn">
                     <a href="profile.jsp">Cancel</a>
-                    <a href="MainController?action=Edit&userEmail=<%= loginUser.getEmail() %>&userName=<%= loginUser.getUserName()%>&phone=<%= loginUser.getPhone() %>&address=<%= loginUser.getAddress() %>">OK</a>
+                    <a href="MainController?action=Edit&userEmail=<%= loginUser.getEmail() %>&userName=<%= loginUser.getUserName()%>&phone=<%= loginUser.getPhone() %>&address=<%= loginUser.getAddress() %>" >OK</a>
                     <!--<input class="form-element is-submit" type="submit" name="action" value="editProfile">-->
                    
                 </div>

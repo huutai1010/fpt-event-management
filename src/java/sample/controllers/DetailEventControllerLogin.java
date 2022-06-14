@@ -5,58 +5,43 @@
 package sample.controllers;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author maihuutai
+ * @author DELL
  */
-public class MainController extends HttpServlet {
+@WebServlet(name = "DetailEventControllerLogin", urlPatterns = {"/DetailEventControllerLogin"})
+public class DetailEventControllerLogin extends HttpServlet {
 
-    private static final String ERROR = "error.jsp";
-    private static final String LOGIN = "Login";
-    private static final String LOGIN_CONTROLLER = "LoginController";
-    private static final String SIGNUP = "signUp";
-    private static final String SIGNUP_CONTROLLER = "SignUpController";
-    private static final String LOGOUT="Logout";
-    private static final String LOGOUT_CONTROLLER="LogOutController";
-    private static final String SEARCHHOME = "SearchHome";
-    private static final String SEARCH_HOME_CONTROLLER="SearchController";
-    private static final String SEARCHLOGIN = "SearchLogin";
-    private static final String SEARCH_LOGIN_CONTROLLER ="SearchLoginController";
-    private static final String EDITUSER = "Edit";
-    private static final String EDITUSER_CONTROLLER = "EditUserController";
-    private static final String DETAIL_EVENT="ShowEventDetail";
-    private static final String DETAIL_EVENT_CONTROLLER="DetailEventController";
-    
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
-        try {
-            String action = request.getParameter("action");
-            if (LOGIN.equals(action)) {
-                url = LOGIN_CONTROLLER;
-            }else if(SIGNUP.equals(action)) {
-                url = SIGNUP_CONTROLLER;
-            }else if(LOGOUT.equals(action)) {
-                url = LOGOUT_CONTROLLER;
-            }else if(SEARCHHOME.equals(action)) {
-                url =SEARCH_HOME_CONTROLLER;
-            }else if(SEARCHLOGIN.equals(action)) {
-                url =SEARCH_LOGIN_CONTROLLER;
-            }else if(EDITUSER.equals(action)) {
-                url = EDITUSER_CONTROLLER;
-            }else if(DETAIL_EVENT.equals(action)) {
-                url = DETAIL_EVENT_CONTROLLER;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            request.getRequestDispatcher(url).forward(request, response);
+        try ( PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet DetailEventControllerLogin</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet DetailEventControllerLogin at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 

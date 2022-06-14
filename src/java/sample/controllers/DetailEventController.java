@@ -6,52 +6,35 @@ package sample.controllers;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import sample.dao.EventDAO;
+import sample.dto.EventDTO;
+
 
 /**
  *
- * @author maihuutai
+ * @author DELL
  */
-public class MainController extends HttpServlet {
+@WebServlet(name = "DetailEventController", urlPatterns = {"/DetailEventController"})
+public class DetailEventController extends HttpServlet {
 
-    private static final String ERROR = "error.jsp";
-    private static final String LOGIN = "Login";
-    private static final String LOGIN_CONTROLLER = "LoginController";
-    private static final String SIGNUP = "signUp";
-    private static final String SIGNUP_CONTROLLER = "SignUpController";
-    private static final String LOGOUT="Logout";
-    private static final String LOGOUT_CONTROLLER="LogOutController";
-    private static final String SEARCHHOME = "SearchHome";
-    private static final String SEARCH_HOME_CONTROLLER="SearchController";
-    private static final String SEARCHLOGIN = "SearchLogin";
-    private static final String SEARCH_LOGIN_CONTROLLER ="SearchLoginController";
-    private static final String EDITUSER = "Edit";
-    private static final String EDITUSER_CONTROLLER = "EditUserController";
-    private static final String DETAIL_EVENT="ShowEventDetail";
-    private static final String DETAIL_EVENT_CONTROLLER="DetailEventController";
-    
+    private static final String ERROR = "login.jsp";
+    private static final String SUCCESS = "Detail.jsp";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            String action = request.getParameter("action");
-            if (LOGIN.equals(action)) {
-                url = LOGIN_CONTROLLER;
-            }else if(SIGNUP.equals(action)) {
-                url = SIGNUP_CONTROLLER;
-            }else if(LOGOUT.equals(action)) {
-                url = LOGOUT_CONTROLLER;
-            }else if(SEARCHHOME.equals(action)) {
-                url =SEARCH_HOME_CONTROLLER;
-            }else if(SEARCHLOGIN.equals(action)) {
-                url =SEARCH_LOGIN_CONTROLLER;
-            }else if(EDITUSER.equals(action)) {
-                url = EDITUSER_CONTROLLER;
-            }else if(DETAIL_EVENT.equals(action)) {
-                url = DETAIL_EVENT_CONTROLLER;
+            String eventID = request.getParameter("eventID");
+            EventDAO dao = new EventDAO();
+            EventDTO oneEvent = dao.getDetailEvent(eventID);          
+            if (oneEvent != null) {
+                request.setAttribute("ONE_EVENT_DETAIL", oneEvent);
+                url = SUCCESS;
             }
         } catch (Exception e) {
             e.printStackTrace();

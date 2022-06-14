@@ -19,12 +19,13 @@ import sample.utils.DBUtils;
  * @author maihuutai
  */
 public class EventDAO {
-    
+
     private static final String SEARCH_ALL_EVENTS = "SELECT eventID, categoryName, locationName, eventName, eventDetail, image, FORMAT(startTime, 'yyyy-MM-dd') AS startTime, FORMAT(endTime, 'yyyy-MM-dd') AS endTime, numberOfAttendees, formality, ticketPrice FROM tblEvent e, tblLocation l, tblCategory c WHERE e.locationID = l.locationID AND e.categoryID = c.categoryID";
-    private static final String SEARCH_KEYWORD_EVENT_HOME ="SELECT eventID, categoryName, locationName, eventName, eventDetail, image, FORMAT(startTime, 'yyyy-MM-dd') AS startTime, FORMAT(endTime, 'yyyy-MM-dd') AS endTime, numberOfAttendees, formality, ticketPrice FROM tblEvent e, tblLocation l, tblCategory c WHERE e.locationID = l.locationID AND e.categoryID = c.categoryID AND e.eventName LIKE ? AND status = '1'";
-    
-    private static final String SEARCH_KEYWORD_EVENT_LOGIN ="SELECT eventID, categoryName, locationName, eventName, eventDetail, image, FORMAT(startTime, 'yyyy-MM-dd') AS startTime, FORMAT(endTime, 'yyyy-MM-dd') AS endTime, numberOfAttendees, formality, ticketPrice FROM tblEvent e, tblLocation l, tblCategory c WHERE e.locationID = l.locationID AND e.categoryID = c.categoryID AND e.eventName LIKE ? AND status = '1'";
-    
+    private static final String SEARCH_KEYWORD_EVENT_HOME = "SELECT eventID, categoryName, locationName, eventName, eventDetail, image, FORMAT(startTime, 'yyyy-MM-dd') AS startTime, FORMAT(endTime, 'yyyy-MM-dd') AS endTime, numberOfAttendees, formality, ticketPrice FROM tblEvent e, tblLocation l, tblCategory c WHERE e.locationID = l.locationID AND e.categoryID = c.categoryID AND e.eventName LIKE ? AND status = '1'";
+
+    private static final String SEARCH_KEYWORD_EVENT_LOGIN = "SELECT eventID, categoryName, locationName, eventName, eventDetail, image, FORMAT(startTime, 'yyyy-MM-dd') AS startTime, FORMAT(endTime, 'yyyy-MM-dd') AS endTime, numberOfAttendees, formality, ticketPrice FROM tblEvent e, tblLocation l, tblCategory c WHERE e.locationID = l.locationID AND e.categoryID = c.categoryID AND e.eventName LIKE ? AND status = '1'";
+    private static final String DETAIL_ONE_EVENTS = "SELECT categoryName, locationName, eventName, eventDetail, image, FORMAT(startTime, 'yyyy-MM-dd') AS startTime, FORMAT(endTime, 'yyyy-MM-dd') AS endTime, numberOfAttendees, formality, ticketPrice FROM tblEvent e, tblLocation l, tblCategory c WHERE e.locationID = l.locationID AND e.categoryID = c.categoryID AND eventID=? AND status = '1'";
+
     public int checkTimeOfEvent(EventDTO event) {
         Date today = new Date();
         System.out.println("TODAY" + today.toString());
@@ -38,7 +39,7 @@ public class EventDAO {
         }
         return ans;
     }
-    
+
     public List<EventDTO> getAllEvents() throws SQLException {
         List<EventDTO> listAllEvents = new ArrayList();
         Connection conn = null;
@@ -68,13 +69,19 @@ public class EventDAO {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (rs != null) rs.close();
-            if (ptm != null) ptm.close();
-            if (conn != null) conn.close();
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
         return listAllEvents;
     }
-    
+
     public List<EventDTO> getListEvent(String searchKeyWordHome) throws SQLException {
         List<EventDTO> listEvent = new ArrayList<>();
         Connection conn = null;
@@ -98,7 +105,7 @@ public class EventDAO {
                     int numberOfAttendees = rs.getInt("numberOfAttendees");
                     String formality = rs.getString("formality");
                     float ticketPrice = rs.getFloat("ticketPrice");
-                    
+
                     listEvent.add(new EventDTO("1", categoryName, locationName, eventName, eventDetail, image, startTime, endTime, numberOfAttendees, formality, ticketPrice));
                 }
             }
@@ -117,7 +124,7 @@ public class EventDAO {
         }
         return listEvent;
     }
-    
+
     public List<EventDTO> getListEventLogin(String searchKeyWordLogin) throws SQLException {
         List<EventDTO> listEvent = new ArrayList<>();
         Connection conn = null;
@@ -141,7 +148,7 @@ public class EventDAO {
                     int numberOfAttendees = rs.getInt("numberOfAttendees");
                     String formality = rs.getString("formality");
                     float ticketPrice = rs.getFloat("ticketPrice");
-                    
+
                     listEvent.add(new EventDTO("1", categoryName, locationName, eventName, eventDetail, image, startTime, endTime, numberOfAttendees, formality, ticketPrice));
                 }
             }
@@ -160,5 +167,43 @@ public class EventDAO {
         }
         return listEvent;
     }
-}
 
+    public EventDTO getDetailEvent(String eventID) throws SQLException {
+        EventDTO event = new EventDTO();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            ptm = conn.prepareStatement(DETAIL_ONE_EVENTS);
+            ptm.setString(1, eventID);
+            rs = ptm.executeQuery();
+            while (rs.next()) {
+                String categoryName = rs.getString("categoryName");
+                String locationName = rs.getString("locationName");
+                String eventName = rs.getString("eventName");
+                String eventDetail = rs.getString("eventDetail");
+                String image = rs.getString("image");
+                Date startTime = rs.getDate("startTime");
+                Date endTime = rs.getDate("endTime");
+                int numberOfAttendees = rs.getInt("numberOfAttendees");
+                String formality = rs.getString("formality");
+                float ticketPrice = rs.getFloat("ticketPrice");
+                
+                event = new EventDTO(eventID, categoryName, locationName, eventName, eventDetail, image, startTime, endTime, numberOfAttendees, formality, ticketPrice);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return event;
+    }
+}

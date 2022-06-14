@@ -112,7 +112,7 @@
                     }
                 }
             %>
-            <!-- Start Carousel-->
+            <!-- Start Carousel -->
             <section class="carousel">
                 <div class="container">
                     <div
@@ -262,6 +262,7 @@
 
                                 <div class="row">
                                     <%
+                                        
                                         List<EventDTO> listEventLogin = (List<EventDTO>) request.getAttribute("LIST_EVENT_LOGIN");
                                         if (listEventLogin != null) {
                                             if (listEventLogin.size() > 0) {
@@ -273,12 +274,12 @@
                                         <div class="item shadow overflow-hidden mb-4">
                                             <a href="#" target="_blank">
                                                 <img
-                                                    src="<%=eventHome.getImage()%>"
+                                                    src="<%= eventHome.getImage() %>"
                                                     alt="g1"
                                                     class="d-block w-100"
                                                     />
                                                 <div class="info p-3 text-center">
-                                                    <h3><%=eventHome.getEventName()%></h3>
+                                                    <h3><%= eventHome.getEventName() %></h3>
                                                     <p>Start Time: <%=eventHome.getStartTime().toString()%></p>
                                                     <p>End Time: <%=eventHome.getEndTime().toString()%></p>
 
@@ -299,11 +300,12 @@
                                         }
                                     } else {
                                         for (EventDTO eventLogin : listAllEvents) {
-
+                                            
                                     %>
+                                    
                                     <div class="col-12 col-sm-6 col-md-4">
                                         <div class="item shadow overflow-hidden mb-4">
-                                            <a href="#" target="_blank">
+                                            <a href="MainController?action=ShowEventDetail&eventID=<%= eventLogin.getEventID()%>" target="_blank">
                                                 <img
                                                     src="<%=eventLogin.getImage()%>"
                                                     alt="g1"
@@ -346,7 +348,7 @@
                                     <!--Start One Event-->
                                     <div class="col-12 col-sm-6 col-md-4">
                                         <div class="item shadow overflow-hidden mb-4">
-                                            <a href="#" target="_blank">
+                                            <a href="" target="_blank">
                                                 <img
                                                     src="<%=happeningEvent.getImage()%>"
                                                     alt="g1"
