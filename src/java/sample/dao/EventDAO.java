@@ -92,7 +92,7 @@ public class EventDAO {
                 ptm.setString(1, "%" + searchKeyword + "%");
                 rs = ptm.executeQuery();
                 while (rs.next()) {
-                    //String eventID = rs.getString("eventID");
+                    String eventID = rs.getString("eventID");
                     String categoryName = rs.getString("categoryName");
                     String locationName = rs.getString("locationName");
                     String eventName = rs.getString("eventName");
@@ -104,7 +104,7 @@ public class EventDAO {
                     String formality = rs.getString("formality");
                     float ticketPrice = rs.getFloat("ticketPrice");
 
-                    listEvent.add(new EventDTO("1", categoryName, locationName, eventName, eventDetail, image, startTime, endTime, numberOfAttendees, formality, ticketPrice));
+                    listEvent.add(new EventDTO(eventID, categoryName, locationName, eventName, eventDetail, image, startTime, endTime, numberOfAttendees, formality, ticketPrice));
                 }
             }
         } catch (Exception e) {
