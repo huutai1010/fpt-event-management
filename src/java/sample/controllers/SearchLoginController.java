@@ -35,7 +35,7 @@ public class SearchLoginController extends HttpServlet {
             if (searchKeyword != null) {
                 List<EventDTO> listSearchEvents = dao.getSearchEvents(searchKeyword);
                 if (listSearchEvents.size() > 0) {
-                    request.setAttribute("LIST_SEARCH_EVENTS", listSearchEvents);
+                    request.setAttribute("LIST_SEARCH_EVENTS", listSearchEvents);               
                     url = SUCCESS;
                 }
             }
