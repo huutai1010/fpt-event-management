@@ -1,12 +1,3 @@
-/*
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
-*/
-/* 
-    Created on : Jun 12, 2022, 9:03:46 PM
-    Author     : Acer
-*/
-
 *{
     margin: 0;
     padding: 0;
@@ -138,22 +129,78 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     width: 100%;
     left: 0;
     top: 0;
+    align-items: center;
+}
+.section .container{
+    align-items: center;
 }
 .box{
-    width: 360px;
-    height: 400px;
+    /* display: block; */
+    width: 70%;
+    height: 500px;
     border: 2px solid #F29406;
     box-shadow: -3px -3px 7px #130c02;
     margin-top: 100px;
     border-radius: 5px;
     overflow: hidden;
+    /* align-items: center;
+    justify-content: center; */
+    margin-left: 200px;
+    margin-right: 200px;
 }
 .box h4{
     text-align: center;
     color: #F29406;
+    font-size: 30px;
+}
+.editprofile{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.picture{
+    width: 35%;
+    text-align: center;
+    padding: 40px;
+    margin-right: 50px;
+    
+}
+.picture img{
+    width: 180px;
+}
+.upload button{
+    /* margin: 10px 10px;    */
+}
+.upload{
+    left: 10rem;
+}
+.upload .btn-Warning{
+    position: relative;
+    padding: 5px 10px;
+    font-size: 10px;
+    line-height: 1.5;
+    border-radius: 3px;
+    color: #fff;
+    background-color: #56534f;
+    overflow: hidden;
+    left: 4rem;
+    top: 0.5rem;
+}
+.picture .btn-Warning input[type="file"]{
+    cursor: pointer;
+    position: absolute;
+    left: 0;
+    right: 0;
+    transform: scale(3);
+    opacity: 0;
+}
+.profile{
+    /* margin-right: 10rem; */
+    padding-left: 50px;
 }
 .info{
-    padding: 5px 10px;
+    display: block;
+    
 }
 .info label{
     margin-right: 50px;
@@ -186,6 +233,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 .btn button:hover{
     background-color: #F29406;
 }
+
+.btn button a {
+    text-decoration: none;
+    color: #000;
+}
+Viết cho Văn Tùng
 
 .footer{
     width: 100%;

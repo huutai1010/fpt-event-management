@@ -77,7 +77,7 @@
             <header id="header" class="header">
                 <div class="header_container container">
                     <div class="header_logo">
-                        <a href="#"><img src="./img/F Event.png" alt="..." /></a>
+                        <a href="login.jsp"><img src="./img/F Event.png" alt="..." /></a>
                     </div>
                     <div class="header_nav">
                         <a class="active" href="#">Home</a>
@@ -268,14 +268,14 @@
                                     <!--Start One Event-->
                                     <div class="col-12 col-sm-6 col-md-4">
                                         <div class="item shadow overflow-hidden mb-4">
-                                            <a href="#" target="_blank">
+                                            <a href="MainController?action=ShowDetailEventLogin&eventID=<%=searchEvent.getEventID()%>" target="_blank">
                                                 <img
                                                     src="<%= searchEvent.getImage() %>"
                                                     alt="g1"
                                                     class="d-block w-100"
                                                     />
                                                 <div class="info p-3 text-center">
-                                                    <h3><%= searchEvent.getEventName() %></h3>
+                                                    <h3> <%= searchEvent.getEventName() %></h3>
                                                     <p>Start Time: <%=searchEvent.getStartTime().toString()%></p>
                                                     <p>End Time: <%=searchEvent.getEndTime().toString()%></p>
 
@@ -301,7 +301,7 @@
                                     
                                     <div class="col-12 col-sm-6 col-md-4">
                                         <div class="item shadow overflow-hidden mb-4">
-                                            <a href="MainController?action=ShowDetailEventLogin&eventID=<%= event.getEventID()%>" target="_blank">
+                                            <a href="MainController?action=ShowDetailEventLogin&eventID=<%=event.getEventID()%>" target="_blank">
                                                 <img
                                                     src="<%=event.getImage()%>"
                                                     alt="g1"
@@ -345,7 +345,7 @@
                                     <!--Start One Event-->
                                     <div class="col-12 col-sm-6 col-md-4">
                                         <div class="item shadow overflow-hidden mb-4">
-                                            <a href="" target="_blank">
+                                            <a href="MainController?action=ShowDetailEventLogin&eventID=<%=happeningEvent.getEventID()%>" target="_blank">
                                                 <img
                                                     src="<%=happeningEvent.getImage()%>"
                                                     alt="g1"
@@ -385,7 +385,7 @@
                                     <!--Start One Event-->
                                     <div class="col-12 col-sm-6 col-md-4">
                                         <div class="item shadow overflow-hidden mb-4">
-                                            <a href="#" target="_blank">
+                                            <a href="MainController?action=ShowDetailEventLogin&eventID=<%=comingEvent.getEventID()%>" target="_blank">
                                                 <img
                                                     src="<%=comingEvent.getImage()%>"
                                                     alt="g1"
@@ -421,7 +421,7 @@
                                     %>
                                     <div class="col-12 col-sm-6 col-md-4">
                                         <div class="item shadow overflow-hidden mb-4">
-                                            <a href="#" target="_blank">
+                                            <a href="MainController?action=ShowDetailEventLogin&eventID=<%=tookPlaceEvent.getEventID()%>" target="_blank">
                                                 <img
                                                     src="<%=tookPlaceEvent.getImage()%>"
                                                     alt="g1"

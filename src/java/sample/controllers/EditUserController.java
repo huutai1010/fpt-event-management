@@ -30,20 +30,22 @@ public class EditUserController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
+            int userID = Integer.parseInt(request.getParameter("userID"));
+            String roleName = request.getParameter("roleName");
             String userEmail = request.getParameter("userEmail");
             String password = request.getParameter("password");
             String userName = request.getParameter("userName");
+            String urlAvatar = request.getParameter("urlAvatar");
             String phone = request.getParameter("phone");
             String address = request.getParameter("address");
-            UserDTO user = new UserDTO(0, userEmail, password, userName, "", phone, address, "R1", 1);
+
             UserDAO dao = new UserDAO();
+            UserDTO user = new UserDTO(userID, userEmail, password, userName, urlAvatar, phone, address, roleName, 1);
             boolean check = dao.updateUser(user);
             if (check) {
                 url = SUCCESS;
-                UserDTO loginUser = dao.checkLogin(userEmail, password);
-                String roleName = loginUser.getRoleName();
                 HttpSession session = request.getSession();
-                session.setAttribute("LOGIN_USER", loginUser);
+                session.setAttribute("LOGIN_USER", user);
             }
         } catch (Exception e) {
             log("Error at UpdateController: " + e.toString());

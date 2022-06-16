@@ -17,11 +17,11 @@ import sample.utils.DBUtils;
  */
 public class UserDAO {
 
-    private static final String LOGIN = "SELECT u.userID, u.userName, u.address, u.phone, u.roleID, r.roleName, u.avatar FROM tblUsers u, tblRoles r WHERE u.roleID = r.roleID and u.email =? AND u.password =? AND u.status=1 ";
+    private static final String LOGIN = "SELECT u.userID, u.userName, u.address, u.phone, u.roleID, r.roleName, u.avatar, u.password FROM tblUsers u, tblRoles r WHERE u.roleID = r.roleID and u.email =? AND u.password =? AND u.status=1 ";
 
     private static final String CREATE_USER = "INSERT INTO tblUsers(email, password, userName, avatar, phone, address, roleID, status) VALUES(?,?,NULL,NULL,NULL,NULL,N'R1',1)";
 
-    private static final String UPDATE_USER = "UPDATE tblUsers SET userName = ?, phone = ?, address = ? WHERE email = ? ";
+    private static final String UPDATE_USER = "UPDATE tblUsers SET userName = ?, phone = ?, address = ?, avatar = ?, password = ?  WHERE userID = ? ";
 
     public UserDTO checkLogin(String userEmail, String password) throws SQLException {
         UserDTO user = null;
@@ -42,7 +42,7 @@ public class UserDAO {
                     String phone = rs.getString("phone");
                     String roleName = rs.getString("roleName");
                     String urlAvatar = rs.getString("avatar");
-                    user = new UserDTO(userID, userEmail, "", userName, urlAvatar, phone, address, roleName, 1);
+                    user = new UserDTO(userID, userEmail, password, userName, urlAvatar, phone, address, roleName, 1);
 
                 }
             }
@@ -96,7 +96,9 @@ public class UserDAO {
                 ptm.setString(1, user.getUserName());
                 ptm.setString(2, user.getPhone());
                 ptm.setString(3, user.getAddress());
-                ptm.setString(4, user.getEmail());
+                ptm.setString(4, user.getUrlAvatar());
+                ptm.setString(5, user.getPassword());
+                ptm.setInt(6, user.getUserID());
                 check = ptm.executeUpdate() > 0 ? true : false;
             }
         } catch (Exception e) {

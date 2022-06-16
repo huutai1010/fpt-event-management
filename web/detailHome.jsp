@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Title</title>
+        <title>Home Detail Page</title>
         <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -50,7 +50,7 @@
             <header class="header">
                 <div class="header_container container">
                     <div class="header__logo">
-                        <a href="#"><img src="./img/F Event.png" alt=""></a>
+                        <a href="home.jsp"><img src="./img/F Event.png" alt=""></a>
                     </div>
                     <div class="header__nav">
                         <div class="action">
@@ -74,8 +74,8 @@
                             <div id="menu" class="bar__child">
                                 <div class="child">
                                     <ul>
-                                        <li><i class="fa fa-user"></i><a href="#">Profile</a></li>
-                                        <li><i class="fa fa-sign-out-alt"></i><a href="#">Logout</a></li>
+                                        <li><i class="fa fa-user"></i><a href="profile.jsp">Profile</a></li>
+                                        <li><i class="fa fa-sign-out-alt"></i><a href="MainController?action=Logout">Logout</a></li>
                                     </ul>
                                 </div>
                             </div>

@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Title</title>
+        <title>Login Detail Page</title>
         <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -38,18 +38,18 @@
         <link rel="stylesheet" href="CSS/Detail.css">
     </head>
     <body>
+        <div id="blur" class="blur">
+        </div>
         <%
             EventDTO event = (EventDTO) request.getAttribute("DETAIL_EVENT");
             
         %>
-        <div id="blur" class="blur">
-
-        </div>
+        
         <div class="wrapper">
             <header id="header" class="header">
                 <div class="header_container container">
                     <div class="header_logo">
-                        <a href="#"><img src="./img/F Event.png" alt="..."></a>
+                        <a href="login.jsp"><img src="./img/F Event.png" alt="..."></a>
                     </div>
                     <!-- <div class="header_nav">
                         <a class="active" href="#">Home</a>
@@ -57,7 +57,7 @@
                         <a href="#contact">Contact us</a>
                     </div> -->
                     <div class="header_icon">
-                        <a href="#">
+                        <a href="sign.jsp">
                             <i class="fa fa-user">
                                 <span>Login</span>
                             </i>
@@ -103,7 +103,7 @@
                                 </div>
                             </div>
                             <div class="choose">
-                                <button class="btn btn-success"><%= event.getTicketPrice() == 0 ? "Register" : "Buy Ticket" %></button>
+                                <button class="btn btn-success"><a href="sign.jsp"><%= event.getTicketPrice() == 0 ? "Register" : "Buy Ticket" %></a></button>
                                 <button class="btn btn-primary">Follow</button>
                                 <p>100 Follow</p>
                                 <p></p>

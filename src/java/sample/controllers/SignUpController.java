@@ -32,8 +32,7 @@ public class SignUpController extends HttpServlet {
         String url = ERROR;
         ValidateAnEmail regex = new ValidateAnEmail();
         UserError userError = new UserError();
-        try {
-           
+        try {         
             String userEmail = request.getParameter("userEmail");
             String password = request.getParameter("password");
             String confirm = request.getParameter("confirm");

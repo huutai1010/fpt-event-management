@@ -30,7 +30,8 @@ body {
     padding-left: 15px;
     padding-right: 15px;
 }
-.blur{
+
+.blur {
     width: 100vw;
     height: 100vh;
     z-index: 998;
@@ -39,6 +40,7 @@ body {
     left: 0;
     display: none;
 }
+
 .header {
     background-color: #F29406;
     top: 0;
@@ -84,11 +86,12 @@ body {
     color: #000;
 }
 
-.header__nav .notification a{
+.header__nav .notification a {
     margin-right: 35px;
     font-size: 30px;
     color: #000;
 }
+
 .header__nav .navbar {
     position: relative;
 
@@ -99,6 +102,7 @@ body {
     overflow: hidden;
     cursor: pointer;
 }
+
 .header__nav .navbar .Bar__fa i {
     font-size: 25px;
 }
@@ -276,7 +280,26 @@ main {
     text-decoration: none;
     color: #000;
 }
-
+.tab-content .item a .info h3{
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    /* width: 30px; */
+    height: 60px;
+}
+.tab-content .item a .info h3:hover{
+   overflow: visible;
+   word-wrap:break-word;
+   font-size: 28px;
+}
+.tab-content .item a .info h3,
+.tab-content .item a .info p
+{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 .tab-content .item img {
     display: block;
     width: 100%;

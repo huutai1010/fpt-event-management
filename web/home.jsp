@@ -43,6 +43,8 @@
     <!-- CSS -->
     <link rel="stylesheet" href="CSS/home.css">
     <body>
+        <div id="blur" class="blur">    
+        </div>
         <!-- Phần này là thiển thị thông tin đăng nhập -->
         <div class="wrapper">
             <%
@@ -61,7 +63,7 @@
                     <div class="header__nav">
                         <div class="action">
                             <a href="profile.jsp">
-                                <img src="<%= loginUser.getUrlAvatar() %>" alt="">
+                                <img src="<%= loginUser.getUrlAvatar()%>" alt="">
                                 <span><%= loginUser.getEmail()%></span>
                             </a>
                         </div>
@@ -80,8 +82,8 @@
                             <div id="menu" class="bar__child">
                                 <div class="child">
                                     <ul>
-                                        <li><i class="fa fa-user"></i><a href="#">Profile</a></li>
-                                        <li><i class="fa fa-sign-out-alt"></i><a href="#">Logout</a></li>
+                                        <li><i class="fa fa-user"></i><a href="profile.jsp">Profile</a></li>
+                                        <li><i class="fa fa-sign-out-alt"></i><a href="MainController?action=Logout">Logout</a></li>
                                     </ul>
                                 </div>
                             </div>

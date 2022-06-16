@@ -1,3 +1,4 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
 <%@page import="sample.dto.UserDTO"%>
 <!doctype html>
 <html lang="en">
@@ -5,7 +6,7 @@
 <head>
     <title>Profile user</title>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- GG Font -->
     <link as="font" crossorigin
@@ -45,7 +46,7 @@
         <header class="header">
             <div class="header_container container">
                 <div class="header__logo">
-                    <a href="MainController?searchKeyWordHome=&action=SearchHome"><img src="./img/F Event.png" alt=""></a>
+                    <a href="home.jsp"><img src="./img/F Event.png" alt=""></a>
                 </div>
                 <div class="header__nav">
                     <div class="action">
@@ -105,6 +106,7 @@
                                 <h4>Address:</h4>
                                 <p><%= loginUser.getAddress()%></p>
                             </div>
+                            
                         </div>
                             <a href="editProfile.jsp"><button><i class="fa fa-edit"></i>Edit profile</button></a>
                     </div>
@@ -119,7 +121,7 @@
                             <p>SE1620 - SWP391 Project by Team 4</p>
                         </div>
                         <div class="item">
-                            <p>© 2022 FPT Event Management </p>
+                            <p>Â© 2022 FPT Event Management </p>
                         </div>
                     </div>
                 </div>
