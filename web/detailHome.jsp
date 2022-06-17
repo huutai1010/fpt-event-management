@@ -43,6 +43,12 @@
             UserDTO loginUser = (UserDTO) session.getAttribute("LOGIN_USER");
             
         %>
+        <%  
+           String message = (String) request.getAttribute("MESSAGE");
+           if(message == null){
+                message = "";
+            }
+        %>
         <div id="blur" class="blur">
 
         </div>
@@ -119,12 +125,28 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="choose">
-                                <button class="btn btn-success"><%= event.getTicketPrice() == 0 ? "Register" : "Buy Ticket" %></button>
+                                <%
+                                    if (message.equals("Register successfully")) {
+
+                                %>
+                                <button class="btn btn-success">UnRegister</button>
+                                <%                                    
+                                    }else{
+                                %>
+                                <a href="MainController?action=Register&eventID=<%= event.getEventID()%>&userID=<%= loginUser.getUserID()%>&image=<%= event.getImage()%>&categoryName=<%= event.getCategoryName()%>
+                                   &locationName=<%= event.getLocationName()%>&startTime=<%= event.getStartTime()%>&endTime=<%= event.getEndTime()%>&numberOfAttendees=<%= event.getNumberOfAttendees()%>&formality=<%= event.getFormality()%>
+                                   &ticketPrice=<%= event.getTicketPrice()%>&eventDetail=<%= event.getEventDetail()%>&eventName=<%= event.getEventName()%>" style="text-decoration: none"><button class="btn btn-success" name="action" value="Register" ><%= event.getTicketPrice() == 0 ? "Register" : "Buy Ticket"%></button></a>
+                                    <%
+                                        }
+                                    %>
+
+
                                 <button class="btn btn-primary">Follow</button>
-                                <p>100 Follow</p>
                                 <p></p>
                             </div>
+
                         </div>
                     </div>
                 </section>
@@ -158,7 +180,7 @@
                                 <p>Địa điểm diễn ra sự kiện</p>
                                 <ul>
                                     <li><%=event.getLocationName()%></li>
-                                    
+
                                 </ul>
                                 <p>Thơi gian tổ chức</p>
                                 <ul>

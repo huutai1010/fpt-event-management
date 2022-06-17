@@ -5,6 +5,7 @@
 package sample.controllers;
 
 import java.io.IOException;
+import java.sql.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,33 +15,52 @@ import sample.dao.EventDAO;
 import sample.dto.EventDTO;
 
 
+
 /**
  *
  * @author DELL
  */
-@WebServlet(name = "DetailEventLoginController", urlPatterns = {"/DetailEventLoginController"})
-public class DetailEventLoginController extends HttpServlet {
+@WebServlet(name = "RegisterController", urlPatterns = {"/RegisterController"})
+public class RegisterController extends HttpServlet {
 
-    private static final String ERROR = "login.jsp";
-    private static final String SUCCESS = "detailLogin.jsp";
+    private static final String ERROR = "error.jsp";
+    private static final String SUCCESS = "detailHome.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
-        try {
+        try{
+            
             int eventID = Integer.parseInt(request.getParameter("eventID"));
-            EventDAO dao = new EventDAO();
-            EventDTO oneEvent = dao.getDetailEvent(eventID);          
-            if (oneEvent != null) {
-                request.setAttribute("DETAIL_EVENT", oneEvent);
+            int userID = Integer.parseInt(request.getParameter("userID"));
+            String categoryName = request.getParameter("categoryName");
+            String locationName = request.getParameter("locationName");
+            String eventName = request.getParameter("eventName");
+            String eventDetail = request.getParameter("eventDetail");
+            String image = request.getParameter("image");
+            Date startTime = Date.valueOf(request.getParameter("startTime"));
+            Date endTime = Date.valueOf(request.getParameter("endTime"));
+            int numberOfAttendees = Integer.parseInt(request.getParameter("numberOfAttendees"));
+            String formality = request.getParameter("formality");
+            float ticketPrice = Float.parseFloat(request.getParameter("ticketPrice"));
+            
+            EventDAO eventDAO = new EventDAO();          
+            boolean check = eventDAO.registerEvent(userID, eventID);
+            if(check){
+                String message = "Register successfully";
+                EventDTO event = new EventDTO(eventID, categoryName, locationName, eventName, eventDetail, image, startTime, endTime, numberOfAttendees, formality, ticketPrice);
+                request.setAttribute("DETAIL_EVENT",  event);
+                request.setAttribute("REGISTER_CHECK", check);
+                request.setAttribute("MESSAGE", message);
                 url = SUCCESS;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
+        }catch(Exception e){
+            log("Error at RegisterController: " + e.toString());
+        }finally{
             request.getRequestDispatcher(url).forward(request, response);
         }
+            
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

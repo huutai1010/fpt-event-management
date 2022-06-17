@@ -5,41 +5,41 @@
 package sample.controllers;
 
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import sample.dao.EventDAO;
-import sample.dto.EventDTO;
-
+import javax.servlet.http.HttpSession;
+import sample.dto.UserDTO;
+import sample.dao.RegisterDAO;
+import sample.dto.RegisterDTO;
 
 /**
  *
  * @author DELL
  */
-@WebServlet(name = "DetailEventLoginController", urlPatterns = {"/DetailEventLoginController"})
-public class DetailEventLoginController extends HttpServlet {
-
-    private static final String ERROR = "login.jsp";
-    private static final String SUCCESS = "detailLogin.jsp";
-
+@WebServlet(name = "ShowRegisterEventController", urlPatterns = {"/ShowRegisterEventController"})
+public class ShowRegisterEventController extends HttpServlet {
+    
+    private static final String ERROR = "error.jsp";
+    private final static String STUDENT = "notification.jsp";
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
-        try {
-            int eventID = Integer.parseInt(request.getParameter("eventID"));
-            EventDAO dao = new EventDAO();
-            EventDTO oneEvent = dao.getDetailEvent(eventID);          
-            if (oneEvent != null) {
-                request.setAttribute("DETAIL_EVENT", oneEvent);
-                url = SUCCESS;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            request.getRequestDispatcher(url).forward(request, response);
+        String url=ERROR;
+        try{
+            HttpSession session = request.getSession();
+            UserDTO loginUser = (UserDTO) session.getAttribute("LOGIN_USER");
+            
+            RegisterDAO dao = new RegisterDAO();
+            List<RegisterDTO> list = dao.getListRegister(loginUser.getUserID());
+        }catch(Exception e){
+            
+        }finally{
+            
         }
     }
 

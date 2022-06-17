@@ -11,7 +11,7 @@ import java.util.Date;
  * @author maihuutai
  */
 public class EventDTO {
-    private String eventID;
+    private int eventID;
     private String categoryName;
     private String locationName;
     private String eventName;
@@ -26,7 +26,7 @@ public class EventDTO {
     public EventDTO() {
     }
 
-    public EventDTO(String eventID, String categoryName, String locationName, String eventName, String eventDetail, String image, Date startTime, Date endTime, int numberOfAttendees, String formality, float ticketPrice) {
+    public EventDTO(int eventID, String categoryName, String locationName, String eventName, String eventDetail, String image, Date startTime, Date endTime, int numberOfAttendees, String formality, float ticketPrice) {
         this.eventID = eventID;
         this.categoryName = categoryName;
         this.locationName = locationName;
@@ -40,11 +40,11 @@ public class EventDTO {
         this.ticketPrice = ticketPrice;
     }
 
-    public String getEventID() {
+    public int getEventID() {
         return eventID;
     }
 
-    public void setEventID(String eventID) {
+    public void setEventID(int eventID) {
         this.eventID = eventID;
     }
 

@@ -19,7 +19,7 @@ import sample.dto.EventDTO;
  *
  * @author DELL
  */
-@WebServlet(name = "SearchController", urlPatterns = {"/SearchController"})
+@WebServlet(name = "SearchHomeController", urlPatterns = {"/SearchHomeController"})
 public class SearchHomeController extends HttpServlet {
 
     private static final String ERROR = "home.jsp";

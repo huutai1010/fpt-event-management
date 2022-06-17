@@ -33,6 +33,8 @@ public class MainController extends HttpServlet {
     private static final String DETAIL_EVENT_LOGIN_CONTROLLER="DetailEventLoginController";
     private static final String DETAIL_EVENT_HOME="ShowDetailEventHome";
     private static final String DETAIL_EVENT_HOME_CONTROLLER="DetailEventHomeController";
+    private static final String REGISTER ="Register";
+    private static final String REGISTER_CONTROLLER="RegisterController";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -56,6 +58,8 @@ public class MainController extends HttpServlet {
                 url = DETAIL_EVENT_LOGIN_CONTROLLER;
             } else if(DETAIL_EVENT_HOME.equals(action)) {
                 url = DETAIL_EVENT_HOME_CONTROLLER;
+            } else if(REGISTER.equals(action)) {
+                url = REGISTER_CONTROLLER;
             }
         } catch (Exception e) {
             e.printStackTrace();

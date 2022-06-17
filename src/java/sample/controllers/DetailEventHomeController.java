@@ -29,11 +29,12 @@ public class DetailEventHomeController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            String eventID = request.getParameter("eventID");
+            int eventID = Integer.parseInt(request.getParameter("eventID"));
             EventDAO dao = new EventDAO();
             EventDTO oneEvent = dao.getDetailEvent(eventID);          
             if (oneEvent != null) {
                 request.setAttribute("DETAIL_EVENT", oneEvent);
+                
                 url = SUCCESS;
             }
         } catch (Exception e) {

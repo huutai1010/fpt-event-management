@@ -276,7 +276,7 @@
                                     <!--Start One Event-->
                                     <div class="col-12 col-sm-6 col-md-4">
                                         <div class="item shadow overflow-hidden mb-4">
-                                            <a href="#" target="_blank">
+                                            <a href="MainController?action=ShowDetailEventHome&eventID=<%= searchEvent.getEventID()%>" target="_blank">
                                                 <img
                                                     src="<%=searchEvent.getImage()%>"
                                                     alt="g1"
@@ -352,7 +352,7 @@
                                     <!--Start One Event-->
                                     <div class="col-12 col-sm-6 col-md-4">
                                         <div class="item shadow overflow-hidden mb-4">
-                                            <a href="#" target="_blank">
+                                            <a href="MainController?action=ShowDetailEventHome&eventID=<%= happeningEvent.getEventID()%>" target="_blank">
                                                 <img
                                                     src="<%=happeningEvent.getImage()%>"
                                                     alt="g1"
@@ -392,7 +392,7 @@
                                     <!--Start One Event-->
                                     <div class="col-12 col-sm-6 col-md-4">
                                         <div class="item shadow overflow-hidden mb-4">
-                                            <a href="#" target="_blank">
+                                            <a href="MainController?action=ShowDetailEventHome&eventID=<%= comingEvent.getEventID()%>" target="_blank">
                                                 <img
                                                     src="<%=comingEvent.getImage()%>"
                                                     alt="g1"
@@ -428,7 +428,7 @@
                                     %>
                                     <div class="col-12 col-sm-6 col-md-4">
                                         <div class="item shadow overflow-hidden mb-4">
-                                            <a href="#" target="_blank">
+                                            <a href="MainController?action=ShowDetailEventHome&eventID=<%= tookPlaceEvent.getEventID()%>" target="_blank">
                                                 <img
                                                     src="<%=tookPlaceEvent.getImage()%>"
                                                     alt="g1"
