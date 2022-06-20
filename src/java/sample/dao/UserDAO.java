@@ -24,11 +24,12 @@ public class UserDAO {
     private static final String UPDATE_USER = "UPDATE tblUsers SET userName = ?, phone = ?, address = ?, avatar = ?, password = ?  WHERE userID = ? ";
 
     private static final String CREATE_GOOGLE_USER = "INSERT INTO tblUsers(email, password, userName, avatar, phone, address, roleID, status) VALUES(?,'****',?,?,NULL,NULL,N'R1',1)";
-    
+
     private static final String LOGIN_GOOGLE = "SELECT u.userID, u.userName, u.address, u.phone, u.roleID, r.roleName, u.avatar, u.password FROM tblUsers u, tblRoles r WHERE u.roleID = r.roleID AND u.email =? AND u.status=1";
-    
-    private static final String CREATE_GOOGLE_USER_2 = "INSERT ";
-    
+
+    private static final String CHECK_DUPLICATE_EMAIL = "SELECT * FROM tblUsers WHERE email=? ";
+
+    //private static final String CREATE_GOOGLE_USER_2 = "INSERT ";
     public boolean registerNewUser(UserDTO user) throws SQLException, ClassNotFoundException {
         boolean check = false;
         Connection conn = null;
@@ -52,7 +53,7 @@ public class UserDAO {
         }
         return check;
     }
-    
+
     public UserDTO checkEmailAccountAlreadyExist(String email) throws SQLException {
         UserDTO user = null;
         Connection conn = null;
@@ -91,7 +92,7 @@ public class UserDAO {
         }
         return user;
     }
-    
+
     public UserDTO checkLogin(String userEmail, String password) throws SQLException {
         UserDTO user = null;
         Connection conn = null;
@@ -129,6 +130,37 @@ public class UserDAO {
             }
         }
         return user;
+    }
+
+    public boolean checkDuplicateEmailCreate(String userEmail) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(CHECK_DUPLICATE_EMAIL);
+                ptm.setString(1, userEmail);
+                rs = ptm.executeQuery();
+                if (rs.next()) {
+                    check = true;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
     }
 
     public boolean create(UserDTO user) throws ClassNotFoundException, SQLException {

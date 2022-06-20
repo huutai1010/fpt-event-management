@@ -38,27 +38,21 @@ public class LoginGoogleController extends HttpServlet {
         String accessToken = getToken(code);
         System.out.println("accessToken = " + accessToken);
         UserGoogleDTO user = getUserInfo(accessToken);
-
         try {
             String email = user.getEmail();
             UserDAO userDAO = new UserDAO();
-            System.out.println("Dòng 1");
             UserDTO loginUser = userDAO.checkEmailAccountAlreadyExist(email);
-            System.out.println("Dòng 2");
             if (loginUser == null) {
                 String name = user.getName();
                 String picture = user.getPicture();
                 loginUser = new UserDTO(1, email, "", name, picture, "", "", "US");
-                System.out.println("Dòng 3");
                 boolean check = userDAO.registerNewUser(loginUser);
-                System.out.println("Dòng 4");
                 if (check) {
                     System.out.println("Register successfully");
                 } else {
                     System.out.println("Register fail!!!");
                 }
                 loginUser = userDAO.checkEmailAccountAlreadyExist(email); // loginUser
-
             }
             if (loginUser != null) {
                 url = "home.jsp";
