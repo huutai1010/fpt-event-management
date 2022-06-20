@@ -31,7 +31,8 @@ body {
     padding-left: 15px;
     padding-right: 15px;
 }
-.blur{
+
+.blur {
     width: 100vw;
     height: 100vh;
     z-index: 998;
@@ -40,6 +41,7 @@ body {
     left: 0;
     display: none;
 }
+
 .header {
     background-color: #F29406;
 }
@@ -253,26 +255,31 @@ body {
     font-weight: 400;
     font-size: 18px;
 }
-.event_info .info i{
-    padding-right: 15px;   
+
+.event_info .info i {
+    padding-right: 15px;
 }
-.choose{
+
+.choose {
     margin-right: 10rem;
     text-align: center;
     padding-top: 5px;
 }
-.choose button{
+
+.choose button {
     display: block;
     width: 15rem;
     padding: 5px 0;
     margin: 15px 0;
 }
-.choose p{
+
+.choose p {
     font-size: 18px;
     font-weight: 500;
     color: #eb1212;
 }
-.nav{
+
+.nav {
     width: 100%;
     height: 70px;
     background-color: #fff;
@@ -280,42 +287,48 @@ body {
     font-size: 18px;
     font-weight: 500;
 }
-.nav a{
+
+.nav a {
     color: #000;
     transition: width 1s;
 }
-.nav a:hover{
+
+.nav a:hover {
     text-decoration: underline 3px #F29406;
 }
-.introduce .container{
+
+.introduce .container {
     background-color: #fff;
     margin-top: 40px;
     margin-bottom: 40px;
 }
-.introduce .intro h3{
+
+.introduce .intro h3 {
     font-size: 20px;
     font-weight: 600;
     text-transform: uppercase;
     padding: 20px;
-    border-bottom: solid 1px #ccc;;
+    border-bottom: solid 1px #ccc;
+    ;
 }
-.introduce .intro_content{
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin: 10px 5rem;
-}
-.introduce .intro_content .content-right{
-    width: 30%;
-    text-align: center;
-}
-.introduce .intro_content .content-right p{
+
+/* .introduce .intro_content{
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin: 10px 5rem;
+    }
+    .introduce .intro_content .content-right{
+        width: 30%;
+        text-align: center;
+    } */
+/* .introduce .intro_content .content-right p{
     font-size: 20px;
     font-weight: 550;
     margin-top: 10px;
     color: #000;
-}
-.introduce .intro_content .content-right img{
+} */
+/* .introduce .intro_content .content-right img{
     display: block;
     width: 100%;
     height: 300px;
@@ -327,22 +340,26 @@ body {
     background-repeat: none;
     background-position: cover;
     border-radius: 20px;
+} */
+.introduce .intro_content .content-left {
+    width: 70%;
+    margin-left: 2rem;
+    padding-top: 15px;
 
 }
-.introduce .intro_content .content-left{
-    width: 70%;
-    margin-left: 5rem;
-    padding-top: 15px;
-}
-.introduce .intro_content .content-left h3{
+
+.introduce .intro_content .content-left h3 {
     font-weight: 550;
     font-size: 25px;
+    color: #F29406;
 }
-.introduce .intro_content .content-left .param{
+
+.introduce .intro_content .content-left .param {
     font-weight: 500;
     font-size: 18px;
 }
-.introduce .intro_content .content-left p{
+
+.introduce .intro_content .content-left p {
     font-style: italic;
     font-size: 18px;
     font-weight: 500;
@@ -350,26 +367,35 @@ body {
 
 
 /* comment */
-.comment{
+.comment {
     width: 100%;
 }
-.comment .container{
-    margin: 3rem auto;
+.comment_head{
+    margin-left: 7rem;
+    font-weight: 500;
+    margin: 15px 0;
+}
+.comment .container {
+    /* margin-top: 3rem; */
     background-color: #fff;
     padding-bottom: 50px;
+    height: 500px;
+}
+.comment .container_comment{
     overflow-y: scroll;
     height: 300px;
+    padding-bottom: 50px;
 }
-.comment_container{
+.comment_container {
     position: relative;
     display: none;
 }
-.comment_container.opened{
-    display: block;
 
+.comment_container.opened {
+    display: block;
 }
 
-.comment_container::before{
+.comment_container::before {
     content: "";
     background-color: #000;
     position: absolute;
@@ -377,43 +403,45 @@ body {
     width: 1px;
     left: -10px;
 }
-.comment_container:not(:first-child){
+
+.comment_container {
     margin-left: 3rem;
     margin-top: 1rem;
 }
-.comment_card{
+
+.comment_card {
     padding: 20px;
-    background-color: rgb(170, 170, 170);
+    background-color: rgb(253, 253, 253);
     border: 1 solid rgba(0, 0, 0, 0.3);
     border-radius: 0.5rem;
     min-width: 100%;
     box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
     height: 150px;
 }
-.comment_card .comment_title p{
+
+.comment_card .comment_title p {
     margin-top: 1rem;
 }
-.comment_title{
+
+.comment_title {
     margin-right: 50px;
 }
-.comment_title a{
+
+.comment_title a {
     text-decoration: none;
 }
-.comment_title img{
+
+.comment_title img {
     width: 40px;
     border-radius: 50%;
 }
-.comment_footer{
-    display: flex;
-    font-size: 1rem;
-    justify-content: flex-end;
-    align-items: center;
-    opacity: 0.6;
-    gap: 30px;
+.comment-text{
+    margin: 2px 5.5rem;
 }
-.show-replies{
+.show-replies {
     cursor: pointer;
 }
+
 /*  */
 .footer {
     height: auto;

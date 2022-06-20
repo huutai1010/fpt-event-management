@@ -41,11 +41,10 @@
         <%
             EventDTO event = (EventDTO) request.getAttribute("DETAIL_EVENT");
             UserDTO loginUser = (UserDTO) session.getAttribute("LOGIN_USER");
-            
+
         %>
-        <%  
-           String message = (String) request.getAttribute("MESSAGE");
-           if(message == null){
+        <%            String message = (String) request.getAttribute("MESSAGE");
+            if (message == null) {
                 message = "";
             }
         %>
@@ -132,8 +131,7 @@
 
                                 %>
                                 <button class="btn btn-success">UnRegister</button>
-                                <%                                    
-                                    }else{
+                                <%                                } else {
                                 %>
                                 <a href="MainController?action=Register&eventID=<%= event.getEventID()%>&userID=<%= loginUser.getUserID()%>&image=<%= event.getImage()%>&categoryName=<%= event.getCategoryName()%>
                                    &locationName=<%= event.getLocationName()%>&startTime=<%= event.getStartTime()%>&endTime=<%= event.getEndTime()%>&numberOfAttendees=<%= event.getNumberOfAttendees()%>&formality=<%= event.getFormality()%>
@@ -205,68 +203,75 @@
                         <div class="comment_head">
                             <h3>Bình luận</h3>
                         </div>
-                        <div class="comment_container opened" id="first_comment">
-                            <div class="comment_card">
-                                <div class="comment_title">
-                                    <a href="#">
-                                        <img src="./img/02-3.jpg" alt="">
-                                        <span>Nguyễn Văn A</span>
-                                    </a>
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil modi ipsum
-                                        doloremque
-                                        earum illo maiores quo omnis. Maiores, repellat hic.
-                                    </p>
-                                </div>
-                                <div class="comment_footer">
-                                    <!-- <div>Like 100</div>
-                                    <div>Dislike 10</div> -->
-                                    <!-- <div class="show-replies">Reply 2</div> -->
-                                </div>
-                            </div>
-                        </div>
-                        <div class="comment_container opened" id="first_comment">
-                            <div class="comment_card">
-                                <div class="comment_title">
-                                    <a href="#">
-                                        <img src="./img/02-3.jpg" alt="">
-                                        <span>Nguyễn Văn A</span>
-                                    </a>
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil modi ipsum
-                                        doloremque
-                                        earum illo maiores quo omnis. Maiores, repellat hic.
-                                    </p>
-                                </div>
-                                <div class="comment_footer">
-                                    <!-- <div>Like 100</div>
-                                    <div>Dislike 10</div> -->
-                                    <!-- <div class="show-replies">Reply 2</div> -->
+
+                        <!--start container_comment-->
+                        <div class="container_comment">
+                            <div class="comment_container opened" id="first_comment">
+                                <div class="comment_card">
+                                    <div class="comment_title">
+                                        <a href="#">
+                                            <img src="./img/02-3.jpg" alt="">
+                                            <span>Nguyễn Văn A</span>
+                                        </a>
+                                        <p>
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil modi ipsum
+                                            doloremque
+                                            earum illo maiores quo omnis. Maiores, repellat hic.
+                                        </p>
+                                    </div>                                  
                                 </div>
                             </div>
+<!--                            <div class="comment_container opened" id="first_comment">
+                                <div class="comment_card">
+                                    <div class="comment_title">
+                                        <a href="#">
+                                            <img src="./img/02-3.jpg" alt="">
+                                            <span>Nguyễn Văn A</span>
+                                        </a>
+                                        <p>
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil modi ipsum
+                                            doloremque
+                                            earum illo maiores quo omnis. Maiores, repellat hic.
+                                        </p>
+                                    </div>                                  
+                                </div>
+                            </div>-->
+<!--                            <div class="comment_container opened" id="first_comment">
+                                <div class="comment_card">
+                                    <div class="comment_title">
+                                        <a href="#">
+                                            <img src="./img/02-3.jpg" alt="">
+                                            <span>Nguyễn Văn A</span>
+                                        </a>
+                                        <p>
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil modi ipsum
+                                            doloremque
+                                            earum illo maiores quo omnis. Maiores, repellat hic.
+                                        </p>
+                                    </div>                                 
+                                </div>
+                            </div>                                               -->
                         </div>
-                        <div class="comment_container opened" id="first_comment">
-                            <div class="comment_card">
-                                <div class="comment_title">
-                                    <a href="#">
-                                        <img src="./img/02-3.jpg" alt="">
-                                        <span>Nguyễn Văn A</span>
-                                    </a>
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil modi ipsum
-                                        doloremque
-                                        earum illo maiores quo omnis. Maiores, repellat hic.
-                                    </p>
-                                </div>
-                                <div class="comment_footer">
-                                    <!-- <div>Like 100</div>
-                                    <div>Dislike 10</div> -->
-                                    <!-- <div class="show-replies">Reply 2</div> -->
-                                </div>
+                        <!--end container_comment-->
+                        <!--comment-->
+                        <div class="comment-text bg-line px-5 pt-2">
+                            <div class="d-flex flex-row align-items-start">
+                                <img src="./img/02-3.jpg" alt="" class="rounded-circle" width="45">
+                                <textarea class="form-control ml-1 shadow-none textarea"></textarea>
+                            </div>
+                            <div class="mt-2 text-right">
+                                <button class="btn btn-success btn-sm shadow-none" type="button">Đăng</button>
                             </div>
                         </div>
+
+
+
+                    </div>
+                    <!--end div container-->
                 </section>
             </main>
+
+
 
             <footer class="footer">
                 <main>

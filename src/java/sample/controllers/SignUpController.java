@@ -31,16 +31,21 @@ public class SignUpController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         ValidateAnEmail regex = new ValidateAnEmail();
-        UserError userError = new UserError();
-        try {         
+        try {
             String userEmail = request.getParameter("userEmail");
             String password = request.getParameter("password");
             String confirm = request.getParameter("confirm");
             UserDAO dao = new UserDAO();
+            UserError userError = new UserError();
             boolean checkValidation = true;
+            boolean checkDuplicateEmailCreate = dao.checkDuplicateEmailCreate(userEmail);
             if (regex.valEmail(userEmail) == false) {
                 checkValidation = false;
                 userError.setEmailError("Email need to type format Ex:ThanhTran@gmail.com");
+            }
+            if (checkDuplicateEmailCreate) {
+                checkValidation = false;
+                userError.setEmailError("Email are the exist in the systems!!!");
             }
             if (!password.equals(confirm)) {
                 checkValidation = false;
@@ -48,7 +53,7 @@ public class SignUpController extends HttpServlet {
             }
             //
             if (checkValidation) {
-                UserDTO user = new UserDTO(0,userEmail, password, "", "", "", "", "");
+                UserDTO user = new UserDTO(0, userEmail, password, "", "", "", "", "");
                 // UserDTO user1 = new UserDTO(0, email, password, "", "", "US", 1);
                 boolean checkCreate = dao.create(user);
                 if (checkCreate) {
@@ -60,12 +65,13 @@ public class SignUpController extends HttpServlet {
                 }
             } else {
                 request.setAttribute("USER_ERROR", userError);
+                request.setAttribute("MESSAGE_SIGN", "CREATE ACCOUNT FAIL!");
             }
         } catch (Exception e) {
-            if (e.toString().contains("duplicate")) {
-                userError.setEmailError("The duplicate Email Please type again!!");
-                request.setAttribute("USER_ERROR", userError);
-            }
+//            if (e.toString().contains("duplicate")) {
+//                userError.setEmailError("The duplicate Email Please type again!!");
+//                request.setAttribute("USER_ERROR", userError);
+//            }
             log("Error at CreateUserController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);

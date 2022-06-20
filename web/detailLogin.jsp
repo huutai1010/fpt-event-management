@@ -42,9 +42,9 @@
         </div>
         <%
             EventDTO event = (EventDTO) request.getAttribute("DETAIL_EVENT");
-            
+
         %>
-        
+
         <div class="wrapper">
             <header id="header" class="header">
                 <div class="header_container container">
@@ -103,7 +103,7 @@
                                 </div>
                             </div>
                             <div class="choose">
-                                <button class="btn btn-success"><a href="sign.jsp"><%= event.getTicketPrice() == 0 ? "Register" : "Buy Ticket" %></a></button>
+                                <button class="btn btn-success"><a href="sign.jsp"><%= event.getTicketPrice() == 0 ? "Register" : "Buy Ticket"%></a></button>
                                 <button class="btn btn-primary">Follow</button>
                                 <p>100 Follow</p>
                                 <p></p>
@@ -111,9 +111,9 @@
                         </div>
                     </div>
                 </section>
-                <%                    
-                        if (event != null) {
-                        
+                <%
+                    if (event != null) {
+
                 %>
                 <section class="nav">
                     <div class="container">
@@ -132,8 +132,8 @@
                         </div>
                         <div class="intro_content">
                             <!--<div class="content-right">
-                                <img src="<%= event.getImage() %>" alt="...">
-                                <p><%= event.getEventName() %> </p>
+                                <img src="<%= event.getImage()%>" alt="...">
+                                <p><%= event.getEventName()%> </p>
                             </div>-->
                             <div class="content-left">
                                 <h3>Thông tin chung</h3>
@@ -144,7 +144,7 @@
                                 <p>Địa điểm diễn ra sự kiện</p>
                                 <ul>
                                     <li><%=event.getLocationName()%></li>
-                                    
+
                                 </ul>
                                 <p>Thơi gian tổ chức</p>
                                 <ul>
@@ -167,72 +167,72 @@
                     }
                 %>
 
+                
                 <section id="comment" class="comment">
                     <div class="container">
                         <div class="comment_head">
                             <h3>Bình luận</h3>
                         </div>
-                        <div class="comment_container opened" id="first_comment">
-                            <div class="comment_card">
-                                <div class="comment_title">
-                                    <a href="#">
-                                        <img src="./img/02-3.jpg" alt="">
-                                        <span>Nguyễn Văn A</span>
-                                    </a>
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil modi ipsum
-                                        doloremque
-                                        earum illo maiores quo omnis. Maiores, repellat hic.
-                                    </p>
+                        <div class="container_comment">
+                            <div class="comment_container opened" >
+                                <div class="comment_card">
+                                    <div class="comment_title">
+                                        <a href="#">
+                                            <img src="./img/02-3.jpg" alt="">
+                                            <span>Nguyễn Văn A</span>
+                                        </a>
+                                        <p>
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil modi ipsum
+                                            doloremque
+                                            earum illo maiores quo omnis. Maiores, repellat hic.
+                                        </p>
+                                    </div>
                                 </div>
-                                <div class="comment_footer">
-                                    <!-- <div>Like 100</div>
-                                    <div>Dislike 10</div> -->
-                                    <!-- <div class="show-replies">Reply 2</div> -->
+                            </div>
+
+                            <div class="comment_container opened" >
+                                <div class="comment_card">
+                                    <div class="comment_title">
+                                        <a href="#">
+                                            <img src="./img/02-3.jpg" alt="">
+                                            <span>Nguyễn Văn A</span>
+                                        </a>
+                                        <p>
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil modi ipsum
+                                            doloremque
+                                            earum illo maiores quo omnis. Maiores, repellat hic.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="comment_container opened" >
+                                <div class="comment_card">
+                                    <div class="comment_title">
+                                        <a href="#">
+                                            <img src="./img/02-3.jpg" alt="">
+                                            <span>Nguyễn Văn A</span>
+                                        </a>
+                                        <p>
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil modi ipsum
+                                            doloremque
+                                            earum illo maiores quo omnis. Maiores, repellat hic.
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="comment_container opened" id="first_comment">
-                            <div class="comment_card">
-                                <div class="comment_title">
-                                    <a href="#">
-                                        <img src="./img/02-3.jpg" alt="">
-                                        <span>Nguyễn Văn A</span>
-                                    </a>
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil modi ipsum
-                                        doloremque
-                                        earum illo maiores quo omnis. Maiores, repellat hic.
-                                    </p>
-                                </div>
-                                <div class="comment_footer">
-                                    <!-- <div>Like 100</div>
-                                    <div>Dislike 10</div> -->
-                                    <!-- <div class="show-replies">Reply 2</div> -->
-                                </div>
+                        <div class="comment-text bg-line px-5 pt-2">
+                            <div class="d-flex flex-row align-items-start">
+                                <img src="./img/02-3.jpg" alt="" class="rounded-circle" width="45">
+                                <textarea class="form-control ml-1 shadow-none textarea"></textarea>
+                            </div>
+                            <div class="mt-2 text-right">
+                                <button class="btn btn-success btn-sm shadow-none" type="button">Đăng</button>
                             </div>
                         </div>
-                        <div class="comment_container opened" id="first_comment">
-                            <div class="comment_card">
-                                <div class="comment_title">
-                                    <a href="#">
-                                        <img src="./img/02-3.jpg" alt="">
-                                        <span>Nguyễn Văn A</span>
-                                    </a>
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil modi ipsum
-                                        doloremque
-                                        earum illo maiores quo omnis. Maiores, repellat hic.
-                                    </p>
-                                </div>
-                                <div class="comment_footer">
-                                    <!-- <div>Like 100</div>
-                                    <div>Dislike 10</div> -->
-                                    <!-- <div class="show-replies">Reply 2</div> -->
-                                </div>
-                            </div>
-                        </div>
-                </section>
+                    </div>
+                </section>       
             </main>
 
             <footer class="footer">
