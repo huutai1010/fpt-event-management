@@ -29,7 +29,7 @@
                 <form action="MainController" method="POST">
                     <h1>Create Account</h1>
                     <div class="social-container">
-                        <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>                      
+                        <a href="MainController?action=LoginGoogleAccount" class="social"><i class="fab fa-google-plus-g"></i></a>                      
                     </div>
                     <span>or use your email for registration</span>
                     
