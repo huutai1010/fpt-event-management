@@ -64,7 +64,7 @@
                         <div class="action">
                             <a href="profile.jsp">
                                 <img src="<%= loginUser.getUrlAvatar()%>" alt="">
-                                <span><%= loginUser.getEmail()%></span>
+                                <span><%= loginUser.getUserName() == null ? loginUser.getEmail() : loginUser.getUserName()%></span>
                             </a>
                         </div>
 
