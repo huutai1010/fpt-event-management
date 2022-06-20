@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import sample.UserError;
+import sample.error.UserError;
 import sample.dao.UserDAO;
 import sample.dto.UserDTO;
 import sample.regex.ValidateAnEmail;
@@ -48,7 +48,7 @@ public class SignUpController extends HttpServlet {
             }
             //
             if (checkValidation) {
-                UserDTO user = new UserDTO(0,userEmail, password, "", "", "", "", "", 1);
+                UserDTO user = new UserDTO(0,userEmail, password, "", "", "", "", "");
                 // UserDTO user1 = new UserDTO(0, email, password, "", "", "US", 1);
                 boolean checkCreate = dao.create(user);
                 if (checkCreate) {

@@ -241,7 +241,7 @@
                                             Took place
                                         </a>
                                     </li>
-                                    
+
                                 </ul>
                             </div>
                         </div>
@@ -258,7 +258,7 @@
 
                                 <div class="row">
                                     <%
-                                        
+
                                         List<EventDTO> listSearchEvents = (List<EventDTO>) request.getAttribute("LIST_SEARCH_EVENTS");
                                         if (listSearchEvents != null) {
                                             if (listSearchEvents.size() > 0) {
@@ -270,12 +270,12 @@
                                         <div class="item shadow overflow-hidden mb-4">
                                             <a href="MainController?action=ShowDetailEventLogin&eventID=<%=searchEvent.getEventID()%>" target="_blank">
                                                 <img
-                                                    src="<%= searchEvent.getImage() %>"
+                                                    src="<%= searchEvent.getImage()%>"
                                                     alt="g1"
                                                     class="d-block w-100"
                                                     />
                                                 <div class="info p-3 text-center">
-                                                    <h3> <%= searchEvent.getEventName() %></h3>
+                                                    <h3> <%= searchEvent.getEventName()%></h3>
                                                     <p>Start Time: <%=searchEvent.getStartTime().toString()%></p>
                                                     <p>End Time: <%=searchEvent.getEndTime().toString()%></p>
 
@@ -296,9 +296,9 @@
                                         }
                                     } else {
                                         for (EventDTO event : listAllEvents) {
-                                            
+
                                     %>
-                                    
+
                                     <div class="col-12 col-sm-6 col-md-4">
                                         <div class="item shadow overflow-hidden mb-4">
                                             <a href="MainController?action=ShowDetailEventLogin&eventID=<%=event.getEventID()%>" target="_blank">
@@ -339,7 +339,7 @@
                             <div class="tab-pane fade" id="all">
                                 <!--Start List Of Event-->
                                 <div class="row">
-                                    <%                                        
+                                    <%
                                         for (EventDTO happeningEvent : listHappeningEvents) {
                                     %>
                                     <!--Start One Event-->
@@ -449,7 +449,7 @@
                             </div>
                             <!-- End Tab 4-->
 
-                            
+
                         </div>
                         <!--End Tab Content-->
 

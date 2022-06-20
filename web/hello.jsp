@@ -1,7 +1,7 @@
 <%-- 
-    Document   : error
-    Created on : Jun 12, 2022, 10:56:34 PM
-    Author     : Acer
+    Document   : hello
+    Created on : Jun 20, 2022, 8:02:28 AM
+    Author     : maihuutai
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -12,6 +12,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>ERRORRRRRRRR!!!!!</h1>
+        <h1>Hello Mai Huu Tai</h1>
     </body>
 </html>

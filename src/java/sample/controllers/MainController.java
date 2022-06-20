@@ -6,6 +6,7 @@ package sample.controllers;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +19,8 @@ public class MainController extends HttpServlet {
 
     private static final String ERROR = "error.jsp";
     private static final String LOGIN = "Login";
+    private static final String LOGIN_GOOGLE_ACCOUNT = "LoginGoogleAccount";
+    private static final String LOGIN_GOOGLE_ACCOUNT_CONTROLLER = "LoginGoogleAccountController";
     private static final String LOGIN_CONTROLLER = "LoginController";
     private static final String SIGNUP = "signUp";
     private static final String SIGNUP_CONTROLLER = "SignUpController";
@@ -44,7 +47,9 @@ public class MainController extends HttpServlet {
             String action = request.getParameter("action");
             if (LOGIN.equals(action)) {
                 url = LOGIN_CONTROLLER;
-            }else if(SIGNUP.equals(action)) {
+            } else if (LOGIN_GOOGLE_ACCOUNT.equals(action)) {
+                url = LOGIN_GOOGLE_ACCOUNT_CONTROLLER;
+            } else if(SIGNUP.equals(action)) {
                 url = SIGNUP_CONTROLLER;
             }else if(LOGOUT.equals(action)) {
                 url = LOGOUT_CONTROLLER;

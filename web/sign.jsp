@@ -5,7 +5,7 @@
 --%>
 
 
-<%@page import="sample.UserError"%>
+<%@page import="sample.error.UserError"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -46,14 +46,15 @@
             <div class="form-container sign-in-container">
                 <form action="MainController" method="POST" >
                     <h1>Sign in</h1>
-                    <div class="social-container">                    
-                        <a href="#" class="social"><i class="fab fa-google"></i></a>
-                    </div>
+                    
                     <span>or use your account</span>
                     <input type="email" placeholder="Email" name="userEmail" required=""/>
                     <input type="password" placeholder="Password" name="password" required=""/>
                     <a href="#">Forgot your password?</a>
                     <button type="submit" name="action" value="Login">Sign In</button>
+                    <div class="social-container">                    
+                        <a href="MainController?action=LoginGoogleAccount" class="social"><i class="fab fa-google"></i></a>
+                    </div>
                     <%
                         String error = (String) request.getAttribute("ERROR");
                         if (error == null) {

@@ -11,47 +11,28 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import sample.dao.UserDAO;
-import sample.dto.UserDTO;
 
 /**
  *
- * @author Acer
+ * @author maihuutai
  */
-@WebServlet(name = "EditUserController", urlPatterns = {"/EditUserController"})
-public class EditUserController extends HttpServlet {
+@WebServlet(name = "LoginGoogleAccountController", urlPatterns = {"/LoginGoogleAccountController"})
+public class LoginGoogleAccountController extends HttpServlet {
 
-    private static final String ERROR = "error.jsp";
-    private static final String SUCCESS = "editProfile.jsp";
-
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
-        try {
-            int userID = Integer.parseInt(request.getParameter("userID"));
-            String roleName = request.getParameter("roleName");
-            String userEmail = request.getParameter("userEmail");
-            String password = request.getParameter("password");
-            String userName = request.getParameter("userName");
-            String urlAvatar = request.getParameter("urlAvatar");
-            String phone = request.getParameter("phone");
-            String address = request.getParameter("address");
-
-            UserDAO dao = new UserDAO();
-            UserDTO user = new UserDTO(userID, userEmail, password, userName, urlAvatar, phone, address, roleName);
-            boolean check = dao.updateUser(user);
-            if (check) {
-                url = SUCCESS;
-                HttpSession session = request.getSession();
-                session.setAttribute("LOGIN_USER", user);
-            }
-        } catch (Exception e) {
-            log("Error at UpdateController: " + e.toString());
-        } finally {
-            request.getRequestDispatcher(url).forward(request, response);
-        }
+        String url = "https://accounts.google.com/o/oauth2/auth?scope=email%20profile%20openid&&redirect_uri=http://localhost:8080/fpt-event-management/LoginGoogleController&response_type=code&client_id=993666404516-na65l2e1omssrp3efqavsov05bj57nif.apps.googleusercontent.com&approval_prompt=force";
+        response.sendRedirect(url);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
