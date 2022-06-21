@@ -22,7 +22,7 @@ import sample.dto.EventDTO;
 @WebServlet(name = "DetailEventHomeController", urlPatterns = {"/DetailEventHomeController"})
 public class DetailEventHomeController extends HttpServlet {
 
-    private static final String ERROR = "home.jsp";
+    private static final String ERROR = "error.jsp";
     private static final String SUCCESS = "detailHome.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -30,19 +30,28 @@ public class DetailEventHomeController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            System.out.println();
-            HttpSession session = request.getSession();
-            int eventID = 0;
-            String eventIDSession = (String) session.getAttribute("eventID");
-            if (eventIDSession != null) {
-                eventID = Integer.parseInt(eventIDSession);
-            } else {
-                eventID = Integer.parseInt(request.getParameter("eventID"));
-            }
+              int eventID;
+              HttpSession session = request.getSession();
+              String strEventID = (String) session.getAttribute("eventID");
+              if (strEventID != null && strEventID.length() > 0) {
+                  eventID = Integer.parseInt(strEventID); // login from comment, if strEventID > 0 mean it equal 2 or 3 or any int number               
+              } else {
+                  eventID = Integer.parseInt(request.getParameter("eventID")); // if eventID = "", user click detail event to get new eventID,  use this case (login from login button)
+              }
+//            int eventID = 0;
+//            String eventIDSession = (String) session.getAttribute("eventID");
+//            if (eventIDSession != null) {
+//            eventID = Integer.parseInt(eventIDSession);
+//            } else {
+//                eventID = Integer.parseInt(request.getParameter("eventID"));
+//            }
+
             
-            session.removeAttribute("eventID"); // Delete eventID in session scope
+            System.out.println("DetailEventController strEventID = " + strEventID);
+            
+            session.removeAttribute("eventID");
             EventDAO dao = new EventDAO();
-            EventDTO oneEvent = dao.getDetailEvent(eventID);          
+            EventDTO oneEvent = dao.getDetailEvent(eventID);  // Get detail event       
             if (oneEvent != null) {
                 request.setAttribute("DETAIL_EVENT", oneEvent);
                 

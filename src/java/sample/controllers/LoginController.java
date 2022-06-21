@@ -57,7 +57,7 @@ public class LoginController extends HttpServlet {
                     request.setAttribute("ERROR", "Your role is not supported!");
                 } 
                 
-                if (eventID != null) {
+                if (eventID.length() > 0) {
                     url = "DetailEventHomeController";
                 }
             } else {

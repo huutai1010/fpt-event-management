@@ -29,16 +29,21 @@ import sample.dto.UserDTO;
  */
 @WebServlet(name = "LoginGoogleController", urlPatterns = {"/LoginGoogleController"})
 public class LoginGoogleController extends HttpServlet {
+    
+    private static final String ERROR = "error.jsp";
+    private static final String DETAIL_EVENT_HOME_CONTROLLER = "DetailEventHomeController";
+    private static final String HOME = "home.jsp";
+    
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String url = "error.jsp";
+        String url = ERROR;
         System.out.println(request.getParameter("code"));
         String code = request.getParameter("code");
         //String eventID = (String) request.getAttribute("eventID"); // get eventID
         HttpSession session = request.getSession();
-        String eventID = (String)session.getAttribute("eventID");
-        System.out.println("LoginGoogleController eventID  ==================" + eventID); // Đã có eventID
+        String eventID = (String) session.getAttribute("eventID"); // get eventID from session
+        System.out.println("LoginGoogleController eventID  ==================" + (eventID.equals("") ? "eventID not null but \"\"" : eventID)); // Đã có eventID
         String accessToken = getToken(code);
         System.out.println("accessToken = " + accessToken);
         UserGoogleDTO user = getUserInfo(accessToken);
@@ -52,22 +57,33 @@ public class LoginGoogleController extends HttpServlet {
                 loginUser = new UserDTO(1, email, "", name, picture, "", "", "US");
                 boolean check = userDAO.registerNewUser(loginUser);
                 if (check) {
-                    System.out.println("Register successfully");
+                    System.out.println("create google user successfully");
                 } else {
-                    System.out.println("Register fail!!!");
+                    System.out.println("create google user fail!!!");
                 }
-                loginUser = userDAO.checkEmailAccountAlreadyExist(email); // loginUser
-            }
-            if (loginUser != null) {
-                url = "home.jsp";
+                loginUser = userDAO.checkEmailAccountAlreadyExist(email); 
+            } 
+            // if loginUser google not in database => create in database and get login user dto again            
+            // now we have loginuser
+            // if eventID is not null and not = "" => login from detail event
+            // if eventID = "" => login from login.jsp
+                    
+            
+            if (eventID.equals("")) {
+                url = HOME;
+                System.out.println("Đăng nhập từ nút Login");
+            } else if (eventID.length() > 0) {
+                url = DETAIL_EVENT_HOME_CONTROLLER;
+                System.out.println("Đăng nhập từ Comment");
             }
             
-            if (eventID != null) {
-                url = "DetailEventHomeController";
-                System.out.println("Dòng này chạy nè");
-            }
             
             session.setAttribute("LOGIN_USER", loginUser);
+            //session.removeAttribute("eventID");
+            request.setAttribute("eventID", eventID);
+            
+            System.out.println("eventID.equals(\"\") = " + eventID.equals(""));
+            System.out.println("eventID = hahaha " + eventID);
         } catch (Exception e) {
             log("Error at LoginGoogleController: " + e.toString());
         } finally {
