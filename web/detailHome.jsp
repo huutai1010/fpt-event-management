@@ -4,6 +4,10 @@
     Author     : DELL
 --%>
 
+<%@page import="sample.dto.CommentDTO"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.List"%>
+<%@page import="sample.dao.CommentDAO"%>
 <%@page import="sample.dto.UserDTO"%>
 <%@page import="sample.dto.EventDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -35,7 +39,7 @@
         <!-- Animation css -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
         <link rel="stylesheet" href="./lib/WOW-master/css/libs/animate.css" />
-        <link rel="stylesheet" href="CSS/DetailLogin.css">
+        <link rel="stylesheet" href="CSS/DetailHome.css">
     </head>
     <body>
         <%
@@ -43,7 +47,7 @@
             UserDTO loginUser = (UserDTO) session.getAttribute("LOGIN_USER");
 
         %>
-        <%            String message = (String) request.getAttribute("MESSAGE");
+        <%  String message = (String) request.getAttribute("MESSAGE");
             if (message == null) {
                 message = "";
             }
@@ -92,7 +96,10 @@
             <main>
                 <section class="background">
                     <div class="background_img">
-                        <img src="<%=event.getImage()%>" alt="...">
+                        <%
+                            String backgroundImage = "";
+                        %>
+                        <img src="<%=event.getImage() != null ? event.getImage() : backgroundImage%>" alt="...">
                     </div>
                 </section>
 
@@ -131,7 +138,8 @@
 
                                 %>
                                 <button class="btn btn-success">UnRegister</button>
-                                <%                                } else {
+                                <%  
+                                    } else {
                                 %>
                                 <a href="MainController?action=Register&eventID=<%= event.getEventID()%>&userID=<%= loginUser.getUserID()%>&image=<%= event.getImage()%>&categoryName=<%= event.getCategoryName()%>
                                    &locationName=<%= event.getLocationName()%>&startTime=<%= event.getStartTime()%>&endTime=<%= event.getEndTime()%>&numberOfAttendees=<%= event.getNumberOfAttendees()%>&formality=<%= event.getFormality()%>
@@ -204,64 +212,77 @@
                             <h3>Bình luận</h3>
                         </div>
 
+                        
+                        
+                            
+                        
+                        
                         <!--start container_comment-->
                         <div class="container_comment">
+                            
+                            
+                        <%
+                            CommentDAO commentDAO = new CommentDAO();
+                            List<CommentDTO> listComments = commentDAO.getListComments(event.getEventID());
+                            System.out.println("SIZE LIST COMMENTS = " + listComments.size());
+                            for (int i = 0; i < listComments.size(); i++) { 
+                            CommentDTO comment = listComments.get(i);
+                        %>
                             <div class="comment_container opened" id="first_comment">
                                 <div class="comment_card">
                                     <div class="comment_title">
                                         <a href="#">
-                                            <img src="./img/02-3.jpg" alt="">
-                                            <span>Nguyễn Văn A</span>
+                                            <% String defaultAvatar = "./img/default.png";%>
+                                            <img src="<%=comment.getAvatar() == null ? defaultAvatar : comment.getAvatar() %>" alt=""/>
+                                            <span><%=comment.getUserName()%></span>
                                         </a>
                                         <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil modi ipsum
-                                            doloremque
-                                            earum illo maiores quo omnis. Maiores, repellat hic.
+                                            <%=comment.getCommentDetail()%>
                                         </p>
                                     </div>                                  
                                 </div>
                             </div>
-<!--                            <div class="comment_container opened" id="first_comment">
-                                <div class="comment_card">
-                                    <div class="comment_title">
-                                        <a href="#">
-                                            <img src="./img/02-3.jpg" alt="">
-                                            <span>Nguyễn Văn A</span>
-                                        </a>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil modi ipsum
-                                            doloremque
-                                            earum illo maiores quo omnis. Maiores, repellat hic.
-                                        </p>
-                                    </div>                                  
-                                </div>
-                            </div>-->
-<!--                            <div class="comment_container opened" id="first_comment">
-                                <div class="comment_card">
-                                    <div class="comment_title">
-                                        <a href="#">
-                                            <img src="./img/02-3.jpg" alt="">
-                                            <span>Nguyễn Văn A</span>
-                                        </a>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil modi ipsum
-                                            doloremque
-                                            earum illo maiores quo omnis. Maiores, repellat hic.
-                                        </p>
-                                    </div>                                 
-                                </div>
-                            </div>                                               -->
+                            
+                            
+                        <%
+                            }
+                        %>
+                            
+                            
+                            
+                            
+                                                                    
                         </div>
                         <!--end container_comment-->
                         <!--comment-->
                         <div class="comment-text bg-line px-5 pt-2">
+                            <form action="MainController">
                             <div class="d-flex flex-row align-items-start">
-                                <img src="./img/02-3.jpg" alt="" class="rounded-circle" width="45">
-                                <textarea class="form-control ml-1 shadow-none textarea"></textarea>
+                                <img src="<%=loginUser.getUrlAvatar()%>" alt="" class="rounded-circle" width="45">
+                                <input class="form-control ml-1 shadow-none textarea" name="commentDetail"/>
                             </div>
                             <div class="mt-2 text-right">
-                                <button class="btn btn-success btn-sm shadow-none" type="button">Đăng</button>
+                                <input type="hidden" name="action" value="PublishComment"/>
+                                <input type="hidden" name="userID" value="<%=loginUser.getUserID()%>">
+                                <input type="hidden" name="eventID" value="<%=event.getEventID()%>">
+                                
+                                
+                                <input type="hidden" name="categoryName" value="<%=event.getCategoryName()%>"/>
+                                <input type="hidden" name="locationName" value="<%=event.getLocationName()%>"/>
+                                <input type="hidden" name="eventName" value="<%=event.getEventName()%>"/>
+                                <input type="hidden" name="eventDetail" value="<%=event.getEventDetail()%>"/>
+                                <input type="hidden" name="image" value="<%=event.getImage()%>"/>
+                                <input type="hidden" name="startTime" value="<%=event.getStartTime()%>"/>
+                                <input type="hidden" name="endTime" value="<%=event.getEndTime()%>"/>
+                                <input type="hidden" name="numberOfAttendees" value="<%=event.getNumberOfAttendees()%>"/>
+                                <input type="hidden" name="formality" value="<%=event.getFormality()%>"/>
+                                <input type="hidden" name="ticketPrice" value="<%=event.getTicketPrice()%>"/>
+                                
+                                
+                                
+                                <input class="btn btn-success btn-sm shadow-none" type="submit" value="Đăng"/>
                             </div>
+                            </form>
                         </div>
 
 

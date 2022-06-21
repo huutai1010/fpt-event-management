@@ -35,6 +35,10 @@ public class LoginGoogleController extends HttpServlet {
         String url = "error.jsp";
         System.out.println(request.getParameter("code"));
         String code = request.getParameter("code");
+        //String eventID = (String) request.getAttribute("eventID"); // get eventID
+        HttpSession session = request.getSession();
+        String eventID = (String)session.getAttribute("eventID");
+        System.out.println("LoginGoogleController eventID  ==================" + eventID); // Đã có eventID
         String accessToken = getToken(code);
         System.out.println("accessToken = " + accessToken);
         UserGoogleDTO user = getUserInfo(accessToken);
@@ -57,7 +61,12 @@ public class LoginGoogleController extends HttpServlet {
             if (loginUser != null) {
                 url = "home.jsp";
             }
-            HttpSession session = request.getSession();
+            
+            if (eventID != null) {
+                url = "DetailEventHomeController";
+                System.out.println("Dòng này chạy nè");
+            }
+            
             session.setAttribute("LOGIN_USER", loginUser);
         } catch (Exception e) {
             log("Error at LoginGoogleController: " + e.toString());

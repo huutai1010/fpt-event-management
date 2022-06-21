@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -31,8 +32,15 @@ public class LoginGoogleAccountController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = "https://accounts.google.com/o/oauth2/auth?scope=email%20profile%20openid&&redirect_uri=http://localhost:8080/fpt-event-management/LoginGoogleController&response_type=code&client_id=993666404516-na65l2e1omssrp3efqavsov05bj57nif.apps.googleusercontent.com&approval_prompt=force";
+        String eventID = request.getParameter("eventID");
+        System.out.println("LoginAccount eventID ==================" + eventID);
+        //request.setAttribute("eventID", eventID);
+        String url = "https://accounts.google.com/o/oauth2/auth?scope=email%20profile%20openid&&redirect_uri=http://localhost:8080/fpt-event-management/LoginGoogleController&response_type=code&client_id=993666404516-na65l2e1omssrp3efqavsov05bj57nif.apps.googleusercontent.com&approval_prompt=force&eventID=3&eventID="+eventID;
         response.sendRedirect(url);
+        //request.getRequestDispatcher(url).forward(request, response);
+        //request.getRequestDispatcher(url).include(request, response);
+        HttpSession session = request.getSession();
+        session.setAttribute("eventID", eventID);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

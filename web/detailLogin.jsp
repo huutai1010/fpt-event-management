@@ -4,6 +4,8 @@
     Author     : DELL
 --%>
 
+<%@page import="sample.dto.CommentDTO"%>
+<%@page import="sample.dao.CommentDAO"%>
 <%@page import="java.util.List"%>
 <%@page import="sample.dto.EventDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -35,7 +37,7 @@
         <!-- Animation css -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
         <link rel="stylesheet" href="./lib/WOW-master/css/libs/animate.css" />
-        <link rel="stylesheet" href="CSS/Detail.css">
+        <link rel="stylesheet" href="CSS/DetailLogin.css">
     </head>
     <body>
         <div id="blur" class="blur">
@@ -111,10 +113,7 @@
                         </div>
                     </div>
                 </section>
-                <%
-                    if (event != null) {
 
-                %>
                 <section class="nav">
                     <div class="container">
                         <nav class="nav">
@@ -163,74 +162,52 @@
                         </div>
                     </div>
                 </section>
-                <%
-                    }
-                %>
 
-                
+
                 <section id="comment" class="comment">
                     <div class="container">
                         <div class="comment_head">
                             <h3>Bình luận</h3>
                         </div>
                         <div class="container_comment">
-                            <div class="comment_container opened" >
+
+                            <%
+                            CommentDAO commentDAO = new CommentDAO();
+                            List<CommentDTO> listComments = commentDAO.getListComments(event.getEventID());
+                            System.out.println("SIZE LIST COMMENTS = " + listComments.size());
+                            for (int i = 0; i < listComments.size(); i++) { 
+                            CommentDTO comment = listComments.get(i);
+                        %>
+                            <div class="comment_container opened" id="first_comment">
                                 <div class="comment_card">
                                     <div class="comment_title">
                                         <a href="#">
-                                            <img src="./img/02-3.jpg" alt="">
-                                            <span>Nguyễn Văn A</span>
+                                            <% String defaultAvatar = "./img/default.png";%>
+                                            <img src="<%=comment.getAvatar() == null ? defaultAvatar : comment.getAvatar() %>" alt=""/>
+                                            <span><%=comment.getUserName()%></span>
                                         </a>
                                         <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil modi ipsum
-                                            doloremque
-                                            earum illo maiores quo omnis. Maiores, repellat hic.
+                                            <%=comment.getCommentDetail()%>
                                         </p>
-                                    </div>
+                                    </div>                                  
                                 </div>
                             </div>
-
-                            <div class="comment_container opened" >
-                                <div class="comment_card">
-                                    <div class="comment_title">
-                                        <a href="#">
-                                            <img src="./img/02-3.jpg" alt="">
-                                            <span>Nguyễn Văn A</span>
-                                        </a>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil modi ipsum
-                                            doloremque
-                                            earum illo maiores quo omnis. Maiores, repellat hic.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="comment_container opened" >
-                                <div class="comment_card">
-                                    <div class="comment_title">
-                                        <a href="#">
-                                            <img src="./img/02-3.jpg" alt="">
-                                            <span>Nguyễn Văn A</span>
-                                        </a>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil modi ipsum
-                                            doloremque
-                                            earum illo maiores quo omnis. Maiores, repellat hic.
-                                        </p>
-                                    </div>
-                                </div>
+                            
+                            
+                        <%
+                            }
+                        %>
+                                                                                                        
+                            
+                        </div>
+                        
+                        <div class="comment-text bg-line px-5 pt-2">                          
+                            <div style="text-align: center">
+                                <button class="btn btn-success btn-sm shadow-none" type="button"><a href="sign.jsp?eventID=<%=event.getEventID()%>" style="text-decoration: none; color: white">Đăng nhập để bình luận</a></button>
                             </div>
                         </div>
-                        <div class="comment-text bg-line px-5 pt-2">
-                            <div class="d-flex flex-row align-items-start">
-                                <img src="./img/02-3.jpg" alt="" class="rounded-circle" width="45">
-                                <textarea class="form-control ml-1 shadow-none textarea"></textarea>
-                            </div>
-                            <div class="mt-2 text-right">
-                                <button class="btn btn-success btn-sm shadow-none" type="button">Đăng</button>
-                            </div>
-                        </div>
+                        
+                        
                     </div>
                 </section>       
             </main>

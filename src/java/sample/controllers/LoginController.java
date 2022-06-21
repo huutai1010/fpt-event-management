@@ -37,10 +37,12 @@ public class LoginController extends HttpServlet {
         try {
             String userEmail = request.getParameter("userEmail");
             String password = request.getParameter("password");
+            String eventID = request.getParameter("eventID");
             UserDAO dao = new UserDAO();
             UserDTO loginUser = dao.checkLogin(userEmail, password);
             //xacs thuc
             if (loginUser != null) {
+                request.setAttribute("eventID", eventID);
                 //phan quyen
                 String roleName = loginUser.getRoleName();
                 HttpSession session = request.getSession();
@@ -53,6 +55,10 @@ public class LoginController extends HttpServlet {
                     url = MENTOR_PAGE;
                 } else {
                     request.setAttribute("ERROR", "Your role is not supported!");
+                } 
+                
+                if (eventID != null) {
+                    url = "DetailEventHomeController";
                 }
             } else {
                 request.setAttribute("ERROR", "Incorrect userEmail or password!");

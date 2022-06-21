@@ -6,50 +6,54 @@ package sample.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import sample.dao.EventDAO;
+import sample.dao.CommentDAO;
 import sample.dto.EventDTO;
 
 /**
  *
  * @author maihuutai
  */
-@WebServlet(name = "DetailEventHomeController", urlPatterns = {"/DetailEventHomeController"})
-public class DetailEventHomeController extends HttpServlet {
+@WebServlet(name = "CommentController", urlPatterns = {"/CommentController"})
+public class CommentController extends HttpServlet {
 
-    private static final String ERROR = "home.jsp";
+    private static final String ERROR = "error.jsp";
     private static final String SUCCESS = "detailHome.jsp";
-
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            System.out.println();
-            HttpSession session = request.getSession();
-            int eventID = 0;
-            String eventIDSession = (String) session.getAttribute("eventID");
-            if (eventIDSession != null) {
-                eventID = Integer.parseInt(eventIDSession);
-            } else {
-                eventID = Integer.parseInt(request.getParameter("eventID"));
-            }
             
-            session.removeAttribute("eventID"); // Delete eventID in session scope
-            EventDAO dao = new EventDAO();
-            EventDTO oneEvent = dao.getDetailEvent(eventID);          
-            if (oneEvent != null) {
-                request.setAttribute("DETAIL_EVENT", oneEvent);
-                
+            int eventID = Integer.parseInt(request.getParameter("eventID"));
+            int userID = Integer.parseInt(request.getParameter("userID"));
+            String categoryName = request.getParameter("categoryName");
+            String locationName = request.getParameter("locationName");
+            String eventName = request.getParameter("eventName");
+            String eventDetail = request.getParameter("eventDetail");
+            String image = request.getParameter("image");
+            Date startTime = Date.valueOf(request.getParameter("startTime"));
+            Date endTime = Date.valueOf(request.getParameter("endTime"));
+            int numberOfAttendees = Integer.parseInt(request.getParameter("numberOfAttendees"));
+            String formality = request.getParameter("formality");
+            float ticketPrice = Float.parseFloat(request.getParameter("ticketPrice"));
+                                
+            String commentDetail = request.getParameter("commentDetail");
+            CommentDAO commentDAO = new CommentDAO();
+            boolean check = commentDAO.createComment(userID, eventID, commentDetail);
+            if (check) {
+                EventDTO event = new EventDTO(eventID, categoryName, locationName, eventName, eventDetail, image, startTime, endTime, numberOfAttendees, formality, ticketPrice);
+                request.setAttribute("DETAIL_EVENT",  event);
                 url = SUCCESS;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log("Error at CommentController", e);
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

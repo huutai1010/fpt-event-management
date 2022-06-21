@@ -455,3 +455,47 @@ body {
     text-align: center;
     padding: 20px 0;
 }
+
+
+/* 
+New
+*/
+
+/* header_logo */
+.header .header_container .header_logo {
+    padding: 7px 7px;
+}
+
+.header .header_container .header_logo a img {
+    width: 70px;
+    height: 70px;
+    border-radius: 30px;
+}
+
+/* header_icon */
+.header .header_container .header_icon {
+    color: #a0a3a7;
+}
+
+.header .header_container .header_icon i {
+    font-size: 30px;
+    padding-right: 10px;
+    /* color: #a0a3a7; */
+}
+
+.header .header_container .header_icon a {
+    text-decoration: none;
+    color: #fff;
+    cursor: pointer;
+
+}
+
+.header .header_container .header_icon a span {
+    font-size: 20px;
+    font-weight: 200;
+    color: #fff;
+}
+
+.header .header_container .header_icon a :hover {
+    color: #EB4335;
+}

@@ -21,17 +21,20 @@
             if (userError == null) {
                 userError = new UserError();
             }
-        %>
-        <%
+        
             String message_sign = (String) request.getAttribute("MESSAGE_SIGN");
             if (message_sign == null) {
                 message_sign = "";
             }
-        %>
-        <%
+        
             String error = (String) request.getAttribute("ERROR");
             if (error == null) {
                 error = "";
+            }
+            
+            String eventID = (String) request.getParameter("eventID");
+            if (eventID == null) {
+            eventID = "";
             }
         %>
         <div>
@@ -68,10 +71,11 @@
                         <span>or use your account</span>
                         <input type="email" placeholder="Email" name="userEmail" required=""/>
                         <input type="password" placeholder="Password" name="password" required=""/>
+                        <input type="hidden" name="eventID" value="<%=eventID%>"/> <!--SEND eventID  to MainController-->
                         <a href="#">Forgot your password?</a>
                         <button type="submit" name="action" value="Login">Sign In</button>
                         <div class="social-container">                    
-                            <a href="MainController?action=LoginGoogleAccount" class="social"><i class="fab fa-google"></i></a>
+                            <a href="MainController?action=LoginGoogleAccount&eventID=<%=eventID%>" class="social"><i class="fab fa-google"></i></a>
                         </div>
                         <div>
                             <a href="login.jsp" style="color: orange">Back to home</a>
