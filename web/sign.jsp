@@ -75,7 +75,7 @@
                         <a href="#">Forgot your password?</a>
                         <button type="submit" name="action" value="Login">Sign In</button>
                         <div class="social-container">                    
-                            <a href="MainController?action=LoginGoogleAccount&eventID=<%=eventID%>" class="social"><i class="fab fa-google"></i></a>
+                            <a href="MainController?action=LoginGoogleAccount" class="social"><i class="fab fa-google"></i></a>
                         </div>
                         <div>
                             <a href="login.jsp" style="color: orange">Back to home</a>
