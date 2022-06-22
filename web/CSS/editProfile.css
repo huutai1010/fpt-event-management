@@ -253,3 +253,21 @@ Viết cho Văn Tùng
     text-align: center;
     padding: 20px 0;
 }
+
+figure {
+    width: 25%;
+    display: flex !important;
+}
+
+img{
+    width: 100%;
+}
+
+figcaption {
+    height: 20px;
+    padding-top: 15px;
+    display: none !important;
+}
+
+
+

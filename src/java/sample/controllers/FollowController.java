@@ -6,58 +6,56 @@ package sample.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import sample.dao.EventDAO;
+import sample.dao.FollowDAO;
 import sample.dto.EventDTO;
 
 /**
  *
- * @author maihuutai
+ * @author DELL
  */
-@WebServlet(name = "DetailEventHomeController", urlPatterns = {"/DetailEventHomeController"})
-public class DetailEventHomeController extends HttpServlet {
+@WebServlet(name = "FollowController", urlPatterns = {"/FollowController"})
+public class FollowController extends HttpServlet {
 
-    private static final String ERROR = "error.jsp";
-    private static final String SUCCESS = "detailHome.jsp";
-
+    private static final String ERROR="error.jsp";
+    private static final String SUCCESS="detailHome.jsp";
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
-        try {
-              int eventID;
-              HttpSession session = request.getSession();
-              String strEventID = (String) session.getAttribute("eventID");
-              if (strEventID != null && strEventID.length() > 0) {
-                  eventID = Integer.parseInt(strEventID); // login from comment, if strEventID > 0 mean it equal 2 or 3 or any int number               
-              } else {
-                  eventID = Integer.parseInt(request.getParameter("eventID")); // if eventID = "", user click detail event to get new eventID,  use this case (login from login button)
-              }
-//            int eventID = 0;
-//            String eventIDSession = (String) session.getAttribute("eventID");
-//            if (eventIDSession != null) {
-//            eventID = Integer.parseInt(eventIDSession);
-//            } else {
-//                eventID = Integer.parseInt(request.getParameter("eventID"));
-//            }           
-            System.out.println("DetailEventController strEventID = " + strEventID);
+        String url=ERROR;
+        try{
+            int eventID = Integer.parseInt(request.getParameter("eventID"));
+            int userID = Integer.parseInt(request.getParameter("userID"));
+            String categoryName = request.getParameter("categoryName");
+            String locationName = request.getParameter("locationName");
+            String eventName = request.getParameter("eventName");
+            String eventDetail = request.getParameter("eventDetail");
+            String image = request.getParameter("image");
+            Date startTime = Date.valueOf(request.getParameter("startTime"));
+            Date endTime = Date.valueOf(request.getParameter("endTime"));
+            int numberOfAttendees = Integer.parseInt(request.getParameter("numberOfAttendees"));
+            String formality = request.getParameter("formality");
+            float ticketPrice = Float.parseFloat(request.getParameter("ticketPrice"));
             
-            session.removeAttribute("eventID");
-            EventDAO dao = new EventDAO();
-            EventDTO oneEvent = dao.getDetailEvent(eventID);  // Get detail event       
-            if (oneEvent != null) {
-                request.setAttribute("DETAIL_EVENT", oneEvent);
-                
+            FollowDAO followDAO = new FollowDAO();
+            boolean check = followDAO.FollowEvent(userID, eventID);
+            if(check){
+                String message = "Follow Successfully";
+                EventDTO event = new EventDTO(eventID, categoryName, locationName, eventName, eventDetail, image, startTime, endTime, numberOfAttendees, formality, ticketPrice);
+                request.setAttribute("DETAIL_EVENT",  event);
+                request.setAttribute("FOLLOW_CHECK", check);
+                request.setAttribute("MESSAGE", message);
                 url = SUCCESS;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
+        }catch(Exception e){
+            log("Error at RegisterController: " + e.toString());
+        }finally{
             request.getRequestDispatcher(url).forward(request, response);
         }
     }

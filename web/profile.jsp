@@ -83,8 +83,8 @@
             <div class="container">
                 <div class="profile">
                     <div class="profile__left">
-                        <img src="<%= loginUser.getUrlAvatar()%>" width="150" alt="...">
-                        <p>Avatar</p>
+                        <img src="<%= loginUser.getUrlAvatar()%>" width="100%"  height="100%" alt="...">
+                        <p></p>
                     </div>
     
                     <div class="profile__right">

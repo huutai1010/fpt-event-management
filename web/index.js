@@ -112,7 +112,7 @@ function previewImg() {
     for (i of fileInput.files) {
         let reader = new FileReader();
         let figure = document.createElement("div");
-        let figCap = document.createElement("figcaption");U
+        let figCap = document.createElement("figcaption");
         figCap.innerText = "";
         figure.appendChild(figCap);
         reader.onload = () => {     
@@ -124,6 +124,33 @@ function previewImg() {
         reader.readAsDataURL(i);
     }
 }
+
+/*let fileinput = document.getElementById("file-input");
+let imageContainer = document.getElementById("images");
+let numOfFiles = document.getElementById("num-of-files");
+let removeFiles = document.getElementById("removeFiles");
+
+function preview() {
+    imageContainer.innerHTML = "";
+    numOfFiles.textContent = `${fileInput.files.length}
+    Files Selected`;
+    
+    for(i of fileInput.files){
+        let reader = new FileReader();
+        let figure = document.createElement("figure");
+        let figCap = document.createElement("figcaption");
+        
+        figCap.innerHTML = i.name;
+        figure.appendChild(figCap);
+        reader.onload=()=> {
+            let img = document.createElement("img");
+            img.setAttribute("src", reader.result);
+            figure.insertBefore(img,figCap);
+        }
+        imageContainer.appendChild(figure);
+        reader.readAsDataURL(i);
+    }
+}*/
 
 const showContainers = document.querySelectorAll('.show-replies');
 showContainers.forEach(btn => btn.addEventListener('click', (e) => {

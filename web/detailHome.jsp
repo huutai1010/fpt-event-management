@@ -137,9 +137,11 @@
                                     if (message.equals("Register successfully")) {
 
                                 %>
-                                <button class="btn btn-success">UnRegister</button>
-                                <%  
-                                    } else {
+                                <a href="MainController?action=UnRegister&eventID=<%= event.getEventID()%>&userID=<%= loginUser.getUserID()%>&image=<%= event.getImage()%>&categoryName=<%= event.getCategoryName()%>
+                                   &locationName=<%= event.getLocationName()%>&startTime=<%= event.getStartTime()%>&endTime=<%= event.getEndTime()%>&numberOfAttendees=<%= event.getNumberOfAttendees()%>&formality=<%= event.getFormality()%>
+                                   &ticketPrice=<%= event.getTicketPrice()%>&eventDetail=<%= event.getEventDetail()%>&eventName=<%= event.getEventName()%>" style="text-decoration: none"><button class="btn btn-success" name="action" value="UnRegister">UnRegister</button></a>
+                                <%                                
+                                    }else {
                                 %>
                                 <a href="MainController?action=Register&eventID=<%= event.getEventID()%>&userID=<%= loginUser.getUserID()%>&image=<%= event.getImage()%>&categoryName=<%= event.getCategoryName()%>
                                    &locationName=<%= event.getLocationName()%>&startTime=<%= event.getStartTime()%>&endTime=<%= event.getEndTime()%>&numberOfAttendees=<%= event.getNumberOfAttendees()%>&formality=<%= event.getFormality()%>
@@ -148,8 +150,20 @@
                                         }
                                     %>
 
+                                <%
+                                    if (message.equals("Follow Successfully")) {
+                                %>
+                                <button class="btn btn-primary">UnFollow</button>
+                                <%
+                                   }else {
+                                %>
 
-                                <button class="btn btn-primary">Follow</button>
+                                <a href="MainController?action=Follow&eventID=<%= event.getEventID()%>&userID=<%= loginUser.getUserID()%>&image=<%= event.getImage()%>&categoryName=<%= event.getCategoryName()%>
+                                   &locationName=<%= event.getLocationName()%>&startTime=<%= event.getStartTime()%>&endTime=<%= event.getEndTime()%>&numberOfAttendees=<%= event.getNumberOfAttendees()%>&formality=<%= event.getFormality()%>
+                                   &ticketPrice=<%= event.getTicketPrice()%>&eventDetail=<%= event.getEventDetail()%>&eventName=<%= event.getEventName()%>" style="text-decoration: none"><button class="btn btn-primary" name="action" value="Follow">Follow</button></a>
+                                <%
+                                    }
+                                %>
                                 <p></p>
                             </div>
 
@@ -212,28 +226,28 @@
                             <h3>Bình luận</h3>
                         </div>
 
-                        
-                        
-                            
-                        
-                        
+
+
+
+
+
                         <!--start container_comment-->
                         <div class="container_comment">
-                            
-                            
-                        <%
-                            CommentDAO commentDAO = new CommentDAO();
-                            List<CommentDTO> listComments = commentDAO.getListComments(event.getEventID());
-                            System.out.println("SIZE LIST COMMENTS = " + listComments.size());
-                            for (int i = 0; i < listComments.size(); i++) { 
-                            CommentDTO comment = listComments.get(i);
-                        %>
+
+
+                            <%
+                                CommentDAO commentDAO = new CommentDAO();
+                                List<CommentDTO> listComments = commentDAO.getListComments(event.getEventID());
+                                System.out.println("SIZE LIST COMMENTS = " + listComments.size());
+                                for (int i = 0; i < listComments.size(); i++) {
+                                    CommentDTO comment = listComments.get(i);
+                            %>
                             <div class="comment_container opened" id="first_comment">
                                 <div class="comment_card">
                                     <div class="comment_title">
                                         <a href="#">
                                             <% String defaultAvatar = "./img/default.png";%>
-                                            <img src="<%=comment.getAvatar() == null ? defaultAvatar : comment.getAvatar() %>" alt=""/>
+                                            <img src="<%=comment.getAvatar() == null ? defaultAvatar : comment.getAvatar()%>" alt=""/>
                                             <span><%=comment.getUserName()%></span>
                                         </a>
                                         <p>
@@ -242,46 +256,46 @@
                                     </div>                                  
                                 </div>
                             </div>
-                            
-                            
-                        <%
-                            }
-                        %>
-                            
-                            
-                            
-                            
-                                                                    
+
+
+                            <%
+                                }
+                            %>
+
+
+
+
+
                         </div>
                         <!--end container_comment-->
                         <!--comment-->
                         <div class="comment-text bg-line px-5 pt-2">
                             <form action="MainController">
-                            <div class="d-flex flex-row align-items-start">
-                                <img src="<%=loginUser.getUrlAvatar()%>" alt="" class="rounded-circle" width="45">
-                                <input class="form-control ml-1 shadow-none textarea" name="commentDetail"/>
-                            </div>
-                            <div class="mt-2 text-right">
-                                <input type="hidden" name="action" value="PublishComment"/>
-                                <input type="hidden" name="userID" value="<%=loginUser.getUserID()%>">
-                                <input type="hidden" name="eventID" value="<%=event.getEventID()%>">
-                                
-                                
-                                <input type="hidden" name="categoryName" value="<%=event.getCategoryName()%>"/>
-                                <input type="hidden" name="locationName" value="<%=event.getLocationName()%>"/>
-                                <input type="hidden" name="eventName" value="<%=event.getEventName()%>"/>
-                                <input type="hidden" name="eventDetail" value="<%=event.getEventDetail()%>"/>
-                                <input type="hidden" name="image" value="<%=event.getImage()%>"/>
-                                <input type="hidden" name="startTime" value="<%=event.getStartTime()%>"/>
-                                <input type="hidden" name="endTime" value="<%=event.getEndTime()%>"/>
-                                <input type="hidden" name="numberOfAttendees" value="<%=event.getNumberOfAttendees()%>"/>
-                                <input type="hidden" name="formality" value="<%=event.getFormality()%>"/>
-                                <input type="hidden" name="ticketPrice" value="<%=event.getTicketPrice()%>"/>
-                                
-                                
-                                
-                                <input class="btn btn-success btn-sm shadow-none" type="submit" value="Đăng"/>
-                            </div>
+                                <div class="d-flex flex-row align-items-start">
+                                    <img src="<%=loginUser.getUrlAvatar()%>" alt="" class="rounded-circle" width="45">
+                                    <input class="form-control ml-1 shadow-none textarea" name="commentDetail"/>
+                                </div>
+                                <div class="mt-2 text-right">
+                                    <input type="hidden" name="action" value="PublishComment"/>
+                                    <input type="hidden" name="userID" value="<%=loginUser.getUserID()%>">
+                                    <input type="hidden" name="eventID" value="<%=event.getEventID()%>">
+
+
+                                    <input type="hidden" name="categoryName" value="<%=event.getCategoryName()%>"/>
+                                    <input type="hidden" name="locationName" value="<%=event.getLocationName()%>"/>
+                                    <input type="hidden" name="eventName" value="<%=event.getEventName()%>"/>
+                                    <input type="hidden" name="eventDetail" value="<%=event.getEventDetail()%>"/>
+                                    <input type="hidden" name="image" value="<%=event.getImage()%>"/>
+                                    <input type="hidden" name="startTime" value="<%=event.getStartTime()%>"/>
+                                    <input type="hidden" name="endTime" value="<%=event.getEndTime()%>"/>
+                                    <input type="hidden" name="numberOfAttendees" value="<%=event.getNumberOfAttendees()%>"/>
+                                    <input type="hidden" name="formality" value="<%=event.getFormality()%>"/>
+                                    <input type="hidden" name="ticketPrice" value="<%=event.getTicketPrice()%>"/>
+
+
+
+                                    <input class="btn btn-success btn-sm shadow-none" type="submit" value="Đăng"/>
+                                </div>
                             </form>
                         </div>
 

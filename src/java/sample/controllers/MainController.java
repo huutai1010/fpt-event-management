@@ -38,8 +38,13 @@ public class MainController extends HttpServlet {
     private static final String DETAIL_EVENT_HOME_CONTROLLER="DetailEventHomeController";
     private static final String REGISTER ="Register";
     private static final String REGISTER_CONTROLLER="RegisterController";
+    private static final String UNREGISTER ="UnRegister";
+    private static final String UNREGISTER_CONTROLLER="UnRegisterController";
+    private static final String FOLLOW ="Follow";
+    private static final String FOLLOW_CONTROLLER="FollowController";
     private static final String PUBLISH_COMMENT = "PublishComment";
     private static final String COMMENT_CONTROLLER = "CommentController";
+    
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -69,6 +74,10 @@ public class MainController extends HttpServlet {
                 url = REGISTER_CONTROLLER;
             } else if (PUBLISH_COMMENT.equals(action)) {
                 url = COMMENT_CONTROLLER;
+            } else if (FOLLOW.equals(action)){
+                url = FOLLOW_CONTROLLER;
+            } else if(UNREGISTER.equals(action)) {
+                url = UNREGISTER_CONTROLLER;
             }
         } catch (Exception e) {
             e.printStackTrace();

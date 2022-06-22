@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import sample.dto.EventDTO;
-import sample.dto.RegisterDTO;
 import sample.utils.DBUtils;
 
 /**
@@ -24,7 +23,7 @@ public class EventDAO {
     private static final String SEARCH_ALL_EVENTS = "SELECT eventID, categoryName, locationName, eventName, eventDetail, image, FORMAT(startTime, 'yyyy-MM-dd') AS startTime, FORMAT(endTime, 'yyyy-MM-dd') AS endTime, numberOfAttendees, formality, ticketPrice FROM tblEvent e, tblLocation l, tblCategory c WHERE e.locationID = l.locationID AND e.categoryID = c.categoryID";
     private static final String SEARCH_EVENTS = "SELECT eventID, categoryName, locationName, eventName, eventDetail, image, FORMAT(startTime, 'yyyy-MM-dd') AS startTime, FORMAT(endTime, 'yyyy-MM-dd') AS endTime, numberOfAttendees, formality, ticketPrice FROM tblEvent e, tblLocation l, tblCategory c WHERE e.locationID = l.locationID AND e.categoryID = c.categoryID AND e.eventName LIKE ? AND status = '1'";
     private static final String DETAIL_EVENT = "SELECT categoryName, locationName, eventName, eventDetail, image, FORMAT(startTime, 'yyyy-MM-dd') AS startTime, FORMAT(endTime, 'yyyy-MM-dd') AS endTime, numberOfAttendees, formality, ticketPrice FROM tblEvent e, tblLocation l, tblCategory c WHERE e.locationID = l.locationID AND e.categoryID = c.categoryID AND eventID=? AND status = '1'";
-    private static final String EVENT_REGISTER = "INSERT INTO tblRegister(userID, eventID, registerStatus) VALUES (?,?,1)";
+    
 
     public int checkTimeOfEvent(EventDTO event) {
         Date today = new Date();
@@ -164,28 +163,12 @@ public class EventDAO {
         }
         return event;
     }
+
     
-    public boolean registerEvent(int userID, int eventID) throws ClassNotFoundException, SQLException{
-        boolean check = false;
-        Connection conn = null;
-        PreparedStatement ptm = null;
-        try{
-            conn=DBUtils.getConnection();
-            if(conn != null){
-                ptm= conn.prepareStatement(EVENT_REGISTER);
-                ptm.setInt(1, userID);
-                ptm.setInt(2, eventID);
-                check = ptm.executeUpdate() > 0 ? true : false ;
-            }
-        }finally{
-            if (ptm != null) {
-                ptm.close();
-            }
-            if (conn != null) {
-                conn.close();
-            }
-        }
-        return check;
-        
-    }
+    
+    
+    
+    
+
+    
 }

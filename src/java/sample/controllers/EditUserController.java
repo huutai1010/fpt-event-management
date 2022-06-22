@@ -23,7 +23,7 @@ import sample.dto.UserDTO;
 public class EditUserController extends HttpServlet {
 
     private static final String ERROR = "error.jsp";
-    private static final String SUCCESS = "editProfile.jsp";
+    private static final String SUCCESS = "profile.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
