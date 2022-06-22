@@ -22,14 +22,14 @@ import sample.dto.EventDTO;
 @WebServlet(name = "FollowController", urlPatterns = {"/FollowController"})
 public class FollowController extends HttpServlet {
 
-    private static final String ERROR="error.jsp";
-    private static final String SUCCESS="detailHome.jsp";
-    
+    private static final String ERROR = "error.jsp";
+    private static final String SUCCESS = "detailHome.jsp";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url=ERROR;
-        try{
+        String url = ERROR;
+        try {
             int eventID = Integer.parseInt(request.getParameter("eventID"));
             int userID = Integer.parseInt(request.getParameter("userID"));
             String categoryName = request.getParameter("categoryName");
@@ -42,20 +42,28 @@ public class FollowController extends HttpServlet {
             int numberOfAttendees = Integer.parseInt(request.getParameter("numberOfAttendees"));
             String formality = request.getParameter("formality");
             float ticketPrice = Float.parseFloat(request.getParameter("ticketPrice"));
-            
             FollowDAO followDAO = new FollowDAO();
-            boolean check = followDAO.FollowEvent(userID, eventID);
-            if(check){
-                String message = "Follow Successfully";
-                EventDTO event = new EventDTO(eventID, categoryName, locationName, eventName, eventDetail, image, startTime, endTime, numberOfAttendees, formality, ticketPrice);
-                request.setAttribute("DETAIL_EVENT",  event);
-                request.setAttribute("FOLLOW_CHECK", check);
-                request.setAttribute("MESSAGE", message);
+
+            boolean check = false;
+            boolean isEventFollowExistent = followDAO.isEventFollowExistent(eventID, userID);
+            if (isEventFollowExistent) {
+                check = followDAO.updateEventFollowStatus(eventID, userID, 1);
+            } else {
+                check = followDAO.followEvent(eventID, userID);
+            }
+            String messageFollow = "";
+            if (check) {
+                messageFollow = "Follow Successfully";
                 url = SUCCESS;
             }
-        }catch(Exception e){
+            EventDTO event = new EventDTO(eventID, categoryName, locationName, eventName, eventDetail, image, startTime, endTime, numberOfAttendees, formality, ticketPrice);
+            request.setAttribute("DETAIL_EVENT", event);
+            //request.setAttribute("FOLLOW_CHECK", check);
+            request.setAttribute("MESSAGE_FOLLOW", messageFollow);
+
+        } catch (Exception e) {
             log("Error at RegisterController: " + e.toString());
-        }finally{
+        } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
     }

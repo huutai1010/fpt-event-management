@@ -4,6 +4,8 @@
     Author     : DELL
 --%>
 
+<%@page import="sample.dao.FollowDAO"%>
+<%@page import="sample.dao.RegisterDAO"%>
 <%@page import="sample.dto.CommentDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.List"%>
@@ -45,12 +47,19 @@
         <%
             EventDTO event = (EventDTO) request.getAttribute("DETAIL_EVENT");
             UserDTO loginUser = (UserDTO) session.getAttribute("LOGIN_USER");
+            RegisterDAO registerDAO = new RegisterDAO();
+            FollowDAO followDAO = new FollowDAO();
 
         %>
-        <%  String message = (String) request.getAttribute("MESSAGE");
-            if (message == null) {
-                message = "";
+        <%  String messageRegister = (String) request.getAttribute("MESSAGE_REGISTER");
+            if (messageRegister == null) {
+                messageRegister = "";
             }
+            String messageFllow = (String) request.getAttribute("MESSAGE_FOLLOW");
+             if (messageFllow == null) {
+                messageFllow = "";
+            }
+
         %>
         <div id="blur" class="blur">
 
@@ -134,14 +143,14 @@
 
                             <div class="choose">
                                 <%
-                                    if (message.equals("Register successfully")) {
+                                    if (messageRegister.equals("Register successfully") || registerDAO.isEventRegisterExistentActive(loginUser.getUserID(), event.getEventID())) {
 
                                 %>
                                 <a href="MainController?action=UnRegister&eventID=<%= event.getEventID()%>&userID=<%= loginUser.getUserID()%>&image=<%= event.getImage()%>&categoryName=<%= event.getCategoryName()%>
                                    &locationName=<%= event.getLocationName()%>&startTime=<%= event.getStartTime()%>&endTime=<%= event.getEndTime()%>&numberOfAttendees=<%= event.getNumberOfAttendees()%>&formality=<%= event.getFormality()%>
-                                   &ticketPrice=<%= event.getTicketPrice()%>&eventDetail=<%= event.getEventDetail()%>&eventName=<%= event.getEventName()%>" style="text-decoration: none"><button class="btn btn-success" name="action" value="UnRegister">UnRegister</button></a>
-                                <%                                
-                                    }else {
+                                   &ticketPrice=<%= event.getTicketPrice()%>&eventDetail=<%= event.getEventDetail()%>&eventName=<%= event.getEventName()%>" style="text-decoration: none"><button class="btn btn-success" name="action" value="UnRegister">Un Register</button></a>
+                                <%
+                                } else {
                                 %>
                                 <a href="MainController?action=Register&eventID=<%= event.getEventID()%>&userID=<%= loginUser.getUserID()%>&image=<%= event.getImage()%>&categoryName=<%= event.getCategoryName()%>
                                    &locationName=<%= event.getLocationName()%>&startTime=<%= event.getStartTime()%>&endTime=<%= event.getEndTime()%>&numberOfAttendees=<%= event.getNumberOfAttendees()%>&formality=<%= event.getFormality()%>
@@ -149,13 +158,15 @@
                                     <%
                                         }
                                     %>
-
+                                    <%-- Start flow --%>
                                 <%
-                                    if (message.equals("Follow Successfully")) {
+                                    if (messageFllow.equals("Follow Successfully") || followDAO.isEventRegisterExistentActive(loginUser.getUserID(), event.getEventID())) {
                                 %>
-                                <button class="btn btn-primary">UnFollow</button>
+                                  <a href="MainController?action=UnFollow&eventID=<%= event.getEventID()%>&userID=<%= loginUser.getUserID()%>&image=<%= event.getImage()%>&categoryName=<%= event.getCategoryName()%>
+                                   &locationName=<%= event.getLocationName()%>&startTime=<%= event.getStartTime()%>&endTime=<%= event.getEndTime()%>&numberOfAttendees=<%= event.getNumberOfAttendees()%>&formality=<%= event.getFormality()%>
+                                   &ticketPrice=<%= event.getTicketPrice()%>&eventDetail=<%= event.getEventDetail()%>&eventName=<%= event.getEventName()%>" style="text-decoration: none"><button class="btn btn-primary" name="action" value="UnFollow">Un Follow</button></a>
                                 <%
-                                   }else {
+                                } else {
                                 %>
 
                                 <a href="MainController?action=Follow&eventID=<%= event.getEventID()%>&userID=<%= loginUser.getUserID()%>&image=<%= event.getImage()%>&categoryName=<%= event.getCategoryName()%>

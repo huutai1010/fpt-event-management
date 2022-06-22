@@ -5,22 +5,22 @@
 package sample.controllers;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import sample.dao.RegisterDAO;
+import sample.dao.FollowDAO;
 import sample.dto.EventDTO;
 
 /**
  *
- * @author DELL
+ * @author Acer
  */
-@WebServlet(name = "RegisterController", urlPatterns = {"/RegisterController"})
-public class RegisterController extends HttpServlet {
+@WebServlet(name = "UnFollowController", urlPatterns = {"/UnFollowController"})
+public class UnFollowController extends HttpServlet {
 
     private static final String ERROR = "error.jsp";
     private static final String SUCCESS = "detailHome.jsp";
@@ -30,6 +30,7 @@ public class RegisterController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
+            System.out.println("Start Page UnRegisterController: ");
             int eventID = Integer.parseInt(request.getParameter("eventID"));
             int userID = Integer.parseInt(request.getParameter("userID"));
             String categoryName = request.getParameter("categoryName");
@@ -42,31 +43,21 @@ public class RegisterController extends HttpServlet {
             int numberOfAttendees = Integer.parseInt(request.getParameter("numberOfAttendees"));
             String formality = request.getParameter("formality");
             float ticketPrice = Float.parseFloat(request.getParameter("ticketPrice"));
-            RegisterDAO registerDAO = new RegisterDAO(); 
-            
-            boolean check = false;
-            boolean isEventRegisterExistent = registerDAO.isEventRegisterExistent(userID, eventID);
-            if (isEventRegisterExistent) {
-                check = registerDAO.updateEventRegisterStatus(userID, eventID, 1);
-            }else{
-                check = registerDAO.registerEvent(userID, eventID);
-            }           
-            String message = "";
-            if(check){
-                message = "Register successfully";
+
+            FollowDAO followDAO = new FollowDAO();
+            boolean check = followDAO.updateEventFollowStatus(eventID, userID, 0);
+            System.out.println("Check = " + check);
+            if (check) {
                 url = SUCCESS;
             }
             EventDTO event = new EventDTO(eventID, categoryName, locationName, eventName, eventDetail, image, startTime, endTime, numberOfAttendees, formality, ticketPrice);
             request.setAttribute("DETAIL_EVENT", event);
-            //request.setAttribute("REGISTER_CHECK", check);
-            
-            request.setAttribute("MESSAGE_REGISTER", message);           
+
         } catch (Exception e) {
-            log("Error at RegisterController: " + e.toString());
+            log("Error at UnRegisterController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

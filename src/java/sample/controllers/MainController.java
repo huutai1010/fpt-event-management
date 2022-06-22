@@ -42,6 +42,8 @@ public class MainController extends HttpServlet {
     private static final String UNREGISTER_CONTROLLER="UnRegisterController";
     private static final String FOLLOW ="Follow";
     private static final String FOLLOW_CONTROLLER="FollowController";
+    private static final String UNFOLLOW ="UnFollow";
+    private static final String UNFOLLOW_CONTROLLER ="UnFollowController";
     private static final String PUBLISH_COMMENT = "PublishComment";
     private static final String COMMENT_CONTROLLER = "CommentController";
     
@@ -76,6 +78,8 @@ public class MainController extends HttpServlet {
                 url = COMMENT_CONTROLLER;
             } else if (FOLLOW.equals(action)){
                 url = FOLLOW_CONTROLLER;
+            } else if (UNFOLLOW.equals(action)){
+                url = UNFOLLOW_CONTROLLER;       
             } else if(UNREGISTER.equals(action)) {
                 url = UNREGISTER_CONTROLLER;
             }

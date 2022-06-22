@@ -19,37 +19,37 @@ import sample.utils.DBUtils;
  */
 public class RegisterDAO {
     
-    private static final String ADD_REGISTER="INSERT INTO tblRegister(registerID, userID, eventID, registerStatus) VALUES (?,?,?,1)" ;
+    //private static final String ADD_REGISTER="INSERT INTO tblRegister(registerID, userID, eventID, registerStatus) VALUES (?,?,?,1)" ;
     private static final String LIST_REGISTER="SELECT registerID, tblRegister.eventID, registerStatus";
     private static final String CREATE_REGISTER_EVENT = "INSERT INTO tblRegister(userID, eventID, registerStatus) VALUES (?,?,1)";
     //private static final String UNREGISTER_EVENT = "UPDATE tblRegister SET registerStatus=? WHERE eventID=? AND userID=? ";
     private static final String UPDATE_EVENT_REGISTER_STATUS="UPDATE tblRegister SET registerStatus=? WHERE eventID=? AND userID=?";
-    private static final String CHECK_REGISTER_EXISTENT = "SELECT userID FROM tblRegister WHERE userID = ? AND eventID=?";
-     
-    public boolean addRegister(RegisterDTO register) throws SQLException, ClassNotFoundException{
-        boolean check=false;
-        Connection conn= null;
-        PreparedStatement stm= null;
-        try{
-            conn=DBUtils.getConnection();
-            if(conn != null){
-                stm = conn.prepareStatement(ADD_REGISTER);
-                stm.setInt(1, register.getRegisterID());
-                stm.setInt(2, register.getUserID());
-                stm.setInt(3, register.getEventID());
-                stm.setInt(4, register.getRegisterStatus());
-                check = stm.executeUpdate() >0 ? true : false;
-            }    
-        }finally{
-            if (stm != null) {
-                stm.close();
-            }
-            if (conn != null) {
-                conn.close();
-            }
-        }
-        return check;
-    }
+    private static final String CHECK_REGISTER_EXISTENT = "SELECT userID,eventID FROM tblRegister WHERE userID = ? AND eventID=?";
+    private static final String CHECK_REGISTER_EXISTENT_ACTIVE = "SELECT userID,eventID FROM tblRegister WHERE userID = ? AND eventID=? AND registerStatus = 1";
+//    public boolean addRegister(RegisterDTO register) throws SQLException, ClassNotFoundException{
+//        boolean check=false;
+//        Connection conn= null;
+//        PreparedStatement stm= null;
+//        try{
+//            conn=DBUtils.getConnection();
+//            if(conn != null){
+//                stm = conn.prepareStatement(ADD_REGISTER);
+//                stm.setInt(1, register.getRegisterID());
+//                stm.setInt(2, register.getUserID());
+//                stm.setInt(3, register.getEventID());
+//                stm.setInt(4, register.getRegisterStatus());
+//                check = stm.executeUpdate() >0 ? true : false;
+//            }    
+//        }finally{
+//            if (stm != null) {
+//                stm.close();
+//            }
+//            if (conn != null) {
+//                conn.close();
+//            }
+//        }
+//        return check;
+//    }
     
     public List<RegisterDTO> getListRegister (int userID) throws SQLException{
         List<RegisterDTO> list = new ArrayList<>();
@@ -110,7 +110,7 @@ public class RegisterDAO {
         return check;
     }
     
-    public boolean registerEvent(int userID, int eventID) throws ClassNotFoundException, SQLException {
+     public boolean registerEvent(int userID, int eventID) throws ClassNotFoundException, SQLException {
         boolean check = false;
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -163,6 +163,42 @@ public class RegisterDAO {
         }
         return check;
     }
+    
+    /* */
+     public boolean isEventRegisterExistentActive(int userID, int eventID) throws SQLException, ClassNotFoundException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(CHECK_REGISTER_EXISTENT_ACTIVE);
+                ptm.setInt(1, userID);
+                ptm.setInt(2, eventID);
+                rs = ptm.executeQuery();
+                if(rs.next()){
+                    check = true;
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }           
+        }
+        return check;
+    }
+    
+    
+    
+    
+    /* */
     
     /* */
     public boolean updateEventRegisterStatus(int userID, int eventID, int registerStatus) throws SQLException, ClassNotFoundException{
