@@ -6,71 +6,47 @@ package sample.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 import sample.dao.FollowDAO;
 import sample.dto.EventDTO;
 
 /**
  *
- * @author DELL
+ * @author Acer
  */
-@WebServlet(name = "FollowController", urlPatterns = {"/FollowController"})
-public class FollowController extends HttpServlet {
+@WebServlet(name = "UpdateListFollowedEventController", urlPatterns = {"/UpdateListFollowedEventController"})
+public class UpdateListFollowedEventController extends HttpServlet {
 
     private static final String ERROR = "error.jsp";
-    private static final String SUCCESS = "UpdateListFollowedEventController";
+    private static final String SUCCESS = "home.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            
-            System.out.println("=================================Ðây là follow controller =================================");
-            
-            int eventID = Integer.parseInt(request.getParameter("eventID"));
-            int userID = Integer.parseInt(request.getParameter("userID"));
-            String categoryName = request.getParameter("categoryName");
-            String locationName = request.getParameter("locationName");
-            String eventName = request.getParameter("eventName");
-            String eventDetail = request.getParameter("eventDetail");
-            String image = request.getParameter("image");
-            Date startTime = Date.valueOf(request.getParameter("startTime"));
-            Date endTime = Date.valueOf(request.getParameter("endTime"));
-            int numberOfAttendees = Integer.parseInt(request.getParameter("numberOfAttendees"));
-            String formality = request.getParameter("formality");
-            float ticketPrice = Float.parseFloat(request.getParameter("ticketPrice"));
-            FollowDAO followDAO = new FollowDAO();
-
-            boolean check = false;
-            boolean isEventFollowExistent = followDAO.isEventFollowExistent(eventID, userID);
-            if (isEventFollowExistent) {
-                check = followDAO.updateEventFollowStatus(eventID, userID, 1);
-            } else {
-                check = followDAO.followEvent(eventID, userID);
-            }
-            String messageFollow = "";
-            if (check) {
-                messageFollow = "Follow Successfully";
-                url = SUCCESS;
-            }
-            EventDTO event = new EventDTO(eventID, categoryName, locationName, eventName, eventDetail, image, startTime, endTime, numberOfAttendees, formality, ticketPrice);
-            request.setAttribute("DETAIL_EVENT", event);
-            //request.setAttribute("FOLLOW_CHECK", check);
             HttpSession session = request.getSession();
-            session.setAttribute("MESSAGE_FOLLOW", messageFollow);
-
+            System.out.println( "============Message follow = "  +session.getAttribute("MESSAGE_FOLLOW") + "==================");
+            
+            int userID = Integer.parseInt(request.getParameter("userID"));
+            FollowDAO followDAO = new FollowDAO();
+            List<EventDTO> followedEvents = followDAO.getListFollowedEvents(userID);
+            request.setAttribute("LIST_FOLLOWED_EVENTS", followedEvents);
+            System.out.println("Ðây Là UpdateListFollowedEventController");
+            url = SUCCESS;
         } catch (Exception e) {
-            log("Error at RegisterController: " + e.toString());
+            log("Error at UpdateListFollowedEventController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

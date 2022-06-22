@@ -4,6 +4,7 @@
     Author     : DELL
 --%>
 
+<%@page import="sample.dao.FollowDAO"%>
 <%@page import="sample.dto.UserDTO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
@@ -104,6 +105,7 @@
                 List<EventDTO> listHappeningEvents = new ArrayList();
                 List<EventDTO> listComingEvents = new ArrayList();
                 List<EventDTO> listTookPlaceEvents = new ArrayList();
+
                 for (EventDTO checkEvent : listAllEvents) {
                     int check = eventDAO.checkTimeOfEvent(checkEvent);
                     if (check == -1) {
@@ -246,11 +248,13 @@
                                             Took place
                                         </a>
                                     </li>
-                                    <li class="nav-item" role="presentation">
-                                        <a class="nav-link" data-toggle="pill" href="#Webside">
-                                            Followed
-                                        </a>
-                                    </li>
+
+                                    <%-- tab follow --%>                                  
+                                        <li class="nav-item" role="presentation">
+                                            <a class="nav-link" data-toggle="pill" href="#Webside">
+                                                Followed
+                                            </a>
+                                        </li>                                  
                                 </ul>
                             </div>
                         </div>
@@ -456,23 +460,32 @@
                             </div>
                             <!-- End Tab 4-->
 
-                            
+
                             <%-- Fllow --%>
                             <!-- Start Tab 5-->
                             <div class="tab-pane fade" id="Webside">
                                 <div class="row">
+                                    <%
+                                        FollowDAO followDAO = new FollowDAO();
+                                        List<EventDTO> listFollowedEvents = followDAO.getListFollowedEvents(loginUser.getUserID());
+                                        if (listFollowedEvents != null) {
+                                            if (listFollowedEvents.size() > 0) {
+                                                for (EventDTO followedEvent : listFollowedEvents) {
+                                    %>
+
                                     <div class="col-12 col-sm-6 col-md-4">
                                         <div class="item shadow overflow-hidden mb-4">
-                                            <a href="#" target="_blank">
+                                            <a href="MainController?action=ShowDetailEventHome&eventID=<%= followedEvent.getEventID()%>" target="_blank">
                                                 <img
-                                                    src="./img/g6.jpg"
+                                                    src="<%=followedEvent.getImage()%>"
                                                     alt="g1"
                                                     class="d-block w-100"
                                                     />
                                                 <div class="info p-3 text-center">
-                                                    <h3>Ngày hội tiếng nhật FPT</h3>
-                                                    <p>Tuesday,28/6/2022</p>
-                                                    <p>Câu lạ bộ Tiếng nhật FPT</p>
+                                                    <h3><%=followedEvent.getEventName()%></h3>
+                                                    <p>Start Time: <%=followedEvent.getStartTime().toString()%></p>
+                                                    <p>End Time: <%=followedEvent.getEndTime().toString()%></p>
+                                                    <p>Location: <%=followedEvent.getLocationName()%></p>
                                                     <div class="content__detail">
                                                         <div class="content__detail-icon">
                                                             <i class="fa fa-heart"></i>
@@ -483,6 +496,13 @@
                                             </a>
                                         </div>
                                     </div>
+
+                                    <%
+                                                }
+                                            }
+                                        }
+                                    %>
+
                                 </div>
                             </div>
                             <!-- End Tab 5-->
