@@ -31,6 +31,15 @@ public class RegisterDAO {
     private static final String SHOW_REGISTERED_EVENT="SELECT *\n" +
 "FROM tblEvent e, tblLocation l, tblCategory c, tblRegister r\n" +
 "WHERE e.categoryID = c.categoryID AND e.locationID = l.locationID AND r.eventID = e.eventID AND r.registerStatus = 1 AND r.userID = ?";
+      
+    //search su kien o trang show list su kien
+    private static final String SEARCH_REGISTERED = "SELECT * FROM tblEvent e, tblLocation l, tblCategory c, tblRegister r\n" +
+"         WHERE e.categoryID = c.categoryID \n" +
+"		 AND e.locationID = l.locationID \n" +
+"		 AND r.eventID = e.eventID\n" +
+"		 AND e.eventName LIKE ?\n" +
+"		 AND r.registerStatus = 1 ";
+    
 //    public boolean addRegister(RegisterDTO register) throws SQLException, ClassNotFoundException{
 //        boolean check=false;
 //        Connection conn= null;
@@ -90,6 +99,7 @@ public class RegisterDAO {
         }
         return list;
     }
+    //--------------------------------------------------------------------------------------------
     public List<EventDTO> getListRegistered (int userID) throws SQLException{
         List<EventDTO> listRegisteredEvents = new ArrayList<>();
         Connection conn = null;
@@ -134,6 +144,53 @@ public class RegisterDAO {
         return listRegisteredEvents;
     }
     
+    //-------------------------------------------------------------
+    
+    public List<EventDTO> getSearchRegistered (String searchKeywordRegister) throws SQLException{
+        List<EventDTO> listSearchRegistered = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try{
+            conn = DBUtils.getConnection();
+            if(conn != null) {
+                stm = conn.prepareStatement(SEARCH_REGISTERED);
+                stm.setString(1, "%" + searchKeywordRegister + "%");
+                rs = stm.executeQuery();
+                while(rs.next()){
+                    int eventID = rs.getInt("eventID");
+                    String categoryName = rs.getString("categoryName");
+                    String locationName = rs.getString("locationName");
+                    String eventName = rs.getString("eventName");
+                    String eventDetail = rs.getString("eventDetail");
+                    String image = rs.getString("image");
+                    Date startTime = rs.getDate("startTime");
+                    Date endTime = rs.getDate("endTime");
+                    int numberOfAttendees = rs.getInt("numberOfAttendees");
+                    String formality = rs.getString("formality");
+                    float ticketPrice = rs.getFloat("ticketPrice");
+                    listSearchRegistered.add(new EventDTO(eventID, categoryName, locationName, eventName, eventDetail, image, startTime, endTime, numberOfAttendees, formality, ticketPrice));
+                    
+                    
+                }
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return listSearchRegistered;
+    }
+    
+    //------------------------------------------------------------------------------------------
     public boolean updateAttendee (int eventID) throws ClassNotFoundException, SQLException{
         boolean check=false;
         Connection con = null;

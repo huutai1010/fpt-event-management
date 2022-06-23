@@ -52,7 +52,8 @@ public class MainController extends HttpServlet {
     private static final String SHOW_REGISTERED_CONTROLLER = "ShowRegisteredController";
     private static final String UNREGISTERV2 = "UnRegisterV2";
     private static final String UNREGISTERV2_CONTROLLER = "UnRegisterControllerV2";
-    
+    private static final String SEARCHREGISTER = "SearchRegister";
+    private static final String SEARCHREGISTER_CONTROLLER = "SearchRegisterController";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -94,6 +95,8 @@ public class MainController extends HttpServlet {
                 url = SHOW_REGISTERED_CONTROLLER;
             }else if(UNREGISTERV2.equals(action)) {
                 url = UNREGISTERV2_CONTROLLER;
+            }else if(SEARCHREGISTER.equals(action)) {
+                url = SEARCHREGISTER_CONTROLLER;
             }
         } catch (Exception e) {
             e.printStackTrace();

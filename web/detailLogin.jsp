@@ -105,8 +105,8 @@
                                 </div>
                             </div>
                             <div class="choose">
-                                <button class="btn btn-success"><a href="sign.jsp"><%= event.getTicketPrice() == 0 ? "Register" : "Buy Ticket"%></a></button>
-                                <button class="btn btn-primary"><a href="sign.jsp">Follow</a></button>
+                                <button class="btn btn-success"><a href="sign.jsp" style="color: white;text-decoration: none"><%= event.getTicketPrice() == 0 ? "Register" : "Buy Ticket"%></a></button>
+                                <button class="btn btn-primary"><a href="sign.jsp" style="color: white;text-decoration: none">Follow</a></button>
                                 <p>100 Follow</p>
                                 <p></p>
                             </div>

@@ -26,6 +26,17 @@
     </head>
 
     <body>
+        <%
+            String error = (String) request.getAttribute("SEARCH_RESGISTER_ERROR");
+            if (error == null) {
+                error = "";
+            }
+            String searchKeywordRegister = request.getParameter("searchKeywordRegister");
+            if (searchKeywordRegister == null) {
+                searchKeywordRegister = "";
+            }
+
+        %>
         <div class="wrapper">
             <header class="header">
                 <div class="header_container container">
@@ -33,13 +44,17 @@
                         <a href="home.jsp"><img src="./img/F Event.png" alt="..."></a>
                     </div>
                     <div class="header__search">
-                        <input type="text" placeholder="Search Event.............">
+                        <form action="MainController" class="search-bar">
+                            <input type="text" name="searchKeywordRegister" value="<%= searchKeywordRegister%>" placeholder="Search..........." />                                   
+                            <button type="submit" name="action" value="SearchRegister"><i class=""></i></button>
+                        </form>
                     </div>
                 </div>
             </header>
 
             <section class="card">
                 <table class="table">
+                    <h1 style="text-align: center;color: red"><%= error %></h1>
                     <h3>Registered Event</h3>
                     <thead>
                         <tr>
@@ -48,13 +63,10 @@
                         </tr>
                     </thead>
                     <tbody>
-
-
                         <%
                             List<EventDTO> listRegisteredEvents = (List<EventDTO>) request.getAttribute("LIST_REGISTERED_EVENTS");
-                            UserDTO loginUser = (UserDTO)session.getAttribute("LOGIN_USER");
+                            UserDTO loginUser = (UserDTO) session.getAttribute("LOGIN_USER");
                             if (listRegisteredEvents != null) {
-
                                 if (listRegisteredEvents.size() > 0) {
                                     for (EventDTO registeredEvent : listRegisteredEvents) {
 
@@ -63,19 +75,44 @@
                         <tr class="tr">
                             <th scope="row" class="item">
                                 <div class="item_img">
-                                    <a href="MainController?action=ShowDetailEventHome&eventID=<%= registeredEvent.getEventID() %>"><img src="<%= registeredEvent.getImage() %>" alt=""></a>
-                                    <a href="MainController?action=ShowDetailEventHome&eventID=<%= registeredEvent.getEventID() %>"><span style="font-size: 20px; margin-left: 15px;"><%= registeredEvent.getEventName() %></span></a>
+                                    <a href="MainController?action=ShowDetailEventHome&eventID=<%= registeredEvent.getEventID()%>"><img src="<%= registeredEvent.getImage()%>" alt=""></a>
+                                    <a href="MainController?action=ShowDetailEventHome&eventID=<%= registeredEvent.getEventID()%>"><span style="font-size: 20px; margin-left: 15px;"><%= registeredEvent.getEventName()%></span></a>
                                 </div>
                             </th>
                             <td>
                                 <div class="status_item">
                                     <i class="fa fa-circle"></i>
                                     <span>Registered</span>
-                                    <button class="btn btn-danger"><a href="MainController?action=UnRegisterV2&userID=<%=loginUser.getUserID()%>&eventID=<%=registeredEvent.getEventID()%>">Unregistered</a></button>
+                                    <button class="btn btn-danger"><a style="color: black;text-decoration: none" href="MainController?action=UnRegisterV2&userID=<%=loginUser.getUserID()%>&eventID=<%=registeredEvent.getEventID()%>">Unregistered</a></button>
                                 </div>
                             </td>
                         </tr>
                         <%                                }
+                            }
+                        } else {
+                            List<EventDTO> listSearchRegisteredEvents = (List<EventDTO>) request.getAttribute("LIST_SEARCH_REGISTERED");
+                            if (listSearchRegisteredEvents != null) {
+                                if (listSearchRegisteredEvents.size() > 0) {
+                                    for (EventDTO searchRegisteredEvents : listSearchRegisteredEvents) {
+                        %>
+                        <tr class="tr">
+                            <th scope="row" class="item">
+                                <div class="item_img">
+                                    <a href="MainController?action=ShowDetailEventHome&eventID=<%= searchRegisteredEvents.getEventID()%>"><img src="<%= searchRegisteredEvents.getImage()%>" alt=""></a>
+                                    <a href="MainController?action=ShowDetailEventHome&eventID=<%= searchRegisteredEvents.getEventID()%>"><span style="font-size: 20px; margin-left: 15px;"><%= searchRegisteredEvents.getEventName()%></span></a>
+                                </div>
+                            </th>
+                            <td>
+                                <div class="status_item">
+                                    <i class="fa fa-circle"></i>
+                                    <span>Registered</span>
+                                    <button class="btn btn-danger"><a style="color: black;text-decoration: none" href="MainController?action=UnRegisterV2&userID=<%=loginUser.getUserID()%>&eventID=<%=searchRegisteredEvents.getEventID()%>">Unregistered</a></button>
+                                </div>
+                            </td>
+                        </tr>
+                        <%
+                                        }
+                                    }
                                 }
                             }
                         %>
