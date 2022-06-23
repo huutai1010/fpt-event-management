@@ -64,7 +64,8 @@ public class FollowController extends HttpServlet {
             request.setAttribute("DETAIL_EVENT", event);
             //request.setAttribute("FOLLOW_CHECK", check);
             HttpSession session = request.getSession();
-            session.setAttribute("MESSAGE_FOLLOW", messageFollow);
+           // session.setAttribute("MESSAGE_FOLLOW", messageFollow);
+           request.setAttribute("MESSAGE_FOLLOW", messageFollow);
 
         } catch (Exception e) {
             log("Error at RegisterController: " + e.toString());

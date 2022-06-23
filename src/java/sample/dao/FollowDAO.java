@@ -31,7 +31,7 @@ public class FollowDAO {
 "									   AND f.eventID = e.eventID \n" +
 "									   AND e.categoryID = c.categoryID\n" +
 "									   AND e.locationID = l.locationID\n" +
-"									   AND u.userID = ?";
+"									   AND u.userID = ? AND f.status=1";
 
     public boolean followEvent(int eventID, int userID) throws SQLException, ClassNotFoundException {
         boolean check = false;

@@ -147,13 +147,13 @@
                                     if (listComingEvents.indexOf(comingEvent1) == 0) {
                             %>
                             <div class="carousel-item active">
-                                <img class="" src="<%=comingEvent1.getImage()%>" alt="First slide" />
+                                <a href="MainController?action=ShowDetailEventHome&eventID=<%= comingEvent1.getEventID()%>" ><img class="" src="<%=comingEvent1.getImage()%>" alt="First slide" /></a>
                             </div>   
                             <%
                             } else {
                             %>
                             <div class="carousel-item">
-                                <img class="" src="<%=comingEvent1.getImage()%>" alt="First slide" />
+                                <a href="MainController?action=ShowDetailEventHome&eventID=<%= comingEvent1.getEventID()%>"><img class="" src="<%=comingEvent1.getImage()%>" alt="First slide" /></a>
                             </div>      
                             <%
                                     }

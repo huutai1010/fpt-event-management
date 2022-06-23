@@ -25,7 +25,7 @@ import sample.dto.EventDTO;
 public class UpdateListFollowedEventController extends HttpServlet {
 
     private static final String ERROR = "error.jsp";
-    private static final String SUCCESS = "home.jsp";
+    private static final String SUCCESS = "detailHome.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -33,8 +33,8 @@ public class UpdateListFollowedEventController extends HttpServlet {
         String url = ERROR;
         try {
             HttpSession session = request.getSession();
-            System.out.println( "============Message follow = "  +session.getAttribute("MESSAGE_FOLLOW") + "==================");
-            
+            System.out.println( "============Message follow = "  +request.getAttribute("MESSAGE_FOLLOW") + "==================");
+            System.out.println("============Detail Event = " + ((EventDTO)request.getAttribute("DETAIL_EVENT")).getEventName());
             int userID = Integer.parseInt(request.getParameter("userID"));
             FollowDAO followDAO = new FollowDAO();
             List<EventDTO> followedEvents = followDAO.getListFollowedEvents(userID);
