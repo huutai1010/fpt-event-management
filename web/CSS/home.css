@@ -495,3 +495,9 @@ main {
     width: 50px;
     transition-delay: 4s initial;
 }
+.event_register .check a{
+    margin-right: 40px;
+    margin-left: 20px;
+    font-size: 30px;
+    color: #000;
+}

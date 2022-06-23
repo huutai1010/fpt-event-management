@@ -48,6 +48,8 @@ public class MainController extends HttpServlet {
     private static final String COMMENT_CONTROLLER = "CommentController";
     private static final String SHOW_FOLLOWED = "ShowFollowed";
     private static final String SHOW_FOLLOWED_CONTROLLER = "ShowFollowedController";
+    private static final String SHOW_REGISTERED = "ShowRegistered";
+    private static final String SHOW_REGISTERED_CONTROLLER = "ShowRegisteredController";
     
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -86,6 +88,8 @@ public class MainController extends HttpServlet {
                 url = UNREGISTER_CONTROLLER;
             }else if(SHOW_FOLLOWED.equals(action)) {
                 url = SHOW_FOLLOWED_CONTROLLER;
+            }else if(SHOW_REGISTERED.equals(action)) {
+                url = SHOW_REGISTERED_CONTROLLER;
             }
         } catch (Exception e) {
             e.printStackTrace();

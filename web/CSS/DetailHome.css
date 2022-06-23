@@ -43,7 +43,7 @@ body {
 }
 
 .header {
-    background-color: #F29406;
+    background-color: #f25d06d9;
 }
 
 .header_container {
@@ -454,4 +454,11 @@ body {
 .footer .list {
     text-align: center;
     padding: 20px 0;
+}
+
+.event_register .check a{
+    margin-right: 40px;
+    margin-left: 20px;
+    font-size: 30px;
+    color: #000;
 }

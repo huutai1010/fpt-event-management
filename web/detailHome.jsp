@@ -56,7 +56,7 @@
                 messageRegister = "";
             }
             String messageFllow = (String) request.getAttribute("MESSAGE_FOLLOW");
-             if (messageFllow == null) {
+            if (messageFllow == null) {
                 messageFllow = "";
             }
 
@@ -77,6 +77,17 @@
                                 <span><%=loginUser.getUserName()%></span>
                             </a>
                         </div>
+                        <div class="event_register">
+                            <div class="check" id="check">
+                                <a style="margin-right: 40px;
+                                   margin-left: 20px;
+                                   font-size: 30px;
+                                   color: #000;" href="MainController?action=ShowRegistered&userID=<%= loginUser.getUserID()%>">
+                                    <i class="fa fa-clipboard-check"></i>
+                                </a>
+                            </div>
+                        </div>
+
 
                         <div class="notification">
                             <a href="#"><i class="fa fa-bell"></i></a>
@@ -159,10 +170,10 @@
                                         }
                                     %>
                                     <%-- Start flow --%>
-                                <%
-                                    if (messageFllow.equals("Follow Successfully") || followDAO.isEventRegisterExistentActive(loginUser.getUserID(), event.getEventID())) {
-                                %>
-                                  <a href="MainController?action=UnFollow&eventID=<%= event.getEventID()%>&userID=<%= loginUser.getUserID()%>&image=<%= event.getImage()%>&categoryName=<%= event.getCategoryName()%>
+                                    <%
+                                        if (messageFllow.equals("Follow Successfully") || followDAO.isEventRegisterExistentActive(loginUser.getUserID(), event.getEventID())) {
+                                    %>
+                                <a href="MainController?action=UnFollow&eventID=<%= event.getEventID()%>&userID=<%= loginUser.getUserID()%>&image=<%= event.getImage()%>&categoryName=<%= event.getCategoryName()%>
                                    &locationName=<%= event.getLocationName()%>&startTime=<%= event.getStartTime()%>&endTime=<%= event.getEndTime()%>&numberOfAttendees=<%= event.getNumberOfAttendees()%>&formality=<%= event.getFormality()%>
                                    &ticketPrice=<%= event.getTicketPrice()%>&eventDetail=<%= event.getEventDetail()%>&eventName=<%= event.getEventName()%>" style="text-decoration: none"><button class="btn btn-primary" name="action" value="UnFollow">Un Follow</button></a>
                                 <%

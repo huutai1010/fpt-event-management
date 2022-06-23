@@ -69,9 +69,19 @@
                             </a>
                         </div>
 
+                        <div class="event_register">
+                            <div class="check" id="check">
+                                <a href="MainController?action=ShowRegistered&userID=<%= loginUser.getUserID() %>">
+                                    <i class="fa fa-clipboard-check"></i>
+                                </a>
+                            </div>
+                        </div>
+
                         <div class="notification">
                             <a href="#"><i class="fa fa-bell"></i></a>
                         </div>
+
+
 
                         <div id="navbars" class="navbar">
                             <div class="Bar__fa">
@@ -84,7 +94,7 @@
                                 <div class="child">
                                     <ul>
                                         <li><i class="fa fa-user"></i><a href="profile.jsp">Profile</a></li>
-                                        <li><i class="fa fa-sign-out-alt"></i><a href="MainController?action=Logout">Logout</a></li>
+                                        <li><i class="fa fa-sign-out-alt"></i><a href="MainController?action=Logout">Logout</a></li>                                  
                                     </ul>
                                 </div>
                             </div>
@@ -250,11 +260,11 @@
                                     </li>
 
                                     <%-- tab follow --%>                                  
-                                        <li class="nav-item" role="presentation">
-                                            <a class="nav-link" data-toggle="pill" href="#Webside">
-                                                Followed
-                                            </a>
-                                        </li>                                  
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link" data-toggle="pill" href="#Webside">
+                                            Followed
+                                        </a>
+                                    </li>                                  
                                 </ul>
                             </div>
                         </div>
