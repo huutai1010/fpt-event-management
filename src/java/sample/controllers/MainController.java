@@ -50,6 +50,8 @@ public class MainController extends HttpServlet {
     private static final String SHOW_FOLLOWED_CONTROLLER = "ShowFollowedController";
     private static final String SHOW_REGISTERED = "ShowRegistered";
     private static final String SHOW_REGISTERED_CONTROLLER = "ShowRegisteredController";
+    private static final String UNREGISTERV2 = "UnRegisterV2";
+    private static final String UNREGISTERV2_CONTROLLER = "UnRegisterControllerV2";
     
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -90,6 +92,8 @@ public class MainController extends HttpServlet {
                 url = SHOW_FOLLOWED_CONTROLLER;
             }else if(SHOW_REGISTERED.equals(action)) {
                 url = SHOW_REGISTERED_CONTROLLER;
+            }else if(UNREGISTERV2.equals(action)) {
+                url = UNREGISTERV2_CONTROLLER;
             }
         } catch (Exception e) {
             e.printStackTrace();

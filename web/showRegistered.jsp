@@ -1,3 +1,4 @@
+<%@page import="sample.dto.UserDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="sample.dto.EventDTO"%>
 <!doctype html>
@@ -51,7 +52,7 @@
 
                         <%
                             List<EventDTO> listRegisteredEvents = (List<EventDTO>) request.getAttribute("LIST_REGISTERED_EVENTS");
-
+                            UserDTO loginUser = (UserDTO)session.getAttribute("LOGIN_USER");
                             if (listRegisteredEvents != null) {
 
                                 if (listRegisteredEvents.size() > 0) {
@@ -70,7 +71,7 @@
                                 <div class="status_item">
                                     <i class="fa fa-circle"></i>
                                     <span>Registered</span>
-                                    <button class="btn btn-danger">Unregistered</button>
+                                    <button class="btn btn-danger"><a href="MainController?action=UnRegisterV2&userID=<%=loginUser.getUserID()%>&eventID=<%=registeredEvent.getEventID()%>">Unregistered</a></button>
                                 </div>
                             </td>
                         </tr>
