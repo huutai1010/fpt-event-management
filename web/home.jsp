@@ -218,7 +218,7 @@
             %>
             <section class="portfolio">
                 <header class="portfolio-header text-5m-center text-right text-lg-left">
-                    <div class="container">
+                    <div class="container" contenteditable="true" spellcheck="false">
                         <h2>Event for you</h2>
                     </div>
                 </header>

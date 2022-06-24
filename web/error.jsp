@@ -9,9 +9,17 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <link rel="stylesheet" href="CSS/error.css" >
+        <title>ERROR Page</title>
     </head>
     <body>
-        <h1>ERRORRRRRRRR!!!!!</h1>
+        <div class="info">
+            <div class="box">
+                <div>
+                    close !
+                </div>
+                <p><span>error!</span> sorry page isn't found</p>
+            </div>
+        </div>
     </body>
 </html>
