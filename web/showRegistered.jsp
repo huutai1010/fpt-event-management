@@ -69,8 +69,6 @@
                             if (listRegisteredEvents != null) {
                                 if (listRegisteredEvents.size() > 0) {
                                     for (EventDTO registeredEvent : listRegisteredEvents) {
-
-
                         %>
                         <tr class="tr">
                             <th scope="row" class="item">

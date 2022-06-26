@@ -198,7 +198,7 @@
                         <nav class="nav">
                             <a class="nav-link" href="#introduce">Giới thiệu</a>
                             <a class="nav-link" href="#comment">Bình luận</a>
-                            <a class="nav-link" href="#">Q/A</a>
+                            <a class="nav-link" href="MainController?action=QuestionList">Q/A</a>
                         </nav>
                     </div>
                 </section>

@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import sample.dto.EventDTO;
-import sample.dto.FollowDTO;
 import sample.utils.DBUtils;
 
 /**

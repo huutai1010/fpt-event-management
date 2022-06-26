@@ -54,6 +54,10 @@ public class MainController extends HttpServlet {
     private static final String UNREGISTERV2_CONTROLLER = "UnRegisterControllerV2";
     private static final String SEARCHREGISTER = "SearchRegister";
     private static final String SEARCHREGISTER_CONTROLLER = "SearchRegisterController";
+    private static final String QUESTION_LIST = "QuestionList";
+    private static final String QUESTION_LIST_CONTROLLER="QuestionShowListController";
+    private static final String SEARCH_QUESTION_LIST="SearchQuestion";
+    private static final String SEARCH_QUESTION_LIST_CONTROLLER="SearchQuestionListController";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -97,6 +101,10 @@ public class MainController extends HttpServlet {
                 url = UNREGISTERV2_CONTROLLER;
             }else if(SEARCHREGISTER.equals(action)) {
                 url = SEARCHREGISTER_CONTROLLER;
+            }else if(QUESTION_LIST.equals(action)) {
+                url = QUESTION_LIST_CONTROLLER;
+            }else if(SEARCH_QUESTION_LIST.equals(action)) {
+                url = SEARCH_QUESTION_LIST_CONTROLLER;
             }
         } catch (Exception e) {
             e.printStackTrace();
