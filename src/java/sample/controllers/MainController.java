@@ -36,6 +36,8 @@ public class MainController extends HttpServlet {
     private static final String DETAIL_EVENT_LOGIN_CONTROLLER="DetailEventLoginController";
     private static final String DETAIL_EVENT_HOME="ShowDetailEventHome";
     private static final String DETAIL_EVENT_HOME_CONTROLLER="DetailEventHomeController";
+    private static final String DETAIL_QUESTION="ShowDetailQuestion";
+    private static final String DETAIL_QUESTION_CONTROLLER="DetailQuestionController";
     private static final String REGISTER ="Register";
     private static final String REGISTER_CONTROLLER="RegisterController";
     private static final String UNREGISTER ="UnRegister";
@@ -50,6 +52,8 @@ public class MainController extends HttpServlet {
     private static final String SHOW_FOLLOWED_CONTROLLER = "ShowFollowedController";
     private static final String SHOW_REGISTERED = "ShowRegistered";
     private static final String SHOW_REGISTERED_CONTROLLER = "ShowRegisteredController";
+    private static final String SHOW_REPLY="ShowReply";
+    private static final String SHOW_REPLY_CONTROLLER="ShowListReplyController";
     private static final String UNREGISTERV2 = "UnRegisterV2";
     private static final String UNREGISTERV2_CONTROLLER = "UnRegisterControllerV2";
     private static final String SEARCHREGISTER = "SearchRegister";
@@ -58,6 +62,8 @@ public class MainController extends HttpServlet {
     private static final String QUESTION_LIST_CONTROLLER="QuestionShowListController";
     private static final String SEARCH_QUESTION_LIST="SearchQuestion";
     private static final String SEARCH_QUESTION_LIST_CONTROLLER="SearchQuestionListController";
+    
+    
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -105,6 +111,10 @@ public class MainController extends HttpServlet {
                 url = QUESTION_LIST_CONTROLLER;
             }else if(SEARCH_QUESTION_LIST.equals(action)) {
                 url = SEARCH_QUESTION_LIST_CONTROLLER;
+            }else if(DETAIL_QUESTION.equals(action)) {
+                url = DETAIL_QUESTION_CONTROLLER;
+            }else if(SHOW_REPLY.equals(action)) {
+                url = SHOW_REPLY_CONTROLLER;
             }
         } catch (Exception e) {
             e.printStackTrace();

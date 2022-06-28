@@ -14,32 +14,40 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import sample.dao.QuestionDAO;
 import sample.dto.QuestionDTO;
+import sample.dto.ReplyDTO;
 
 /**
  *
  * @author DELL
  */
-@WebServlet(name = "QuestionShowListController", urlPatterns = {"/QuestionShowListController"})
-public class QuestionShowListController extends HttpServlet {
-
-    private static final String ERROR = "error.jsp";
-    private static final String SUCCESS = "ListQuestion.jsp";
-
-    /* */
+@WebServlet(name = "DetailQuestionController", urlPatterns = {"/DetailQuestionController"})
+public class DetailQuestionController extends HttpServlet {
+    
+    private static final String ERROR="error.jsp";
+    private static final String SUCCESS="DetailQuestion.jsp";
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
-        try {
+        String url=ERROR;
+        try{  
+            
+            int questionID = Integer.parseInt(request.getParameter("questionID"));
             int userID = Integer.parseInt(request.getParameter("userID"));
-            QuestionDAO questionDAO = new QuestionDAO();
-            List<QuestionDTO> listQuestion = questionDAO.getAllQuestion();
-            request.setAttribute("LIST_QUESTION", listQuestion);
-            url = SUCCESS;
-
-        } catch (Exception e) {
-            log("Error at QuestionController: " + e.toString());
-        } finally {
+            String userName = request.getParameter("userName");
+            String avatar = request.getParameter("avatar");
+            String questionDetail = request.getParameter("questionDetail");
+            QuestionDAO dao = new QuestionDAO();
+            List<ReplyDTO> listReplies = dao.getAllReply(questionID);           
+            request.setAttribute("LIST_REPLIES", listReplies);
+            QuestionDTO question = new QuestionDTO(questionID, userID, userName, avatar, questionDetail);
+            request.setAttribute("QUESTION_DETAIL", question);
+            if(listReplies.size() >=0){
+                url = SUCCESS; 
+            }                                   
+        }catch(Exception e){
+            log("Error at DetailQuestionController", e);
+        }finally{
             request.getRequestDispatcher(url).forward(request, response);
         }
     }

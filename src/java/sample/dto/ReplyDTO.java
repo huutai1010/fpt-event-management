@@ -11,14 +11,18 @@ package sample.dto;
 public class ReplyDTO {
     
     private int userID;
+    private String userName;
+    private String avatar; 
     private int questionID;
     private String replyDetail;
 
     public ReplyDTO() {
     }
 
-    public ReplyDTO(int userID, int questionID, String replyDetail) {
+    public ReplyDTO(int userID, String userName, String avatar, int questionID, String replyDetail) {
         this.userID = userID;
+        this.userName = userName;
+        this.avatar = avatar;
         this.questionID = questionID;
         this.replyDetail = replyDetail;
     }
@@ -29,6 +33,22 @@ public class ReplyDTO {
 
     public void setUserID(int userID) {
         this.userID = userID;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public int getQuestionID() {
@@ -46,6 +66,7 @@ public class ReplyDTO {
     public void setReplyDetail(String replyDetail) {
         this.replyDetail = replyDetail;
     }
+
     
     
 }

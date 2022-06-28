@@ -9,20 +9,38 @@ package sample.dto;
  * @author DELL
  */
 public class QuestionDTO {
+
+    private int questionID;
+    private int userID;
     private String userName;
-    private String eventName;
     private String avatar;
     private String questionDetail;
-    
 
     public QuestionDTO() {
     }
 
-    public QuestionDTO(String userName, String eventName, String avatar, String questionDetail) {
+    public QuestionDTO(int questionID, int userID, String userName, String avatar, String questionDetail) {
+        this.questionID = questionID;
+        this.userID = userID;
         this.userName = userName;
-        this.eventName = eventName;
         this.avatar = avatar;
         this.questionDetail = questionDetail;
+    }
+
+    public int getQuestionID() {
+        return questionID;
+    }
+
+    public void setQuestionID(int questionID) {
+        this.questionID = questionID;
+    }
+
+    public int getUserID() {
+        return userID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
     }
 
     public String getUserName() {
@@ -31,14 +49,6 @@ public class QuestionDTO {
 
     public void setUserName(String userName) {
         this.userName = userName;
-    }
-
-    public String getEventName() {
-        return eventName;
-    }
-
-    public void setEventName(String eventName) {
-        this.eventName = eventName;
     }
 
     public String getAvatar() {

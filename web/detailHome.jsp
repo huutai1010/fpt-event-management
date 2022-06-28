@@ -4,6 +4,7 @@
     Author     : DELL
 --%>
 
+<%@page import="sample.dto.QuestionDTO"%>
 <%@page import="sample.dao.FollowDAO"%>
 <%@page import="sample.dao.RegisterDAO"%>
 <%@page import="sample.dto.CommentDTO"%>
@@ -45,6 +46,7 @@
     </head>
     <body>
         <%
+            
             EventDTO event = (EventDTO) request.getAttribute("DETAIL_EVENT");
             UserDTO loginUser = (UserDTO) session.getAttribute("LOGIN_USER");
             RegisterDAO registerDAO = new RegisterDAO();
@@ -175,7 +177,7 @@
                                     %>
                                 <a href="MainController?action=UnFollow&eventID=<%= event.getEventID()%>&userID=<%= loginUser.getUserID()%>&image=<%= event.getImage()%>&categoryName=<%= event.getCategoryName()%>
                                    &locationName=<%= event.getLocationName()%>&startTime=<%= event.getStartTime()%>&endTime=<%= event.getEndTime()%>&numberOfAttendees=<%= event.getNumberOfAttendees()%>&formality=<%= event.getFormality()%>
-                                   &ticketPrice=<%= event.getTicketPrice()%>&eventDetail=<%= event.getEventDetail()%>&eventName=<%= event.getEventName()%>" style="text-decoration: none"><button class="btn btn-primary" name="action" value="UnFollow">Un Follow</button></a>
+                                   &ticketPrice=<%= event.getTicketPrice()%>&eventDetail=<%= event.getEventDetail()%>&eventName=<%= event.getEventName()%>" style="text-decoration: none"><button class="btn btn-primary" name="action" value="UnFollow">UnFollow</button></a>
                                 <%
                                 } else {
                                 %>
@@ -198,7 +200,7 @@
                         <nav class="nav">
                             <a class="nav-link" href="#introduce">Giới thiệu</a>
                             <a class="nav-link" href="#comment">Bình luận</a>
-                            <a class="nav-link" href="MainController?action=QuestionList">Q/A</a>
+                            <a class="nav-link" href="MainController?action=QuestionList&userID=<%= loginUser.getUserID()%>">Q/A</a>
                         </nav>
                     </div>
                 </section>

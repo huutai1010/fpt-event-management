@@ -11,20 +11,28 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import sample.dto.QuestionDTO;
+import sample.dto.ReplyDTO;
 import sample.utils.DBUtils;
 
 /**
  *
  * @author DELL
  */
-public class QuestionDAO {  
+public class QuestionDAO {
 
-    private static final String LIST_QUESTION= "SELECT questionDetail, userName, avatar, eventName "
-            + "FROM tblUsers u, tblQuestion q, tblEvent e WHERE u.userID = q.userID AND q.eventID = e.eventID";
-    
-        private static final String SEARCH_LIST_QUESTION= "SELECT questionDetail, userName, avatar, eventName "
-            + "FROM tblUsers u, tblQuestion q, tblEvent e WHERE u.userID = q.userID AND q.eventID = e.eventID AND questionDetail LIKE ?";
-    
+    private static final String LIST_QUESTION = "SELECT q.questionID, q.questionDetail, u.userName, u.avatar, u.userID "
+            + "FROM tblUsers u, tblQuestion q WHERE u.userID = q.userID ";
+
+    private static final String SEARCH_LIST_QUESTION = "SELECT q.questionID, q.questionDetail, u.userName, u.avatar, u.userID "
+            + "FROM tblUsers u, tblQuestion q WHERE u.userID = q.userID AND questionDetail like ?";
+
+    private static final String DETAIL_QUESTION = "SELECT q.questionID, q.questionDetail, u.userName, u.avatar, u.userID "
+            + "FROM tblUsers u, tblQuestion q WHERE u.userID = q.userID AND q.questionID=? ";
+
+    private static final String LIST_REPLY="SELECT u.userID, u.userName,  u.avatar , r.replyDetail, q.questionDetail ,q.questionID"
+            + "FROM tblQuestion q, tblReply r, tblUsers u"
+            + "WHERE q.questionID = r.questionID AND r.userID = u.userID AND q.questionID=?";
+            
     public List<QuestionDTO> getAllQuestion() throws SQLException {
         List<QuestionDTO> listAllQuestion = new ArrayList();
         Connection conn = null;
@@ -32,16 +40,17 @@ public class QuestionDAO {
         ResultSet rs = null;
         try {
             conn = DBUtils.getConnection();
-            if(conn != null){
+            if (conn != null) {
                 ptm = conn.prepareStatement(LIST_QUESTION);
-                //ptm.setString(1, string);
+                //ptm.setInt(1, userID);
                 rs = ptm.executeQuery();
-                while(rs.next()){
+                while (rs.next()) {
+                    int questionID = rs.getInt("questionID");
                     String questionDetail = rs.getString("questionDetail");
                     String userName = rs.getString("userName");
                     String avatar = rs.getString("avatar");
-                    String eventName = rs.getString("eventName");
-                    listAllQuestion.add(new QuestionDTO(userName, eventName, avatar, questionDetail));
+                    int userID = rs.getInt("userID");
+                    listAllQuestion.add(new QuestionDTO(questionID, userID, userName, avatar, questionDetail));
                 }
             }
         } catch (Exception e) {
@@ -59,7 +68,7 @@ public class QuestionDAO {
         }
         return listAllQuestion;
     }
-    
+
     public List<QuestionDTO> getSearchQuestion(String searchQuestion) throws SQLException {
         List<QuestionDTO> listAllQuestion = new ArrayList();
         Connection conn = null;
@@ -67,16 +76,17 @@ public class QuestionDAO {
         ResultSet rs = null;
         try {
             conn = DBUtils.getConnection();
-            if(conn != null){
+            if (conn != null) {
                 ptm = conn.prepareStatement(SEARCH_LIST_QUESTION);
                 ptm.setString(1, "%" + searchQuestion + "%");
                 rs = ptm.executeQuery();
-                while(rs.next()){
+                while (rs.next()) {
+                    int questionID = rs.getInt("questionID");
                     String questionDetail = rs.getString("questionDetail");
                     String userName = rs.getString("userName");
                     String avatar = rs.getString("avatar");
-                    String eventName = rs.getString("eventName");
-                    listAllQuestion.add(new QuestionDTO(userName, eventName, avatar, questionDetail));
+                    int userID = rs.getInt("userID");
+                    listAllQuestion.add(new QuestionDTO(questionID, userID, userName, avatar, questionDetail));
                 }
             }
         } catch (Exception e) {
@@ -94,5 +104,76 @@ public class QuestionDAO {
         }
         return listAllQuestion;
     }
+
+    /* Lấy 1 question*/
+    public QuestionDTO getDetailQuestion(int questionID) throws SQLException {
+        QuestionDTO question = new QuestionDTO();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            ptm = conn.prepareStatement(DETAIL_QUESTION);
+            ptm.setInt(1, questionID);
+            rs = ptm.executeQuery();
+            if (rs.next()) {
+                String questionDetail = rs.getString("questionDetail");
+                String userName = rs.getString("userName");
+                String avatar = rs.getString("avatar");
+                int userID = rs.getInt("userID");
+                question = new QuestionDTO(questionID, userID, userName, avatar, questionDetail);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return question;
+    }
     
+    public List<ReplyDTO> getAllReply(int questionID) throws SQLException{
+        List<ReplyDTO> listAllReply = new ArrayList();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(LIST_REPLY);
+                ptm.setInt(1, questionID);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    int userID = rs.getInt("userID");
+                    String userName = rs.getString("userName");
+                    String avatar = rs.getString("avatar");
+                    String replyDetail = rs.getString("replyDetail");
+                    listAllReply.add(new ReplyDTO(userID, userName, avatar, questionID, replyDetail));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return  listAllReply;
+    }
+    
+    
+
 }

@@ -57,7 +57,7 @@
                     </div>
                     <div class="header__search">
                         <form action="MainController">
-                            <input type="text" name="searchKeyWordQuestion"  value="<%= searchKeyWordQuestion %>" placeholder="Nhập địa điểm">
+                            <input type="text" name="searchKeyWordQuestion"  value="<%= searchKeyWordQuestion%>" placeholder="Nhập địa điểm">
                             <button type="submit" name="action" value="SearchQuestion"><i class=""></i></button>
                         </form>          
                     </div>
@@ -70,6 +70,7 @@
                         <h3>Hỏi đáp</h3>
                     </div>
                     <%
+                        //QuestionDTO question = (QuestionDTO) request.getAttribute("DETAIL_QUESTION");
                         List<QuestionDTO> listQuestions = (List<QuestionDTO>) request.getAttribute("LIST_QUESTION");
                         if (listQuestions != null) {
                             if (listQuestions.size() > 0) {
@@ -84,6 +85,7 @@
                                         <div class="QA_title-img">
                                             <img src="<%= listQuestion.getAvatar()%>" style="width: 50px; height: 50px; border-radius: 50%;"
                                                  alt="avatar">
+                                            <input type="hidden" name="<%= listQuestion.getQuestionID()%>" />
                                         </div>
                                         <div class="QA_title-name">
                                             <span style="font-size:15px;"><%= listQuestion.getUserName()%></span>
@@ -92,7 +94,7 @@
                                 </div>
                                 <div class="QA_comment">
                                     <div class="QA_content">
-                                        <a href="#">
+                                        <a href="MainController?action=ShowDetailQuestion&questionID=<%= listQuestion.getQuestionID()%>&userID=<%= listQuestion.getUserID()%>&userName=<%= listQuestion.getUserName()%>&avatar=<%= listQuestion.getAvatar()%>&questionDetail=<%= listQuestion.getQuestionDetail()%>">
                                             <div class="content"><%= listQuestion.getQuestionDetail()%></div>
                                         </a>
                                     </div>
@@ -119,22 +121,27 @@
                         </div>
                     </div>
                     <%
-                            }
+                        }
+                    } else if (listQuestions.size() == 0) {
+                    %>
+                    <div>There is no question here!!</div>
+                    <%
                         }
                     } else {
                         List<QuestionDTO> SearchlistQuestions = (List<QuestionDTO>) request.getAttribute("LIST_SEARCH_QUESTIONS");
                         if (SearchlistQuestions != null) {
                             if (SearchlistQuestions.size() > 0) {
-                                for (QuestionDTO searchListQuestion : SearchlistQuestions) {                              
+                                for (QuestionDTO searchListQuestion : SearchlistQuestions) {
                     %>
                     <div class="main_QA">
                         <div class="QA_container">
                             <div class="QA_card">
                                 <div class="QA_title">
-                                    <a href="#">
+                                    <a href="MainController?action=ShowDetailQuestion&questionID=<%= searchListQuestion.getQuestionID()%>&userID=<%= searchListQuestion.getUserID()%>&userName=<%= searchListQuestion.getUserName()%>&avatar=<%= searchListQuestion.getAvatar()%>&questionDetail=<%= searchListQuestion.getQuestionDetail()%>">
                                         <div class="QA_title-img">
-                                            <img src="<%= searchListQuestion.getAvatar() %>" style="width: 50px; height: 50px; border-radius: 50%;"
+                                            <img src="<%= searchListQuestion.getAvatar()%>" style="width: 50px; height: 50px; border-radius: 50%;"
                                                  alt="avatar">
+                                            <input type="hidden" name="<%= searchListQuestion.getQuestionID()%>" />
                                         </div>
                                         <div class="QA_title-name">
                                             <span style="font-size:15px;"><%= searchListQuestion.getUserName()%></span>
@@ -161,7 +168,11 @@
                         </div>
                     </div>
                     <%
-                                    }
+                        }
+                    } else if (SearchlistQuestions.size() == 0) {
+                    %>
+                    <div>There is no question here!!</div>
+                    <%
                                 }
                             }
                         }
