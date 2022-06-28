@@ -200,7 +200,11 @@
                         <nav class="nav">
                             <a class="nav-link" href="#introduce">Giới thiệu</a>
                             <a class="nav-link" href="#comment">Bình luận</a>
-                            <a class="nav-link" href="MainController?action=QuestionList&eventID=<%= event.getEventID()%>">Q/A</a>
+                            
+                            <!--dang sua-->
+                            <a class="nav-link" href="MainController?action=QuestionList&eventID=<%= event.getEventID()%>&userID=<%= loginUser.getUserID() %>&image=<%= event.getImage()%>&categoryName=<%= event.getCategoryName()%>
+                               &locationName=<%= event.getLocationName()%>&startTime=<%= event.getStartTime()%>&endTime=<%= event.getEndTime()%>&numberOfAttendees=<%= event.getNumberOfAttendees()%>&formality=<%= event.getFormality()%>
+                               &ticketPrice=<%= event.getTicketPrice()%>&eventDetail=<%= event.getEventDetail()%>&eventName=<%= event.getEventName()%>">Q/A</a>
                         </nav>
                     </div>
                 </section>
@@ -252,9 +256,6 @@
 
 
 
-
-
-
                         <!--start container_comment-->
                         <div class="container_comment">
 
@@ -285,9 +286,6 @@
                             <%
                                 }
                             %>
-
-
-
 
 
                         </div>

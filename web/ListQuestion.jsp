@@ -4,6 +4,8 @@
     Author     : DELL
 --%>
 
+<%@page import="sample.dto.UserDTO"%>
+<%@page import="sample.dto.EventDTO"%>
 <%@page import="sample.dto.QuestionDTO"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -40,6 +42,9 @@
     </head>
     <body>
         <%
+            EventDTO event = (EventDTO) request.getAttribute("DETAIL_EVENT");
+            UserDTO loginUser = (UserDTO) session.getAttribute("LOGIN_USER");
+            List<QuestionDTO> listQuestions = (List<QuestionDTO>) request.getAttribute("LIST_QUESTION");
             String error = (String) request.getAttribute("SEARCH_QUESTIONS_ERROR");
             if (error == null) {
                 error = "";
@@ -48,6 +53,7 @@
             if (searchKeyWordQuestion == null) {
                 searchKeyWordQuestion = "";
             }
+
         %>
         <div class="wrapper">
             <header class="header">
@@ -66,12 +72,51 @@
 
             <section class="section">
                 <div class="container">
-                    <div class="QA_header">
-                        <h3>Hỏi đáp</h3>
+                    <div class="QA">
+                        <div class="QA_header">
+                            <h3>Hỏi đáp</h3>
+                        </div>
+                        <div class="QA__button">
+                            <div class="QA__button--click">
+                                <button id="QA-btn" class="btn btn-success" onclick="popupToggle();">
+                                    Đặt câu hỏi
+                                </button>
+                            </div>
+                            <div id="QA-text" class="QA__button--text">
+                                <form action="MainController">
+
+                                    <div class="box">
+                                        <a href="#" class="close"><img src="./img/icon_close.png" style="width: 25px;" alt=""></a>
+                                        <h3>Đặt câu hỏi</h3>
+                                        <div class="text">
+                                            <textarea  cols="50" rows="7" name="questionDetail" ></textarea>
+                                        </div>
+                                        <div class="inputbox">
+                                            <input type="hidden" name="action" value="PublishQuestions"/>
+                                            <input type="hidden" name="userID" value="<%=loginUser.getUserID()%>">
+                                            <input type="hidden" name="eventID" value="<%=event.getEventID()%>">
+                                            <input type="hidden" name="categoryName" value="<%=event.getCategoryName()%>"/>
+                                            <input type="hidden" name="locationName" value="<%=event.getLocationName()%>"/>
+                                            <input type="hidden" name="eventName" value="<%=event.getEventName()%>"/>
+                                            <input type="hidden" name="eventDetail" value="<%=event.getEventDetail()%>"/>
+                                            <input type="hidden" name="image" value="<%=event.getImage()%>"/>
+                                            <input type="hidden" name="startTime" value="<%=event.getStartTime()%>"/>
+                                            <input type="hidden" name="endTime" value="<%=event.getEndTime()%>"/>
+                                            <input type="hidden" name="numberOfAttendees" value="<%=event.getNumberOfAttendees()%>"/>
+                                            <input type="hidden" name="formality" value="<%=event.getFormality()%>"/>
+                                            <input type="hidden" name="ticketPrice" value="<%=event.getTicketPrice()%>"/>
+
+                                            <input class="btn btn-success btn-sm shadow-none" type="submit" value="Gửi"/>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="QA__arrow"></div>
+                        </div>
                     </div>
                     <%
                         //QuestionDTO question = (QuestionDTO) request.getAttribute("DETAIL_QUESTION");
-                        List<QuestionDTO> listQuestions = (List<QuestionDTO>) request.getAttribute("LIST_QUESTION");
+
                         if (listQuestions != null) {
                             if (listQuestions.size() > 0) {
                                 for (QuestionDTO question : listQuestions) {
@@ -126,15 +171,21 @@
                     %>
                     <div>There is no question here!!</div>
                     <%
+                            }
                         }
-                    } 
                     %>
-                    
-                   
+
+                </div>
             </section>
         </div>
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script>
+            function popupToggle() {
+                const text = document.getElementById('QA-text');
+                text.classList.toggle('active');
+            }
+        </script>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
                 integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>

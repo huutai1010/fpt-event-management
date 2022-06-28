@@ -5,7 +5,6 @@
 package sample.controllers;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Date;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -19,15 +18,14 @@ import sample.dto.QuestionDTO;
 
 /**
  *
- * @author DELL
+ * @author Acer
  */
-@WebServlet(name = "QuestionShowListController", urlPatterns = {"/QuestionShowListController"})
-public class QuestionShowListController extends HttpServlet {
+@WebServlet(name = "QuestionsController", urlPatterns = {"/QuestionsController"})
+public class QuestionsController extends HttpServlet {
 
     private static final String ERROR = "error.jsp";
     private static final String SUCCESS = "ListQuestion.jsp";
 
-    /* */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -45,19 +43,24 @@ public class QuestionShowListController extends HttpServlet {
             int numberOfAttendees = Integer.parseInt(request.getParameter("numberOfAttendees"));
             String formality = request.getParameter("formality");
             float ticketPrice = Float.parseFloat(request.getParameter("ticketPrice"));
+            String questionDetail = request.getParameter("questionDetail");
+            
             EventDTO event = new EventDTO(eventID, categoryName, locationName, eventName, eventDetail, image, startTime, endTime, numberOfAttendees, formality, ticketPrice);
             request.setAttribute("DETAIL_EVENT", event);
             
             QuestionDAO questionDAO = new QuestionDAO();
-            List<QuestionDTO> listQuestion = questionDAO.getAllQuestion(eventID);
-            request.setAttribute("LIST_QUESTION", listQuestion);
-            url = SUCCESS;
-
+            boolean check = questionDAO.createQuestion(userID, eventID, questionDetail);
+            if (check) {
+                List<QuestionDTO> listQuestion = questionDAO.getAllQuestion(eventID);
+                request.setAttribute("LIST_QUESTION", listQuestion);
+                url = SUCCESS;
+            }
         } catch (Exception e) {
-            log("Error at QuestionController: " + e.toString());
+            log("Error at QuestionsController", e);
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

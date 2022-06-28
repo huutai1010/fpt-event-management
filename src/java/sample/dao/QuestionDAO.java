@@ -29,6 +29,34 @@ public class QuestionDAO {
             + "FROM tblQuestion q, tblReply r, tblUsers u "
             + "WHERE q.questionID = r.questionID AND r.userID = u.userID AND q.questionID=?";
     
+    private static final String CREATE_QUESTION = "INSERT INTO tblQuestion(userID, eventID, questionDetail) VALUES (?,?,?)";
+    
+     //TAO MOT QUESTION
+     public boolean createQuestion(int userID, int eventID, String questionDetail) throws SQLException, ClassNotFoundException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try{
+            conn=DBUtils.getConnection();
+            if(conn != null){
+                ptm= conn.prepareStatement(CREATE_QUESTION);
+                ptm.setInt(1, userID);
+                ptm.setInt(2, eventID);
+                ptm.setString(3, questionDetail);
+                check = ptm.executeUpdate() > 0 ? true : false ;
+            }
+        }finally{
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+    
+    
     
     /* Lấy hết danh sách câu hỏi trang ListQuestion.jsp*/
     public List<QuestionDTO> getAllQuestion(int eventID) throws SQLException {
