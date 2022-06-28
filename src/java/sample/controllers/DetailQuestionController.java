@@ -30,18 +30,20 @@ public class DetailQuestionController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url=ERROR;
-        try{  
-            
+        System.out.println("DetailQuestionController");
+        try{      
+            int eventID = Integer.parseInt(request.getParameter("eventID"));
             int questionID = Integer.parseInt(request.getParameter("questionID"));
             int userID = Integer.parseInt(request.getParameter("userID"));
             String userName = request.getParameter("userName");
             String avatar = request.getParameter("avatar");
             String questionDetail = request.getParameter("questionDetail");
             QuestionDAO dao = new QuestionDAO();
-            List<ReplyDTO> listReplies = dao.getAllReply(questionID);           
+            List<ReplyDTO> listReplies = dao.getAllReply(questionID);
             request.setAttribute("LIST_REPLIES", listReplies);
-            QuestionDTO question = new QuestionDTO(questionID, userID, userName, avatar, questionDetail);
+            QuestionDTO question = new QuestionDTO(eventID, questionID, userID, userName, avatar, questionDetail);
             request.setAttribute("QUESTION_DETAIL", question);
+            System.out.println("LIST_REPLIES.SIZE = " + listReplies.size());
             if(listReplies.size() >=0){
                 url = SUCCESS; 
             }                                   

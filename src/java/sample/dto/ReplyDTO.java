@@ -27,6 +27,7 @@ public class ReplyDTO {
         this.replyDetail = replyDetail;
     }
 
+   
     public int getUserID() {
         return userID;
     }
@@ -67,6 +68,7 @@ public class ReplyDTO {
         this.replyDetail = replyDetail;
     }
 
+   
     
     
 }

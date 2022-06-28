@@ -31,9 +31,9 @@ public class QuestionShowListController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            int userID = Integer.parseInt(request.getParameter("userID"));
+            int eventID = Integer.parseInt(request.getParameter("eventID"));
             QuestionDAO questionDAO = new QuestionDAO();
-            List<QuestionDTO> listQuestion = questionDAO.getAllQuestion();
+            List<QuestionDTO> listQuestion = questionDAO.getAllQuestion(eventID);
             request.setAttribute("LIST_QUESTION", listQuestion);
             url = SUCCESS;
 

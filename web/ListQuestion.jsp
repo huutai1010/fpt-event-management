@@ -74,7 +74,7 @@
                         List<QuestionDTO> listQuestions = (List<QuestionDTO>) request.getAttribute("LIST_QUESTION");
                         if (listQuestions != null) {
                             if (listQuestions.size() > 0) {
-                                for (QuestionDTO listQuestion : listQuestions) {
+                                for (QuestionDTO question : listQuestions) {
 
                     %>
                     <div class="main_QA">
@@ -83,19 +83,19 @@
                                 <div class="QA_title">
                                     <a href="#">
                                         <div class="QA_title-img">
-                                            <img src="<%= listQuestion.getAvatar()%>" style="width: 50px; height: 50px; border-radius: 50%;"
+                                            <img src="<%= question.getAvatar()%>" style="width: 50px; height: 50px; border-radius: 50%;"
                                                  alt="avatar">
-                                            <input type="hidden" name="<%= listQuestion.getQuestionID()%>" />
+                                            <input type="hidden" name="<%= question.getQuestionID()%>" />
                                         </div>
                                         <div class="QA_title-name">
-                                            <span style="font-size:15px;"><%= listQuestion.getUserName()%></span>
+                                            <span style="font-size:15px;"><%= question.getUserName()%></span>
                                         </div>
                                     </a>
                                 </div>
                                 <div class="QA_comment">
                                     <div class="QA_content">
-                                        <a href="MainController?action=ShowDetailQuestion&questionID=<%= listQuestion.getQuestionID()%>&userID=<%= listQuestion.getUserID()%>&userName=<%= listQuestion.getUserName()%>&avatar=<%= listQuestion.getAvatar()%>&questionDetail=<%= listQuestion.getQuestionDetail()%>">
-                                            <div class="content"><%= listQuestion.getQuestionDetail()%></div>
+                                        <a href="MainController?action=ShowDetailQuestion&questionID=<%= question.getQuestionID()%>&userID=<%= question.getUserID()%>&userName=<%= question.getUserName()%>&avatar=<%= question.getAvatar()%>&questionDetail=<%= question.getQuestionDetail()%>&eventID=<%=question.getEventID()%>">
+                                            <div class="content"><%= question.getQuestionDetail()%></div>
                                         </a>
                                     </div>
                                     <div class="QA_info">
@@ -127,56 +127,10 @@
                     <div>There is no question here!!</div>
                     <%
                         }
-                    } else {
-                        List<QuestionDTO> SearchlistQuestions = (List<QuestionDTO>) request.getAttribute("LIST_SEARCH_QUESTIONS");
-                        if (SearchlistQuestions != null) {
-                            if (SearchlistQuestions.size() > 0) {
-                                for (QuestionDTO searchListQuestion : SearchlistQuestions) {
+                    } 
                     %>
-                    <div class="main_QA">
-                        <div class="QA_container">
-                            <div class="QA_card">
-                                <div class="QA_title">
-                                    <a href="MainController?action=ShowDetailQuestion&questionID=<%= searchListQuestion.getQuestionID()%>&userID=<%= searchListQuestion.getUserID()%>&userName=<%= searchListQuestion.getUserName()%>&avatar=<%= searchListQuestion.getAvatar()%>&questionDetail=<%= searchListQuestion.getQuestionDetail()%>">
-                                        <div class="QA_title-img">
-                                            <img src="<%= searchListQuestion.getAvatar()%>" style="width: 50px; height: 50px; border-radius: 50%;"
-                                                 alt="avatar">
-                                            <input type="hidden" name="<%= searchListQuestion.getQuestionID()%>" />
-                                        </div>
-                                        <div class="QA_title-name">
-                                            <span style="font-size:15px;"><%= searchListQuestion.getUserName()%></span>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="QA_comment">
-                                    <div class="QA_content">
-                                        <a href="#">
-                                            <div class="content"><%= searchListQuestion.getQuestionDetail()%></div>
-                                        </a>
-                                    </div>
-                                    <div class="QA_info">
-                                        <div class="QA_info-reply">
-                                            <span><b>Repies:</b></span>
-                                            <span>10</span>
-                                        </div>
-                                        <div class="QA_info-time">
-                                            <span><b>june 25, 2022</b></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <%
-                        }
-                    } else if (SearchlistQuestions.size() == 0) {
-                    %>
-                    <div>There is no question here!!</div>
-                    <%
-                                }
-                            }
-                        }
-                    %>
+                    
+                   
             </section>
         </div>
         <!-- Optional JavaScript -->

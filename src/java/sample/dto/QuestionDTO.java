@@ -10,6 +10,7 @@ package sample.dto;
  */
 public class QuestionDTO {
 
+    private int eventID;
     private int questionID;
     private int userID;
     private String userName;
@@ -19,12 +20,21 @@ public class QuestionDTO {
     public QuestionDTO() {
     }
 
-    public QuestionDTO(int questionID, int userID, String userName, String avatar, String questionDetail) {
+    public QuestionDTO(int eventID, int questionID, int userID, String userName, String avatar, String questionDetail) {
+        this.eventID = eventID;
         this.questionID = questionID;
         this.userID = userID;
         this.userName = userName;
         this.avatar = avatar;
         this.questionDetail = questionDetail;
+    }
+
+    public int getEventID() {
+        return eventID;
+    }
+
+    public void setEventID(int eventID) {
+        this.eventID = eventID;
     }
 
     public int getQuestionID() {
@@ -66,5 +76,7 @@ public class QuestionDTO {
     public void setQuestionDetail(String questionDetail) {
         this.questionDetail = questionDetail;
     }
+
+    
 
 }

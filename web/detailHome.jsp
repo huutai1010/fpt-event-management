@@ -46,7 +46,7 @@
     </head>
     <body>
         <%
-            
+
             EventDTO event = (EventDTO) request.getAttribute("DETAIL_EVENT");
             UserDTO loginUser = (UserDTO) session.getAttribute("LOGIN_USER");
             RegisterDAO registerDAO = new RegisterDAO();
@@ -200,7 +200,7 @@
                         <nav class="nav">
                             <a class="nav-link" href="#introduce">Giới thiệu</a>
                             <a class="nav-link" href="#comment">Bình luận</a>
-                            <a class="nav-link" href="MainController?action=QuestionList&userID=<%= loginUser.getUserID()%>">Q/A</a>
+                            <a class="nav-link" href="MainController?action=QuestionList&eventID=<%= event.getEventID()%>">Q/A</a>
                         </nav>
                     </div>
                 </section>
