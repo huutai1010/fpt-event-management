@@ -75,7 +75,6 @@
                         if (listQuestions != null) {
                             if (listQuestions.size() > 0) {
                                 for (QuestionDTO question : listQuestions) {
-
                     %>
                     <div class="main_QA">
                         <div class="QA_container">

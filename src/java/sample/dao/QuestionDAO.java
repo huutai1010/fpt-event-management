@@ -27,8 +27,9 @@ public class QuestionDAO {
 
     private static final String LIST_REPLY="SELECT u.userID, u.userName, u.avatar , r.replyDetail , q.questionID "
             + "FROM tblQuestion q, tblReply r, tblUsers u "
-            + "WHERE q.questionID = r.questionID AND r.userID = u.userID AND q.questionID=?";
+            + "WHERE q.questionID = r.questionID AND r.userID = u.userID AND q.questionID=? ";
     
+    private static final String CREATE_QUESTION = " INSERT INTO tblQuestion (userID, eventID, questionDetail) VALUES (?,?,?) ";
     
     /* Lấy hết danh sách câu hỏi trang ListQuestion.jsp*/
     public List<QuestionDTO> getAllQuestion(int eventID) throws SQLException {
@@ -67,7 +68,6 @@ public class QuestionDAO {
         return listAllQuestion;
     }
 
-    
     /* Lấy 1 question*/
     public QuestionDTO getDetailQuestion(int questionID, int eventID) throws SQLException {
         QuestionDTO question = new QuestionDTO();
@@ -141,6 +141,27 @@ public class QuestionDAO {
         return  listAllReply;
     }
     
-    
-
+    public boolean createQuestion(int userID, int eventID, String questionDetail) throws SQLException, ClassNotFoundException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try{
+            conn=DBUtils.getConnection();
+            if(conn != null){
+                ptm= conn.prepareStatement(CREATE_QUESTION);
+                ptm.setInt(1, userID);
+                ptm.setInt(2, eventID);
+                ptm.setString(3, questionDetail);
+                check = ptm.executeUpdate() > 0 ? true : false ;
+            }
+        }finally{
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
 }
