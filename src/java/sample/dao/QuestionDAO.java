@@ -31,6 +31,8 @@ public class QuestionDAO {
     
     private static final String CREATE_QUESTION = "INSERT INTO tblQuestion(userID, eventID, questionDetail) VALUES (?,?,?)";
     
+    private static final String GET_QUESTION = "SELECT u.avatar,q.questionID,u.userID, u.userName, q.questionDetail, e.eventID FROM tblQuestion q, tblUsers u, tblEvent e WHERE q.userID = u.userID AND q.eventID = e.eventID AND e.eventID=?";
+    
      //TAO MOT QUESTION
      public boolean createQuestion(int userID, int eventID, String questionDetail) throws SQLException, ClassNotFoundException {
         boolean check = false;
@@ -57,6 +59,42 @@ public class QuestionDAO {
     }
     
     
+      public List<QuestionDTO> getListQuestion(int eventID) throws SQLException {
+        List<QuestionDTO> listQuestion = new ArrayList();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(LIST_QUESTION);
+                ptm.setInt(1, eventID);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    int questionID = rs.getInt("questionID");
+                    String questionDetail = rs.getString("questionDetail");
+                    String userName = rs.getString("userName");
+                    String avatar = rs.getString("avatar");
+                    int userID = rs.getInt("userID");
+                    listQuestion.add(new QuestionDTO(eventID, questionID, userID, userName, avatar, questionDetail));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return listQuestion;
+    }
+     
     
     /* Lấy hết danh sách câu hỏi trang ListQuestion.jsp*/
     public List<QuestionDTO> getAllQuestion(int eventID) throws SQLException {

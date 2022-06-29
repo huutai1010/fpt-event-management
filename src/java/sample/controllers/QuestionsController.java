@@ -24,7 +24,7 @@ import sample.dto.QuestionDTO;
 public class QuestionsController extends HttpServlet {
 
     private static final String ERROR = "error.jsp";
-    private static final String SUCCESS = "ListQuestion.jsp";
+    private static final String SUCCESS = "ListQuestion.jsp"; // ??
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -44,15 +44,15 @@ public class QuestionsController extends HttpServlet {
             String formality = request.getParameter("formality");
             float ticketPrice = Float.parseFloat(request.getParameter("ticketPrice"));
             String questionDetail = request.getParameter("questionDetail");
-            
-            EventDTO event = new EventDTO(eventID, categoryName, locationName, eventName, eventDetail, image, startTime, endTime, numberOfAttendees, formality, ticketPrice);
-            request.setAttribute("DETAIL_EVENT", event);
-            
+
             QuestionDAO questionDAO = new QuestionDAO();
             boolean check = questionDAO.createQuestion(userID, eventID, questionDetail);
             if (check) {
-                List<QuestionDTO> listQuestion = questionDAO.getAllQuestion(eventID);
-                request.setAttribute("LIST_QUESTION", listQuestion);
+                // QuestionDTO question = new QuestionDTO(eventID, userID, userID, eventName, image, questionDetail);
+                //List<QuestionDTO> listQuestion = questionDAO.getAllQuestion(eventID);
+                //request.setAttribute("LIST_QUESTION", question);
+                EventDTO event = new EventDTO(eventID, categoryName, locationName, eventName, eventDetail, image, startTime, endTime, numberOfAttendees, formality, ticketPrice);
+                request.setAttribute("DETAIL_EVENT", event);
                 url = SUCCESS;
             }
         } catch (Exception e) {

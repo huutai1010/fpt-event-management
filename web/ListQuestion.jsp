@@ -4,6 +4,7 @@
     Author     : DELL
 --%>
 
+<%@page import="sample.dao.QuestionDAO"%>
 <%@page import="sample.dto.UserDTO"%>
 <%@page import="sample.dto.EventDTO"%>
 <%@page import="sample.dto.QuestionDTO"%>
@@ -44,7 +45,7 @@
         <%
             EventDTO event = (EventDTO) request.getAttribute("DETAIL_EVENT");
             UserDTO loginUser = (UserDTO) session.getAttribute("LOGIN_USER");
-            List<QuestionDTO> listQuestions = (List<QuestionDTO>) request.getAttribute("LIST_QUESTION");
+
             String error = (String) request.getAttribute("SEARCH_QUESTIONS_ERROR");
             if (error == null) {
                 error = "";
@@ -114,57 +115,71 @@
                             <div class="QA__arrow"></div>
                         </div>
                     </div>
-                    <%
-                        //QuestionDTO question = (QuestionDTO) request.getAttribute("DETAIL_QUESTION");
 
-                        if (listQuestions != null) {
-                            if (listQuestions.size() > 0) {
-                                for (QuestionDTO question : listQuestions) {
 
-                    %>
-                    <div class="main_QA">
-                        <div class="QA_container">
-                            <div class="QA_card">
-                                <div class="QA_title">
-                                    <a href="#">
-                                        <div class="QA_title-img">
-                                            <img src="<%= question.getAvatar()%>" style="width: 50px; height: 50px; border-radius: 50%;"
-                                                 alt="avatar">
-                                            <input type="hidden" name="<%= question.getQuestionID()%>" />
-                                        </div>
-                                        <div class="QA_title-name">
-                                            <span style="font-size:15px;"><%= question.getUserName()%></span>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="QA_comment">
-                                    <div class="QA_content">
-                                        <a href="MainController?action=ShowDetailQuestion&questionID=<%= question.getQuestionID()%>&userID=<%= question.getUserID()%>&userName=<%= question.getUserName()%>&avatar=<%= question.getAvatar()%>&questionDetail=<%= question.getQuestionDetail()%>&eventID=<%=question.getEventID()%>">
-                                            <div class="content"><%= question.getQuestionDetail()%></div>
+                    <div class="send-Question">
+                        <%
+                            QuestionDAO questionDAO = new QuestionDAO();
+                            List<QuestionDTO> listQuestions = questionDAO.getListQuestion(event.getEventID());
+                            //QuestionDTO question = (QuestionDTO) request.getAttribute("DETAIL_QUESTION");
+                            //  List<QuestionDTO> listQuestions = (List<QuestionDTO>) request.getAttribute("LIST_QUESTION");
+                            for (int i = 0; i < listQuestions.size(); i++) {
+                                QuestionDTO question = listQuestions.get(i);
+                                //                        
+                                //                        if (listQuestions != null) {
+                                //                            if (listQuestions.size() > 0) {
+                                //                                for (QuestionDTO question : listQuestions) {
+                        %>
+                        <div class="main_QA">
+                            <div class="QA_container">
+                                <div class="QA_card">
+                                    <div class="QA_title">
+                                        <a href="#">
+                                            <div class="QA_title-img">
+                                                <img src="<%= question.getAvatar()%>" style="width: 50px; height: 50px; border-radius: 50%;"
+                                                     alt="avatar">
+                                                <input type="hidden" name="<%= question.getQuestionID()%>" />
+                                            </div>
+                                            <div class="QA_title-name">
+                                                <span style="font-size:15px;"><%= question.getUserName()%></span>
+                                            </div>
                                         </a>
                                     </div>
-                                    <div class="QA_info">
-                                        <div class="QA_info-reply">
-                                            <span><b>Repies:</b></span>
-                                            <span>10</span>
+                                    <div class="QA_comment">
+                                        <div class="QA_content">
+                                            <a href="MainController?action=ShowDetailQuestion&questionID=<%= question.getQuestionID()%>&userID=<%= question.getUserID()%>&userName=<%= question.getUserName()%>&avatar=<%= question.getAvatar()%>&questionDetail=<%= question.getQuestionDetail()%>&eventID=<%=question.getEventID()%>">
+                                                <div class="content"><%= question.getQuestionDetail()%></div>
+                                            </a>
                                         </div>
-                                        <div class="QA_info-time">
-                                            <span><b>june 25, 2022</b></span>
+                                        <div class="QA_info">
+                                            <div class="QA_info-reply">
+                                                <span><b>Repies:</b></span>
+                                                <span>10</span>
+                                            </div>
+                                            <div class="QA_info-time">
+                                                <span><b>june 25, 2022</b></span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+
+                                <!-- 2 -->
+
+                                <!-- 3 -->
+
+                                <!-- 4 -->
+
+                                <!-- 5 -->
+
                             </div>
-
-                            <!-- 2 -->
-
-                            <!-- 3 -->
-
-                            <!-- 4 -->
-
-                            <!-- 5 -->
-
                         </div>
-                    </div>
+                        <%
+                            }
+
+                        %>     
+
+                    </div>  
+                    <%-- 
                     <%
                         }
                     } else if (listQuestions.size() == 0) {
@@ -174,7 +189,7 @@
                             }
                         }
                     %>
-
+                    --%>
                 </div>
             </section>
         </div>
