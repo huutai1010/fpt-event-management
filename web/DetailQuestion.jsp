@@ -103,7 +103,7 @@
                             <div class="QA_title">
                                 <a href="#">
                                     <div class="QA_title-img">
-                                        <img src="./img/02-3.jpg" style="width: 50px; height: 50px; border-radius: 50%;" alt="avatar">
+                                        <img src="<%= reply.getAvatar() %>" style="width: 50px; height: 50px; border-radius: 50%;" alt="avatar">
                                     </div>
                                     <div class="QA_title-name">
                                         <span style="font-size:15px;"><%= reply.getUserName() %></span>
