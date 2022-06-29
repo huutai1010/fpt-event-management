@@ -1,0 +1,273 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.container{
+    max-width: 1280px;
+    margin: 0 auto;
+}
+.blur{
+    width: 100vw;
+    height: 100vh;
+    z-index: 998;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+}
+.header{
+    background-color: #F29406;
+    top: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+.header_container{
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.header__logo{
+    padding: 7px 7px;
+}
+.header__logo img{
+    width: 70px;
+    border-radius: 30px;
+}
+.header__nav{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.header__nav .action{
+    margin-right: 50px;
+}
+.header__nav .action img{
+    width: 40px;
+    border-radius: 50%;
+}
+.header__nav a{
+    text-decoration: none;
+    color: #000;
+}
+.header__nav .notification{
+    margin-right: 35px;
+    font-size: 30px;
+}
+.header__nav .navbar{
+    position: relative;
+    
+}
+.header__nav .navbar .Bar__fa{
+    position: relative;
+    width: 35px;
+    overflow: hidden;
+    cursor: pointer;
+}
+.header__nav .navbar .Bar__fa i{
+    font-size: 25px;
+}
+.header__nav .navbar .bar__child{
+    position: absolute;
+    top: 80%;
+    right: -29px;
+    padding: 10px 20px;
+    background-color: #fff;
+    width: 100px;
+    border-radius: 15px;
+    transition: 0.5s ;
+    border: 1px solid rgba(0, 0, 0, 0.064);
+    margin-top: 10px;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 999;
+}
+.header__nav .navbar .bar__child a{
+    text-decoration: none;
+    text-align: center;
+    font-size: 17px;
+    padding-top: 5px;
+
+}
+.header__nav .navbar .bar__child::before{
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 15px;
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    transform: rotate(45deg);
+}
+.header__nav .navbar .bar__child ul{
+    margin-top: 15px;
+}
+.header__nav .navbar .bar__child ul li{
+    margin: 10px 0;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.header__nav .navbar .bar__child ul li i{
+    padding: 10px 10px;
+}
+.header__nav .navbar .bar__child ul li a{
+    transition: 0.5s;
+}
+.header__nav .navbar .bar__child ul li:hover a{
+    color: #EB4335;
+}
+/* .navbar:hover .bar__child{
+    visibility: visible;
+    opacity: 1;
+} */
+.section{
+    width: 100%;
+    left: 0;
+    top: 0;
+    align-items: center;
+}
+.section .container{
+    align-items: center;
+}
+.box{
+    /* display: block; */
+    width: 70%;
+    height: 500px;
+    border: 2px solid #F29406;
+    box-shadow: -3px -3px 7px #130c02;
+    margin-top: 100px;
+    border-radius: 5px;
+    overflow: hidden;
+    /* align-items: center;
+    justify-content: center; */
+    margin-left: 200px;
+    margin-right: 200px;
+}
+.box h4{
+    text-align: center;
+    color: #F29406;
+    font-size: 30px;
+}
+.editprofile{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.picture{
+    width: 35%;
+    text-align: center;
+    padding: 40px;
+    margin-right: 50px;
+    
+}
+.picture img{
+    width: 180px;
+}
+.upload button{
+    /* margin: 10px 10px;    */
+}
+.upload{
+    left: 10rem;
+}
+.upload .btn-Warning{
+    position: relative;
+    padding: 5px 10px;
+    font-size: 10px;
+    line-height: 1.5;
+    border-radius: 3px;
+    color: #fff;
+    background-color: #56534f;
+    overflow: hidden;
+    left: 4rem;
+    top: 0.5rem;
+}
+.picture .btn-Warning input[type="file"]{
+    cursor: pointer;
+    position: absolute;
+    left: 0;
+    right: 0;
+    transform: scale(3);
+    opacity: 0;
+}
+.profile{
+    /* margin-right: 10rem; */
+    padding-left: 50px;
+}
+.info{
+    display: block;
+    
+}
+.info label{
+    margin-right: 50px;
+}
+.info input{
+    width: 100%;
+    height: 45px;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding-left:15px ;
+    font-size: 16px;
+    transition: all 0.4s ease ;
+}
+.info input:focus,
+.info input:valid{
+    border-color: #F29406;
+}
+.box .btn{
+    display: block;
+}
+.btn button{
+    width: 70px;
+    font-size: 20px;
+    margin: 5px 10px;
+    transition: all 0.4s ease-in;
+    border-radius: 5px;
+    border: none;
+}
+.btn button:hover{
+    background-color: #F29406;
+}
+
+.btn button a {
+    text-decoration: none;
+    color: #000;
+}
+Viết cho Văn Tùng
+
+.footer{
+    width: 100%;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+    font-size: 15px;
+    margin-top: 100px;
+    background-color: #F29406;
+}
+.footer .list {
+    text-align: center;
+    padding: 20px 0;
+}
+
+figure {
+    width: 25%;
+    display: flex !important;
+}
+
+img{
+    width: 100%;
+}
+
+figcaption {
+    height: 20px;
+    padding-top: 15px;
+    display: none !important;
+}
+
+
+
