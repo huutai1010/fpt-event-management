@@ -49,10 +49,10 @@
             <header class="header">
                 <div class="header_container container">
                     <div class="header__logo">
-                        <a href="#"><img src="./img/F Event.png" alt="..."></a>
+                        <a href="home.jsp"><img src="./img/F Event.png" alt="..."></a>
                     </div>
                     <div class="header__search">
-                        <input type="text" placeholder="Nhập địa điểm">
+                        <input type="text" placeholder="Find Detail Question">
                     </div>
                 </div>
             </header>
@@ -60,7 +60,7 @@
             <section class="section">
                 <div class="container">
                     <div class="answer_header">
-                        <h3>Hỏi đáp</h3>
+                        <h3 style="text-align: center;color: red" >Answer</h3>
                     </div>
                     <div class="answer">
                         <div class="answer_container">
@@ -86,10 +86,10 @@
                         <div class="comment-text bg-line px-5 pt-2">
                             <div class="d-flex flex-row align-items-start">
                                 <img src="./img/02-3.jpg" alt="" class="rounded-circle" width="45">
-                                <textarea class="form-control ml-1 shadow-none textarea"></textarea>
+                                <textarea class="form-control ml-1 shadow-none textarea" placeholder="Type reply" ></textarea>
                             </div>
                             <div class="mt-2 text-right">
-                                <button class="btn btn-success btn-sm shadow-none" type="button">Đăng</button>
+                                <button class="btn btn-success btn-sm shadow-none" type="button">Post</button>
                             </div>
                         </div>
                         <%                            

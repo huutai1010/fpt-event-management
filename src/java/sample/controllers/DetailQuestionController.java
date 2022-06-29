@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import sample.dao.QuestionDAO;
 import sample.dto.QuestionDTO;
 import sample.dto.ReplyDTO;
@@ -32,6 +33,7 @@ public class DetailQuestionController extends HttpServlet {
         String url=ERROR;
         System.out.println("DetailQuestionController");
         try{      
+            HttpSession session = request.getSession();
             int eventID = Integer.parseInt(request.getParameter("eventID"));
             int questionID = Integer.parseInt(request.getParameter("questionID"));
             int userID = Integer.parseInt(request.getParameter("userID"));

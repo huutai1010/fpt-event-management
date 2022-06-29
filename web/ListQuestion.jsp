@@ -64,7 +64,7 @@
                     </div>
                     <div class="header__search">
                         <form action="MainController">
-                            <input type="text" placeholder="Nhập địa điểm">
+                            <input type="text" placeholder="Find question you need to want">
                             <button type="submit" name="action" value="SearchQuestion"><i class=""></i></button>
                         </form>          
                     </div>
@@ -75,12 +75,12 @@
                 <div class="container">
                     <div class="QA">
                         <div class="QA_header">
-                            <h3>Hỏi đáp</h3>
+                            <h3 style="text-align: center ;color: red" >Question And Answer</h3>
                         </div>
                         <div class="QA__button">
                             <div class="QA__button--click">
                                 <button id="QA-btn" class="btn btn-success" onclick="popupToggle();">
-                                    Đặt câu hỏi
+                                    Make a question
                                 </button>
                             </div>
                             <div id="QA-text" class="QA__button--text">
