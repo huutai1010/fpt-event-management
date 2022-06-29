@@ -63,7 +63,7 @@
                     </div>
                     <div class="header__search">
                         <form action="MainController">
-                            <input type="text" name="searchKeyWordQuestion"  value="<%= searchKeyWordQuestion%>" placeholder="Nhập địa điểm">
+                            <input type="text" placeholder="Nhập địa điểm">
                             <button type="submit" name="action" value="SearchQuestion"><i class=""></i></button>
                         </form>          
                     </div>
