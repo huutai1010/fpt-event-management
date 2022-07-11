@@ -87,7 +87,7 @@
                                 <form action="MainController">
 
                                     <div class="box">
-                                        <a href="#" class="close"><img src="./img/icon_close.png" style="width: 25px;" alt=""></a>
+                                        <a href="" class="close"><img src="./img/icon_close.png" style="width: 25px;" alt=""></a>
                                         <h3>Đặt câu hỏi</h3>
                                         <div class="text">
                                             <textarea  cols="50" rows="7" name="questionDetail" ></textarea>
