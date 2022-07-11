@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import sample.dto.UserDTO;
 import sample.utils.DBUtils;
 
@@ -29,6 +31,10 @@ public class UserDAO {
 
     private static final String CHECK_DUPLICATE_EMAIL = "SELECT * FROM tblUsers WHERE email=? ";
 
+    private static final String SEARCH_ADMIN = "SELECT u.userID, u.email, u.userName, u.phone, r.roleName, u.status, u.avatar, u.address FROM tblUsers u, tblRoles r WHERE u.roleID = r.roleID AND r.roleName = N'US' AND u.userName LIKE ?";
+    
+    private static final String GET_LIST_USER = "SELECT u.userID, u.email, u.userName, u.phone, r.roleName, u.status, u.avatar, u.address FROM tblUsers u, tblRoles r WHERE u.roleID = r.roleID AND r.roleName = N'US'";
+    
     //private static final String CREATE_GOOGLE_USER_2 = "INSERT ";
     public boolean registerNewUser(UserDTO user) throws SQLException, ClassNotFoundException {
         boolean check = false;
@@ -73,7 +79,7 @@ public class UserDAO {
                     String phone = rs.getString("phone");
                     String roleName = rs.getString("roleName");
                     String urlAvatar = rs.getString("avatar");
-                    user = new UserDTO(userID, email, "***", userName, urlAvatar, phone, address, roleName);
+                    user = new UserDTO(userID, email, "***", userName, urlAvatar, phone, address, roleName,1);
 
                 }
             }
@@ -112,7 +118,7 @@ public class UserDAO {
                     String phone = rs.getString("phone");
                     String roleName = rs.getString("roleName");
                     String urlAvatar = rs.getString("avatar");
-                    user = new UserDTO(userID, userEmail, password, userName, urlAvatar, phone, address, roleName);
+                    user = new UserDTO(userID, userEmail, password, userName, urlAvatar, phone, address, roleName,1);
 
                 }
             }
@@ -214,5 +220,80 @@ public class UserDAO {
         }
         return check;
     }
-
+    
+    //hàm lay list user de show ra cho admin
+    public List<UserDTO> getListUser(String searchAdmin) throws SQLException {
+        List<UserDTO> listUser = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if(conn != null){
+                ptm = conn.prepareStatement(SEARCH_ADMIN);
+                ptm.setString(1, "%" + searchAdmin + "%");
+                rs = ptm.executeQuery();
+                while(rs.next()){
+                    int userID = Integer.parseInt(rs.getString("userID"));
+                    String email = rs.getString("email");
+                    String userName = rs.getString("userName");
+                    String phone = rs.getString("phone");
+                    String roleName = rs.getString("roleName");
+                    int status = Integer.parseInt(rs.getString("status"));
+                    String avatar = rs.getString("avatar");
+                    String address = rs.getString("address");
+                    listUser.add(new UserDTO(userID, email, avatar, userName, avatar, phone, address, roleName, status));
+                }
+            }
+        } catch (Exception e) {
+        } finally {
+             if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return listUser;
+    }
+    public List<UserDTO> getListUser() throws SQLException {
+        List<UserDTO> listUser = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+         try {
+            conn = DBUtils.getConnection();
+            if(conn != null){
+                ptm = conn.prepareStatement(GET_LIST_USER);
+                rs = ptm.executeQuery();
+                while(rs.next()){
+                    int userID = Integer.parseInt(rs.getString("userID"));
+                    String email = rs.getString("email");
+                    String userName = rs.getString("userName");
+                    String phone = rs.getString("phone");
+                    String roleName = rs.getString("roleName");
+                    int status = Integer.parseInt(rs.getString("status"));
+                    String avatar = rs.getString("avatar");
+                    String address = rs.getString("address");
+                    listUser.add(new UserDTO(userID, email, avatar, userName, avatar, phone, address, roleName, status));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+             if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return listUser;
+    }
 }

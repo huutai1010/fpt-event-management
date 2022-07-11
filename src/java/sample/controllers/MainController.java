@@ -64,6 +64,8 @@ public class MainController extends HttpServlet {
     private static final String QUESTION_LIST_CONTROLLER="QuestionShowListController";
     private static final String SEARCH_QUESTION_LIST="SearchQuestion";
     private static final String SEARCH_QUESTION_LIST_CONTROLLER="SearchQuestionListController";
+    private static final String ADMIN = "SearchInAdmin";
+    private static final String ADMIN_CONTROLLER = "AdminController";
     
     
     
@@ -119,6 +121,8 @@ public class MainController extends HttpServlet {
                 url = SHOW_REPLY_CONTROLLER;
             }else if(PUBLISH_QUESTIONS.equals(action)) {
                 url = QUESTIONS_CONTROLLER;
+            }else if(ADMIN.equals(action)) {
+                url = ADMIN_CONTROLLER;
             }
         } catch (Exception e) {
             e.printStackTrace();

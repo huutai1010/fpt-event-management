@@ -54,7 +54,7 @@ public class LoginGoogleController extends HttpServlet {
             if (loginUser == null) {
                 String name = user.getName();
                 String picture = user.getPicture();
-                loginUser = new UserDTO(1, email, "", name, picture, "", "", "US");
+                loginUser = new UserDTO(1, email, "", name, picture, "", "", "US",1);
                 boolean check = userDAO.registerNewUser(loginUser);
                 if (check) {
                     System.out.println("create google user successfully");

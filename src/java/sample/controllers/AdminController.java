@@ -6,48 +6,45 @@ package sample.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import sample.dao.EventDAO;
 import sample.dao.UserDAO;
 import sample.dto.UserDTO;
 
-/**
- *
- * @author Acer
- */
-@WebServlet(name = "EditUserController", urlPatterns = {"/EditUserController"})
-public class EditUserController extends HttpServlet {
 
+@WebServlet(name = "AdminController", urlPatterns = {"/AdminController"})
+public class AdminController extends HttpServlet {
     private static final String ERROR = "error.jsp";
-    private static final String SUCCESS = "profile.jsp";
-
+    private static final String SUCCESS = "admin.jsp";
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            int userID = Integer.parseInt(request.getParameter("userID"));
-            String roleName = request.getParameter("roleName");
-            String userEmail = request.getParameter("userEmail");
-            String password = request.getParameter("password");
-            String userName = request.getParameter("userName");
-            String urlAvatar = request.getParameter("urlAvatar");
-            String phone = request.getParameter("phone");
-            String address = request.getParameter("address");  
-            UserDAO dao = new UserDAO();
-            UserDTO user = new UserDTO(userID, userEmail, password, userName, urlAvatar, phone, address, roleName, 1);
-            boolean check = dao.updateUser(user);
-            if (check) {
+        //    HttpSession session = request.getSession();
+          //  String searchAdmin = request.getParameter("searchAdmin");
+            UserDAO userDao = new UserDAO();
+            EventDAO eventDao = new EventDAO();
+           // List<UserDTO> listUser = userDao.getListUser(searchAdmin);
+            
+            List<UserDTO> listUser = userDao.getListUser();
+        //    List<EventDTO> listEventAdmin = eventDao.getListEvent();
+            if(listUser.size() > 0) {
+                
+                request.setAttribute("LIST_USER", listUser);
+               // session.setAttribute("searchAdmin", searchAdmin);
                 url = SUCCESS;
-                HttpSession session = request.getSession();
-                session.setAttribute("LOGIN_USER", user);
             }
+            
         } catch (Exception e) {
-            log("Error at UpdateController: " + e.toString());
+            log("Error at AdminController: " +e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
