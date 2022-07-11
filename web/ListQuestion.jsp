@@ -71,7 +71,7 @@
                 </div>
             </header>
 
-            <section class="section">
+            <section class="section" style="height: fit-content">
                 <div class="container">
                     <div class="QA">
                         <div class="QA_header">
