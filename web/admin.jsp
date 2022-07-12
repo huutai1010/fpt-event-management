@@ -38,6 +38,8 @@
                             <span class="title">Wellcome to Admin<h1 style="color: " ><%= loginUser.getUserName()%></h1></span>
                         </a>
                     </li>
+                    
+                    <script></script
                     <li class="tab-item active">
                         <a href="#menu_1">
                             <span class="icon">
@@ -257,14 +259,14 @@
                             </thead>
                             <tbody>
                                 <%
-                                  
                                     for (UserDTO user : listUser) {
                                 %>
                             <form action="MainController">                       
                                 <tr>                          
-                                <input type="hidden" name="userID" value="<%= user.getUserID() %>" readonly=""/>                               
+                                <input type="hidden" name="userID" value="<%= user.getUserID()%>" readonly=""/>                               
                                 <td>
                                     <input style="border: none" type="text" name="email" value="<%= user.getEmail()%>" readonly="" />
+                                    <span></span>
                                 </td>
                                 <td>
                                     <input style="border: none" type="text" name="userName" value="<%= user.getUserName()%>" readonly="" />
@@ -276,34 +278,48 @@
                                     <input style="border: none" type="text" name="roleName" value="<%= user.getRoleName()%>" readonly="" />
                                 </td>
                                 <td>
-                                    <span class="status">
-                                        <input style="background-color: greenyellow;border: none" type="hidden" name="status" value="<%= user.getStatus()%>" readonly="" />
-                                    </span>
+                                    <%if (user.getStatus() == 1) {%>
+                                    <div>
+                                        <span class="status">
+                                            <input border: none" type="hidden" name="status" value="<%= user.getStatus()%>" readonly="" />
+                                        </span>
+                                    </div>
+                                    <%
+                                    } else {
+                                    %>
+                                    <div>
+                                        <span class="statusDisble">
+                                            <input border: none" type="hidden" name="status" value="<%= user.getStatus()%>" readonly="" />
+                                        </span>
+                                    </div>
+                                    <%
+                                        }
+                                    %>
+
                                 </td>
                                 <td>
-                                    <input type="hidden" name="avatar" value="<%= user.getUrlAvatar() %>" readonly="" />
+                                    <input type="hidden" name="avatar" value="<%= user.getUrlAvatar()%>" readonly="" />
                                     <% String defaultAvatar = "./img/default.png";%>
-                                    <img src="<%= user.getUrlAvatar() == null ? defaultAvatar : user.getUrlAvatar() %>" alt="No Images" width="150" height="150" />
+                                    <img src="<%= user.getUrlAvatar() == null ? defaultAvatar : user.getUrlAvatar()%>" alt="No Images" width="150" height="150" />
                                 </td>
                                 <td>
-                                    <input style="border: none" type="text" name="address" value="<%= user.getAddress() %>" readonly="" />
+                                    <input style="border: none" type="text" name="address" value="<%= user.getAddress()%>" readonly="" />
                                 </td>
                                 <td>
-                                    <!--<button style="background-color: green;width: 97px;height: 28px;border-radius: 15px" class="" name="action" value="Delete">Delete</button>-->
-                                    <a href="MainController?action=Delete&userID=<%= user.getUserID() %>">
+                                    <a href="MainController?action=Delete&userID=<%= user.getUserID()%>">
                                         <button style="background-color: green;width: 97px;height: 28px;border-radius: 15px" class="btn btn-success" name="action" value="Delete">Delete</button>
                                     </a>
                                 </td>
                                 </tr>
                             </form>  
-                            <%                           
+                            <%
                                 }
                             %>
                             </tbody>
                         </table>
-                        <%      
-                                   }
-                              }
+                        <%
+                                }
+                            }
                         %>
                     </div>
                 </div>
