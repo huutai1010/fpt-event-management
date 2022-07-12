@@ -84,6 +84,9 @@
                     <div class="button">
                         <button onclick="popupToggle();">Tạo tài khoản</button>
                     </div>
+                    <div class="button" >
+                        <a href="MainController?action=Logout"> <button name="action" value="Logout">Logout</button></a>             
+                    </div>            
                 </div>
 
                 <div class="details">
@@ -277,7 +280,6 @@
                                         <input style="background-color: greenyellow;border: none" type="hidden" name="status" value="<%= user.getStatus()%>" readonly="" />
                                     </span>
                                 </td>
-          
                                 <td>
                                     <input type="hidden" name="avatar" value="<%= user.getUrlAvatar() %>" readonly="" />
                                     <% String defaultAvatar = "./img/default.png";%>
@@ -287,8 +289,10 @@
                                     <input style="border: none" type="text" name="address" value="<%= user.getAddress() %>" readonly="" />
                                 </td>
                                 <td>
-                                    <button style="background-color: green;width: 97px;height: 28px;border-radius: 15px" class="" name="action" value="Delete">Delete</button>
-                                    <a href=""></a>
+                                    <!--<button style="background-color: green;width: 97px;height: 28px;border-radius: 15px" class="" name="action" value="Delete">Delete</button>-->
+                                    <a href="MainController?action=Delete&userID=<%= user.getUserID() %>">
+                                        <button style="background-color: green;width: 97px;height: 28px;border-radius: 15px" class="btn btn-success" name="action" value="Delete">Delete</button>
+                                    </a>
                                 </td>
                                 </tr>
                             </form>  

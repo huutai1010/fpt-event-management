@@ -66,7 +66,8 @@ public class MainController extends HttpServlet {
     private static final String SEARCH_QUESTION_LIST_CONTROLLER="SearchQuestionListController";
     private static final String ADMIN = "SearchInAdmin";
     private static final String ADMIN_CONTROLLER = "AdminController";
-    
+    private static final String DELETE = "Delete";
+    private static final String DELETE_CONTROLLER = "DeleteController";
     
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -123,6 +124,8 @@ public class MainController extends HttpServlet {
                 url = QUESTIONS_CONTROLLER;
             }else if(ADMIN.equals(action)) {
                 url = ADMIN_CONTROLLER;
+            }else if(DELETE.equals(action)) {
+                url = DELETE_CONTROLLER;
             }
         } catch (Exception e) {
             e.printStackTrace();

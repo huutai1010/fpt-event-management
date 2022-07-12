@@ -33,7 +33,10 @@ public class UserDAO {
 
     private static final String SEARCH_ADMIN = "SELECT u.userID, u.email, u.userName, u.phone, r.roleName, u.status, u.avatar, u.address FROM tblUsers u, tblRoles r WHERE u.roleID = r.roleID AND r.roleName = N'US' AND u.userName LIKE ?";
     
-    private static final String GET_LIST_USER = "SELECT u.userID, u.email, u.userName, u.phone, r.roleName, u.status, u.avatar, u.address FROM tblUsers u, tblRoles r WHERE u.roleID = r.roleID AND r.roleName = N'US'";
+    private static final String GET_LIST_USER = "SELECT u.userID, u.email, u.userName, u.phone, r.roleName, u.status, u.avatar, u.address FROM tblUsers u, tblRoles r WHERE u.roleID = r.roleID AND r.roleName = N'US' AND status = 1";
+    
+    private static final String DELETE_USER = "UPDATE tblUsers SET status = 0 WHERE userID =?";
+    
     
     //private static final String CREATE_GOOGLE_USER_2 = "INSERT ";
     public boolean registerNewUser(UserDTO user) throws SQLException, ClassNotFoundException {
@@ -295,5 +298,28 @@ public class UserDAO {
             }
         }
         return listUser;
+    }
+    
+    
+    public boolean deleteUser(int userID) throws SQLException, ClassNotFoundException{
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try{
+            conn = DBUtils.getConnection();
+            if(conn != null){
+                ptm = conn.prepareStatement(DELETE_USER);
+                ptm.setInt(1, userID);
+                check = ptm.executeUpdate() > 0 ? true : false;
+            }
+        }finally{
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
     }
 }

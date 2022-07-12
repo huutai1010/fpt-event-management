@@ -5,12 +5,13 @@
 package sample.controllers;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import sample.dao.UserDAO;
 import sample.dto.UserDTO;
 
@@ -18,55 +19,27 @@ import sample.dto.UserDTO;
  *
  * @author Acer
  */
-@WebServlet(name = "LoginController", urlPatterns = {"/LoginController"})
-public class LoginController extends HttpServlet {
-
-    private static final String ERROR = "sign.jsp";
-    private static final String US = "US";
-    private static final String USER_PAGE = "home.jsp";
-//    private static final String USER_PAGE1 = "MainController?action=SearchLogin&searchKeyword=";
-    private static final String AD = "AD";
-   // private static final String ADMIN_PAGE = "admin.jsp";
-    private static final String ADMIN_CONTROLLER = "AdminController";
-    private static final String MT = "MT";
-    private static final String MENTOR_PAGE = "mentor.jsp";
-
+@WebServlet(name = "DeleteController", urlPatterns = {"/DeleteController"})
+public class DeleteController extends HttpServlet {
+    
+    private static final String ERROR = "error.jsp";
+    private static final String SUCCESS = "AdminController"; 
+   
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            String userEmail = request.getParameter("userEmail");
-            String password = request.getParameter("password");
-            String eventID = request.getParameter("eventID");
+            int userID = Integer.parseInt(request.getParameter("userID"));
             UserDAO dao = new UserDAO();
-            UserDTO loginUser = dao.checkLogin(userEmail, password);
-            //xacs thuc
-            if (loginUser != null) {
-                request.setAttribute("eventID", eventID);
-                //phan quyen
-                String roleName = loginUser.getRoleName();
-                HttpSession session = request.getSession();
-                session.setAttribute("LOGIN_USER", loginUser);
-                if (AD.equals(roleName)) {
-                  //  url = ADMIN_PAGE;
-                   url = ADMIN_CONTROLLER;
-                } else if (US.equals(roleName)) {
-                    url = USER_PAGE;
-                } else if (MT.equals(roleName)) {
-                    url = MENTOR_PAGE;
-                } else {
-                    request.setAttribute("ERROR", "Your role is not supported!");
-                } 
-                
-                if (eventID.length() > 0) {
-                    url = "DetailEventHomeController";
-                }
-            } else {
-                request.setAttribute("ERROR", "Incorrect userEmail or password!");
+            boolean check = dao.deleteUser(userID);
+         //   List<UserDTO> listUser = dao.getListUser();
+            if(check){
+                url = SUCCESS;
+             //   request.setAttribute("LIST_USER", listUser);
             }
         } catch (Exception e) {
-            log("Error at LoginController: " + e.toString());
+            log("Error at DeleteController: " +e.toString() );
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
