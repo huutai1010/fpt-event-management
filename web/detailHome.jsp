@@ -171,7 +171,7 @@
                                     <%
                                         }
                                     %>
-                                    <%-- Start flow --%>
+                                    <%-- Start follow --%>
                                     <%
                                         if (messageFllow.equals("Follow Successfully") || followDAO.isEventRegisterExistentActive(loginUser.getUserID(), event.getEventID())) {
                                     %>

@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import sample.dao.RegisterDAO;
 import sample.dto.EventDTO;
+import sample.dto.UserDTO;
+import sample.mail.JavaMailUtil;
 
 /**
  *
@@ -30,6 +32,10 @@ public class RegisterController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
+                        
+            HttpSession session = request.getSession();
+            UserDTO loginUser = (UserDTO) session.getAttribute("LOGIN_USER");
+            
             int eventID = Integer.parseInt(request.getParameter("eventID"));
             int userID = Integer.parseInt(request.getParameter("userID"));
             String categoryName = request.getParameter("categoryName");
@@ -47,12 +53,15 @@ public class RegisterController extends HttpServlet {
             boolean check = false;
             boolean isEventRegisterExistent = registerDAO.isEventRegisterExistent(userID, eventID);
             if (isEventRegisterExistent) {
-                check = registerDAO.updateEventRegisterStatus(userID, eventID, 1);
+                check = registerDAO.updateEventRegisterStatus(userID, eventID, 1); // Update register status that status = 0 before udating
             }else{
-                check = registerDAO.registerEvent(userID, eventID);
+                check = registerDAO.registerEvent(userID, eventID); // Add new register to tblRegister
             }           
             String message = "";
             if(check){
+                System.out.println("Current login user email = " + loginUser.getEmail());
+                System.out.println("RegisterController check = " + check);
+                JavaMailUtil.sendMail(loginUser.getEmail(), loginUser.getUserName(), eventName, image); //Send email to current login user
                 message = "Register successfully";
                 url = SUCCESS;
             }
