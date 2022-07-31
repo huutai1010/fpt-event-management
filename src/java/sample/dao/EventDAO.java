@@ -20,22 +20,29 @@ import sample.utils.DBUtils;
  */
 public class EventDAO {
 
-    private static final String SEARCH_ALL_EVENTS = "SELECT eventID, categoryName, locationName, eventName, eventDetail, image, FORMAT(startTime, 'yyyy-MM-dd') AS startTime, FORMAT(endTime, 'yyyy-MM-dd') AS endTime, numberOfAttendees, formality, ticketPrice FROM tblEvent e, tblLocation l, tblCategory c WHERE e.locationID = l.locationID AND e.categoryID = c.categoryID";
-    private static final String SEARCH_EVENTS = "SELECT eventID, categoryName, locationName, eventName, eventDetail, image, FORMAT(startTime, 'yyyy-MM-dd') AS startTime, FORMAT(endTime, 'yyyy-MM-dd') AS endTime, numberOfAttendees, formality, ticketPrice FROM tblEvent e, tblLocation l, tblCategory c WHERE e.locationID = l.locationID AND e.categoryID = c.categoryID AND e.eventName LIKE ? AND status = '1'";
-    private static final String DETAIL_EVENT = "SELECT categoryName, locationName, eventName, eventDetail, image, FORMAT(startTime, 'yyyy-MM-dd') AS startTime, FORMAT(endTime, 'yyyy-MM-dd') AS endTime, numberOfAttendees, formality, ticketPrice FROM tblEvent e, tblLocation l, tblCategory c WHERE e.locationID = l.locationID AND e.categoryID = c.categoryID AND eventID=? AND status = '1'";
+    private static final String SEARCH_ALL_EVENTS = "SELECT eventID, categoryName, locationName, eventName, eventDetail, posterImage, backgroundImage, FORMAT(date, 'yyyy-MM-dd') AS date, numberOfAttendees, formality, ticketPrice, status FROM tblEvent e, tblLocation l, tblCategory c WHERE e.locationID = l.locationID AND e.categoryID = c.categoryID";
+    private static final String SEARCH_EVENTS = "SELECT eventID, categoryName, locationName, eventName, eventDetail, posterImage, backgroundImage, FORMAT(date, 'yyyy-MM-dd') AS date, numberOfAttendees, formality, ticketPrice, status FROM tblEvent e, tblLocation l, tblCategory c WHERE e.locationID = l.locationID AND e.categoryID = c.categoryID AND e.eventName LIKE ? AND status = '1'";
+    private static final String DETAIL_EVENT = "SELECT categoryName, locationName, eventName, eventDetail, posterImage, backgroundImage, FORMAT(date, 'yyyy-MM-dd') AS date, numberOfAttendees, formality, ticketPrice, status FROM tblEvent e, tblLocation l, tblCategory c WHERE e.locationID = l.locationID AND e.categoryID = c.categoryID AND eventID=? AND status = '1'";
     
 
     public int checkTimeOfEvent(EventDTO event) {
         Date today = new Date();
         System.out.println("TODAY" + today.toString());
         int ans = -1;
-        if (event.getStartTime().before(today) && event.getEndTime().before(today)) {
+        if (event.getDate().before(today)) {
             ans = -1;
-        } else if (event.getStartTime().before(today) && event.getEndTime().after(today)) {
+        } else if (event.getDate().toString().equals(today.toString())) {
             ans = 0;
-        } else if (event.getStartTime().after(today) && event.getEndTime().after(today)) {
+        } else if (event.getDate().after(today)) {
             ans = 1;
-        }
+        } 
+//        if (event.getStartTime().before(today) && event.getEndTime().before(today)) {
+//            ans = -1;
+//        } else if (event.getStartTime().before(today) && event.getEndTime().after(today)) {
+//            ans = 0;
+//        } else if (event.getStartTime().after(today) && event.getEndTime().after(today)) {
+//            ans = 1;
+//        }
         return ans;
     }
 
@@ -56,13 +63,14 @@ public class EventDAO {
                     String locationName = rs.getString("locationName");
                     String eventName = rs.getString("eventName");
                     String eventDetail = rs.getString("eventDetail");
-                    String image = rs.getString("image");
-                    Date startTime = rs.getDate("startTime");
-                    Date endTime = rs.getDate("endTime");
+                    String posterImage = rs.getString("posterImage");
+                    String backgroundImage = rs.getString("backgroundImage");
+                    Date date = rs.getDate("date");
                     int numberOfAttendees = rs.getInt("numberOfAttendees");
                     String formality = rs.getString("formality");
                     float ticketPrice = rs.getFloat("ticketPrice");
-                    listAllEvents.add(new EventDTO(eventID, categoryName, locationName, eventName, eventDetail, image, startTime, endTime, numberOfAttendees, formality, ticketPrice));
+                    int status = rs.getInt("status");
+                    listAllEvents.add(new EventDTO(eventID, categoryName, locationName, eventName, eventDetail, posterImage, backgroundImage, date, numberOfAttendees, formality, ticketPrice, status));
                 }
             }
         } catch (Exception e) {
@@ -98,14 +106,15 @@ public class EventDAO {
                     String locationName = rs.getString("locationName");
                     String eventName = rs.getString("eventName");
                     String eventDetail = rs.getString("eventDetail");
-                    String image = rs.getString("image");
-                    Date startTime = rs.getDate("startTime");
-                    Date endTime = rs.getDate("endTime");
+                    String posterImage = rs.getString("posterImage");
+                    String backgroundImage = rs.getString("backgroundImage");
+                    Date date = rs.getDate("date");
                     int numberOfAttendees = rs.getInt("numberOfAttendees");
                     String formality = rs.getString("formality");
                     float ticketPrice = rs.getFloat("ticketPrice");
+                    int status = rs.getInt("status");
 
-                    listEvent.add(new EventDTO(eventID, categoryName, locationName, eventName, eventDetail, image, startTime, endTime, numberOfAttendees, formality, ticketPrice));
+                    listEvent.add(new EventDTO(eventID, categoryName, locationName, eventName, eventDetail, posterImage, backgroundImage, date, numberOfAttendees, formality, ticketPrice, status));
                 }
             }
         } catch (Exception e) {
@@ -139,14 +148,15 @@ public class EventDAO {
                 String locationName = rs.getString("locationName");
                 String eventName = rs.getString("eventName");
                 String eventDetail = rs.getString("eventDetail");
-                String image = rs.getString("image");
-                Date startTime = rs.getDate("startTime");
-                Date endTime = rs.getDate("endTime");
+                String posterImage = rs.getString("posterImage");
+                String backgroundImage = rs.getString("backgroundImage");
+                Date date = rs.getDate("date");
                 int numberOfAttendees = rs.getInt("numberOfAttendees");
                 String formality = rs.getString("formality");
                 float ticketPrice = rs.getFloat("ticketPrice");
+                int status = rs.getInt("status");
 
-                event = new EventDTO(eventID, categoryName, locationName, eventName, eventDetail, image, startTime, endTime, numberOfAttendees, formality, ticketPrice);
+                event = new EventDTO(eventID, categoryName, locationName, eventName, eventDetail, posterImage, backgroundImage, date, numberOfAttendees, formality, ticketPrice, status);
             }
         } catch (Exception e) {
             e.printStackTrace();

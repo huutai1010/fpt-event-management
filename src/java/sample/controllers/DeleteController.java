@@ -33,18 +33,18 @@ public class DeleteController extends HttpServlet {
             int userID = Integer.parseInt(request.getParameter("userID"));
             UserDAO dao = new UserDAO();
             boolean check = dao.deleteUser(userID);
-         //   List<UserDTO> listUser = dao.getListUser();
+        //   List<UserDTO> listUser = dao.getListUser();
             if(check){
                 url = SUCCESS;
              //   request.setAttribute("LIST_USER", listUser);
             }
         } catch (Exception e) {
-            log("Error at DeleteController: " +e.toString() );
+            log("Error at DeleteController: " +e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
     }
-
+    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

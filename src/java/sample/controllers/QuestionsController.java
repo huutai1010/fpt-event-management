@@ -37,13 +37,14 @@ public class QuestionsController extends HttpServlet {
             String locationName = request.getParameter("locationName");
             String eventName = request.getParameter("eventName");
             String eventDetail = request.getParameter("eventDetail");
-            String image = request.getParameter("image");
-            Date startTime = Date.valueOf(request.getParameter("startTime"));
-            Date endTime = Date.valueOf(request.getParameter("endTime"));
+            String posterImage = request.getParameter("posterImage");
+            String backgroundImage = request.getParameter("backgroundImage");
+            Date date = Date.valueOf(request.getParameter("date"));
             int numberOfAttendees = Integer.parseInt(request.getParameter("numberOfAttendees"));
             String formality = request.getParameter("formality");
             float ticketPrice = Float.parseFloat(request.getParameter("ticketPrice"));
             String questionDetail = request.getParameter("questionDetail");
+            int status = Integer.parseInt(request.getParameter("status"));
 
             QuestionDAO questionDAO = new QuestionDAO();
             boolean check = questionDAO.createQuestion(userID, eventID, questionDetail);
@@ -51,7 +52,7 @@ public class QuestionsController extends HttpServlet {
                 // QuestionDTO question = new QuestionDTO(eventID, userID, userID, eventName, image, questionDetail);
                 //List<QuestionDTO> listQuestion = questionDAO.getAllQuestion(eventID);
                 //request.setAttribute("LIST_QUESTION", question);
-                EventDTO event = new EventDTO(eventID, categoryName, locationName, eventName, eventDetail, image, startTime, endTime, numberOfAttendees, formality, ticketPrice);
+                EventDTO event = new EventDTO(eventID, categoryName, locationName, eventName, eventDetail, posterImage, backgroundImage, date, numberOfAttendees, formality, ticketPrice, status);
                 request.setAttribute("DETAIL_EVENT", event);
                 url = SUCCESS;
             }

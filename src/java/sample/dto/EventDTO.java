@@ -16,28 +16,30 @@ public class EventDTO {
     private String locationName;
     private String eventName;
     private String eventDetail;
-    private String image;
-    private Date startTime;
-    private Date endTime;
+    private String posterImage;
+    private String backgroundImage;
+    private Date date;
     private int numberOfAttendees;
     private String formality;
     private float ticketPrice;
+    private int status;
 
     public EventDTO() {
     }
 
-    public EventDTO(int eventID, String categoryName, String locationName, String eventName, String eventDetail, String image, Date startTime, Date endTime, int numberOfAttendees, String formality, float ticketPrice) {
+    public EventDTO(int eventID, String categoryName, String locationName, String eventName, String eventDetail, String posterImage, String backgroundImage, Date date, int numberOfAttendees, String formality, float ticketPrice, int status) {
         this.eventID = eventID;
         this.categoryName = categoryName;
         this.locationName = locationName;
         this.eventName = eventName;
         this.eventDetail = eventDetail;
-        this.image = image;
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.posterImage = posterImage;
+        this.backgroundImage = backgroundImage;
+        this.date = date;
         this.numberOfAttendees = numberOfAttendees;
         this.formality = formality;
         this.ticketPrice = ticketPrice;
+        this.status = status;
     }
 
     public int getEventID() {
@@ -80,28 +82,12 @@ public class EventDTO {
         this.eventDetail = eventDetail;
     }
 
-    public String getImage() {
-        return image;
+    public Date getDate() {
+        return date;
     }
 
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public Date getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(Date startTime) {
-        this.startTime = startTime;
-    }
-
-    public Date getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public int getNumberOfAttendees() {
@@ -128,8 +114,29 @@ public class EventDTO {
         this.ticketPrice = ticketPrice;
     }
 
-    
-    
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public String getPosterImage() {
+        return posterImage;
+    }
+
+    public void setPosterImage(String posterImage) {
+        this.posterImage = posterImage;
+    }
+
+    public String getBackgroundImage() {
+        return backgroundImage;
+    }
+
+    public void setBackgroundImage(String backgroundImage) {
+        this.backgroundImage = backgroundImage;
+    }
     
     
 }

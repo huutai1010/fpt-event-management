@@ -117,15 +117,15 @@ public class RegisterDAO {
                     String locationName = rs.getString("locationName");
                     String eventName = rs.getString("eventName");
                     String eventDetail = rs.getString("eventDetail");
-                    String image = rs.getString("image");
-                    Date startTime = rs.getDate("startTime");
-                    Date endTime = rs.getDate("endTime");
+                    String posterImage = rs.getString("posterImage");
+                    String backgroundImage = rs.getString("backgroundImage");
+                    Date date = rs.getDate("date");
                     int numberOfAttendees = rs.getInt("numberOfAttendees");
                     String formality = rs.getString("formality");
                     float ticketPrice = rs.getFloat("ticketPrice");
-                    listRegisteredEvents.add(new EventDTO(eventID, categoryName, locationName, eventName, eventDetail, image, startTime, endTime, numberOfAttendees, formality, ticketPrice));
-                    
-                    
+                    int status = rs.getInt("status");
+                    listRegisteredEvents.add(new EventDTO(eventID, categoryName, locationName, eventName, eventDetail, posterImage, backgroundImage, date, numberOfAttendees, formality, ticketPrice, status));                 
+                
                 }
             }
         }catch(Exception e){
@@ -163,13 +163,14 @@ public class RegisterDAO {
                     String locationName = rs.getString("locationName");
                     String eventName = rs.getString("eventName");
                     String eventDetail = rs.getString("eventDetail");
-                    String image = rs.getString("image");
-                    Date startTime = rs.getDate("startTime");
-                    Date endTime = rs.getDate("endTime");
+                    String posterImage = rs.getString("posterImage");
+                    String backgroundImage = rs.getString("backgroundImage");
+                    Date date = rs.getDate("date");
                     int numberOfAttendees = rs.getInt("numberOfAttendees");
                     String formality = rs.getString("formality");
                     float ticketPrice = rs.getFloat("ticketPrice");
-                    listSearchRegistered.add(new EventDTO(eventID, categoryName, locationName, eventName, eventDetail, image, startTime, endTime, numberOfAttendees, formality, ticketPrice));
+                    int status = rs.getInt("status");
+                    listSearchRegistered.add(new EventDTO(eventID, categoryName, locationName, eventName, eventDetail, posterImage, backgroundImage, date, numberOfAttendees, formality, ticketPrice, status));
                     
                     
                 }

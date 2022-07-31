@@ -101,8 +101,7 @@
                                             <input type="hidden" name="eventName" value="<%=event.getEventName()%>"/>
                                             <input type="hidden" name="eventDetail" value="<%=event.getEventDetail()%>"/>
                                             <input type="hidden" name="image" value="<%=event.getImage()%>"/>
-                                            <input type="hidden" name="startTime" value="<%=event.getStartTime()%>"/>
-                                            <input type="hidden" name="endTime" value="<%=event.getEndTime()%>"/>
+                                            <input type="hidden" name="endTime" value="<%=event.getDate()%>"/>
                                             <input type="hidden" name="numberOfAttendees" value="<%=event.getNumberOfAttendees()%>"/>
                                             <input type="hidden" name="formality" value="<%=event.getFormality()%>"/>
                                             <input type="hidden" name="ticketPrice" value="<%=event.getTicketPrice()%>"/>

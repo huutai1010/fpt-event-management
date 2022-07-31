@@ -157,13 +157,14 @@ public class FollowDAO {
                     String locationName = rs.getString("locationName");
                     String eventName = rs.getString("eventName");
                     String eventDetail = rs.getString("eventDetail");
-                    String image = rs.getString("image");
-                    Date startTime = rs.getDate("startTime");
-                    Date endTime = rs.getDate("endTime");
+                    String posterImage = rs.getString("posterImage");
+                    String backgroundImage = rs.getString("backgroundImage");
+                    Date date = rs.getDate("date");
                     int numberOfAttendees = rs.getInt("numberOfAttendees");
                     String formality = rs.getString("formality");
                     float ticketPrice = rs.getFloat("ticketPrice");
-                    listAllEvents.add(new EventDTO(eventID, categoryName, locationName, eventName, eventDetail, image, startTime, endTime, numberOfAttendees, formality, ticketPrice));
+                    int status = rs.getInt("status");
+                    listAllEvents.add(new EventDTO(eventID, categoryName, locationName, eventName, eventDetail, posterImage, backgroundImage, date, numberOfAttendees, formality, ticketPrice, status));
                 }
             }
         } catch (Exception e) {

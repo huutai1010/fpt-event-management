@@ -80,7 +80,6 @@
                             <a href="MainController?action=LoginGoogleAccount&eventID=<%=eventID%>" class="social"><i class="fab fa-google"></i></a>
                         </div>
 
-
                         <div>
                             <a href="login.jsp" style="color: orange">Back to home</a>
                         </div>

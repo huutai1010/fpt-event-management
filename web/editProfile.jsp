@@ -113,9 +113,11 @@
                                     <label for="Email"></label>
                                     <input type="hidden" name="userEmail" value="<%= loginUser.getEmail()%>" placeholder="Role Name">
                                 </div>
+                                
+                                
 <!--                                <div>
-                                    <label for="Images"></label>
-                                    <input type="file" name="images" id="images" required="required" multiple="multiple"
+                                    <label for="Images"></label> 
+                                   <input type="file" name="images" id="images" required="required" multiple="multiple"
                                            accept="image/png, image/jpeg"  onchange="previewImg()"/>
                                     <div id="preview-img"></div>
                                 </div>-->

@@ -42,12 +42,14 @@ public class RegisterController extends HttpServlet {
             String locationName = request.getParameter("locationName");
             String eventName = request.getParameter("eventName");
             String eventDetail = request.getParameter("eventDetail");
-            String image = request.getParameter("image");
-            Date startTime = Date.valueOf(request.getParameter("startTime"));
-            Date endTime = Date.valueOf(request.getParameter("endTime"));
+            String posterImage = request.getParameter("posterImage");
+            String backgroundImage = request.getParameter("backgroundImage");
+            Date date = Date.valueOf(request.getParameter("date"));
             int numberOfAttendees = Integer.parseInt(request.getParameter("numberOfAttendees"));
             String formality = request.getParameter("formality");
             float ticketPrice = Float.parseFloat(request.getParameter("ticketPrice"));
+            int price = Integer.parseInt(request.getParameter("price"));
+            int status = Integer.parseInt(request.getParameter("status"));
             RegisterDAO registerDAO = new RegisterDAO(); 
             
             boolean check = false;
@@ -61,11 +63,11 @@ public class RegisterController extends HttpServlet {
             if(check){
                 System.out.println("Current login user email = " + loginUser.getEmail());
                 System.out.println("RegisterController check = " + check);
-                JavaMailUtil.sendMail(loginUser.getEmail(), loginUser.getUserName(), eventName, image); //Send email to current login user
+                JavaMailUtil.sendMail(loginUser.getEmail(), loginUser.getUserName(), eventName, posterImage); //Send email to current login user
                 message = "Register successfully";
                 url = SUCCESS;
             }
-            EventDTO event = new EventDTO(eventID, categoryName, locationName, eventName, eventDetail, image, startTime, endTime, numberOfAttendees, formality, ticketPrice);
+            EventDTO event = new EventDTO(eventID, categoryName, locationName, eventName, eventDetail, posterImage, backgroundImage, date, numberOfAttendees, formality, ticketPrice, status);
             request.setAttribute("DETAIL_EVENT", event);
             //request.setAttribute("REGISTER_CHECK", check);
             

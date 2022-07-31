@@ -121,7 +121,7 @@
                         <%
                             String backgroundImage = "";
                         %>
-                        <img src="<%=event.getImage() != null ? event.getImage() : backgroundImage%>" alt="...">
+                        <img src="<%=event.getPosterImage() != null ? event.getPosterImage() : backgroundImage%>" alt="...">
                     </div>
                 </section>
 
@@ -142,7 +142,7 @@
                                     <div class="info_date">
                                         <p>
                                             <i class="fa fa-clock"></i>
-                                            <%=event.getStartTime().toString()%> - <%=event.getEndTime().toString()%>
+                                            <%=event.getDate().toString()%>
                                         </p>
                                     </div>
                                     <div class="info_address">
@@ -159,14 +159,14 @@
                                     if (messageRegister.equals("Register successfully") || registerDAO.isEventRegisterExistentActive(loginUser.getUserID(), event.getEventID())) {
 
                                 %>
-                                <a href="MainController?action=UnRegister&eventID=<%= event.getEventID()%>&userID=<%= loginUser.getUserID()%>&image=<%= event.getImage()%>&categoryName=<%= event.getCategoryName()%>
-                                   &locationName=<%= event.getLocationName()%>&startTime=<%= event.getStartTime()%>&endTime=<%= event.getEndTime()%>&numberOfAttendees=<%= event.getNumberOfAttendees()%>&formality=<%= event.getFormality()%>
+                                <a href="MainController?action=UnRegister&eventID=<%= event.getEventID()%>&userID=<%= loginUser.getUserID()%>&image=<%= event.getPosterImage()%>&categoryName=<%= event.getCategoryName()%>
+                                   &locationName=<%= event.getLocationName()%>&date=<%= event.getDate()%>&numberOfAttendees=<%= event.getNumberOfAttendees()%>&formality=<%= event.getFormality()%>
                                    &ticketPrice=<%= event.getTicketPrice()%>&eventDetail=<%= event.getEventDetail()%>&eventName=<%= event.getEventName()%>" style="text-decoration: none"><button class="btn btn-success" name="action" value="UnRegister">UnRegister</button></a>
                                 <%
                                 } else {
                                 %>
-                                <a href="MainController?action=Register&eventID=<%= event.getEventID()%>&userID=<%= loginUser.getUserID()%>&image=<%= event.getImage()%>&categoryName=<%= event.getCategoryName()%>
-                                   &locationName=<%= event.getLocationName()%>&startTime=<%= event.getStartTime()%>&endTime=<%= event.getEndTime()%>&numberOfAttendees=<%= event.getNumberOfAttendees()%>&formality=<%= event.getFormality()%>
+                                <a href="MainController?action=Register&eventID=<%= event.getEventID()%>&userID=<%= loginUser.getUserID()%>&image=<%= event.getPosterImage()%>&categoryName=<%= event.getCategoryName()%>
+                                   &locationName=<%= event.getLocationName()%>&date=<%= event.getDate()%>&numberOfAttendees=<%= event.getNumberOfAttendees()%>&formality=<%= event.getFormality()%>
                                    &ticketPrice=<%= event.getTicketPrice()%>&eventDetail=<%= event.getEventDetail()%>&eventName=<%= event.getEventName()%>" style="text-decoration: none"><button class="btn btn-success" name="action" value="Register" ><%= event.getTicketPrice() == 0 ? "Register" : "Buy Ticket"%></button></a>
                                     <%
                                         }
@@ -175,15 +175,15 @@
                                     <%
                                         if (messageFllow.equals("Follow Successfully") || followDAO.isEventRegisterExistentActive(loginUser.getUserID(), event.getEventID())) {
                                     %>
-                                <a href="MainController?action=UnFollow&eventID=<%= event.getEventID()%>&userID=<%= loginUser.getUserID()%>&image=<%= event.getImage()%>&categoryName=<%= event.getCategoryName()%>
-                                   &locationName=<%= event.getLocationName()%>&startTime=<%= event.getStartTime()%>&endTime=<%= event.getEndTime()%>&numberOfAttendees=<%= event.getNumberOfAttendees()%>&formality=<%= event.getFormality()%>
+                                <a href="MainController?action=UnFollow&eventID=<%= event.getEventID()%>&userID=<%= loginUser.getUserID()%>&image=<%= event.getPosterImage()%>&categoryName=<%= event.getCategoryName()%>
+                                   &locationName=<%= event.getLocationName()%>&date=<%= event.getDate()%>&numberOfAttendees=<%= event.getNumberOfAttendees()%>&formality=<%= event.getFormality()%>
                                    &ticketPrice=<%= event.getTicketPrice()%>&eventDetail=<%= event.getEventDetail()%>&eventName=<%= event.getEventName()%>" style="text-decoration: none"><button class="btn btn-primary" name="action" value="UnFollow">UnFollow</button></a>
                                 <%
                                 } else {
                                 %>
 
-                                <a href="MainController?action=Follow&eventID=<%= event.getEventID()%>&userID=<%= loginUser.getUserID()%>&image=<%= event.getImage()%>&categoryName=<%= event.getCategoryName()%>
-                                   &locationName=<%= event.getLocationName()%>&startTime=<%= event.getStartTime()%>&endTime=<%= event.getEndTime()%>&numberOfAttendees=<%= event.getNumberOfAttendees()%>&formality=<%= event.getFormality()%>
+                                <a href="MainController?action=Follow&eventID=<%= event.getEventID()%>&userID=<%= loginUser.getUserID()%>&image=<%= event.getPosterImage()%>&categoryName=<%= event.getCategoryName()%>
+                                   &locationName=<%= event.getLocationName()%>&date=<%= event.getDate()%>&numberOfAttendees=<%= event.getNumberOfAttendees()%>&formality=<%= event.getFormality()%>
                                    &ticketPrice=<%= event.getTicketPrice()%>&eventDetail=<%= event.getEventDetail()%>&eventName=<%= event.getEventName()%>" style="text-decoration: none"><button class="btn btn-primary" name="action" value="Follow">Follow</button></a>
                                 <%
                                     }
@@ -202,8 +202,8 @@
                             <a class="nav-link" href="#comment">Bình luận</a>
                             
                             <!--dang sua-->
-                            <a class="nav-link" href="MainController?action=QuestionList&eventID=<%= event.getEventID()%>&userID=<%= loginUser.getUserID() %>&image=<%= event.getImage()%>&categoryName=<%= event.getCategoryName()%>
-                               &locationName=<%= event.getLocationName()%>&startTime=<%= event.getStartTime()%>&endTime=<%= event.getEndTime()%>&numberOfAttendees=<%= event.getNumberOfAttendees()%>&formality=<%= event.getFormality()%>
+                            <a class="nav-link" href="MainController?action=QuestionList&eventID=<%= event.getEventID()%>&userID=<%= loginUser.getUserID() %>&image=<%= event.getPosterImage()%>&categoryName=<%= event.getCategoryName()%>
+                               &locationName=<%= event.getLocationName()%>&date=<%= event.getDate()%>&numberOfAttendees=<%= event.getNumberOfAttendees()%>&formality=<%= event.getFormality()%>
                                &ticketPrice=<%= event.getTicketPrice()%>&eventDetail=<%= event.getEventDetail()%>&eventName=<%= event.getEventName()%>">Q/A</a>
                         </nav>
                     </div>
@@ -307,9 +307,9 @@
                                     <input type="hidden" name="locationName" value="<%=event.getLocationName()%>"/>
                                     <input type="hidden" name="eventName" value="<%=event.getEventName()%>"/>
                                     <input type="hidden" name="eventDetail" value="<%=event.getEventDetail()%>"/>
-                                    <input type="hidden" name="image" value="<%=event.getImage()%>"/>
-                                    <input type="hidden" name="startTime" value="<%=event.getStartTime()%>"/>
-                                    <input type="hidden" name="endTime" value="<%=event.getEndTime()%>"/>
+                                    <input type="hidden" name="image" value="<%=event.getPosterImage()%>"/>
+                                    <input type="hidden" name="image" value="<%=event.getBackgroundImage()%>"/>
+                                    <input type="hidden" name="date" value="<%=event.getDate()%>"/>
                                     <input type="hidden" name="numberOfAttendees" value="<%=event.getNumberOfAttendees()%>"/>
                                     <input type="hidden" name="formality" value="<%=event.getFormality()%>"/>
                                     <input type="hidden" name="ticketPrice" value="<%=event.getTicketPrice()%>"/>
@@ -322,13 +322,10 @@
                         </div>
 
 
-
                     </div>
                     <!--end div container-->
                 </section>
             </main>
-
-
 
             <footer class="footer">
                 <main>

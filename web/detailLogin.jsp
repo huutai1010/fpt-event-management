@@ -72,7 +72,7 @@
             <main>
                 <section class="background">
                     <div class="background_img">
-                        <img src="<%=event.getImage()%>" alt="...">
+                        <img src="<%=event.getPosterImage()%>" alt="...">
                     </div>
                 </section>
 
@@ -93,7 +93,7 @@
                                     <div class="info_date">
                                         <p>
                                             <i class="fa fa-clock"></i>
-                                            <%=event.getStartTime().toString()%> - <%=event.getEndTime().toString()%>
+                                            <%=event.getDate().toString()%>
                                         </p>
                                     </div>
                                     <div class="info_address">
@@ -131,7 +131,7 @@
                         </div>
                         <div class="intro_content">
                             <!--<div class="content-right">
-                                <img src="<%= event.getImage()%>" alt="...">
+                                <img src="<%= event.getPosterImage()%>" alt="...">
                                 <p><%= event.getEventName()%> </p>
                             </div>-->
                             <div class="content-left">

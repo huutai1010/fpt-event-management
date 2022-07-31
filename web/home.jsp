@@ -157,13 +157,13 @@
                                     if (listComingEvents.indexOf(comingEvent1) == 0) {
                             %>
                             <div class="carousel-item active">
-                                <a href="MainController?action=ShowDetailEventHome&eventID=<%= comingEvent1.getEventID()%>" ><img class="" src="<%=comingEvent1.getImage()%>" alt="First slide" /></a>
+                                <a href="MainController?action=ShowDetailEventHome&eventID=<%= comingEvent1.getEventID()%>" ><img class="" src="<%=comingEvent1.getPosterImage()%>" alt="First slide" /></a>
                             </div>   
                             <%
                             } else {
                             %>
                             <div class="carousel-item">
-                                <a href="MainController?action=ShowDetailEventHome&eventID=<%= comingEvent1.getEventID()%>"><img class="" src="<%=comingEvent1.getImage()%>" alt="First slide" /></a>
+                                <a href="MainController?action=ShowDetailEventHome&eventID=<%= comingEvent1.getEventID()%>"><img class="" src="<%=comingEvent1.getPosterImage()%>" alt="First slide" /></a>
                             </div>      
                             <%
                                     }
@@ -292,14 +292,13 @@
                                         <div class="item shadow overflow-hidden mb-4">
                                             <a href="MainController?action=ShowDetailEventHome&eventID=<%= searchEvent.getEventID()%>" target="_blank">
                                                 <img
-                                                    src="<%=searchEvent.getImage()%>"
+                                                    src="<%=searchEvent.getPosterImage()%>"
                                                     alt="g1"
                                                     class="d-block w-100"
                                                     />
                                                 <div class="info p-3 text-center">
                                                     <h3><%= searchEvent.getEventName()%></h3>
-                                                    <p>Start Time: <%= searchEvent.getStartTime().toString()%></p>
-                                                    <p>End Time: <%= searchEvent.getEndTime().toString()%></p>
+                                                    <p>Date: <%= searchEvent.getDate().toString()%></p>
 
                                                     <p>Location: <%= searchEvent.getLocationName()%></p>
                                                     <div class="content__detail">
@@ -323,14 +322,13 @@
                                         <div class="item shadow overflow-hidden mb-4">
                                             <a href="MainController?action=ShowDetailEventHome&eventID=<%= event.getEventID()%>" target="_blank">
                                                 <img
-                                                    src="<%=event.getImage()%>"
+                                                    src="<%=event.getPosterImage()%>"
                                                     alt="g1"
                                                     class="d-block w-100"
                                                     />
                                                 <div class="info p-3 text-center">
                                                     <h3><%=event.getEventName()%></h3>
-                                                    <p>Start Time: <%=event.getStartTime().toString()%></p>
-                                                    <p>End Time: <%=event.getEndTime().toString()%></p>
+                                                    <p>Date: <%=event.getDate().toString()%></p>
 
                                                     <p>Location: <%=event.getLocationName()%></p>
                                                     <div class="content__detail">
@@ -368,14 +366,13 @@
                                         <div class="item shadow overflow-hidden mb-4">
                                             <a href="MainController?action=ShowDetailEventHome&eventID=<%= happeningEvent.getEventID()%>" target="_blank">
                                                 <img
-                                                    src="<%=happeningEvent.getImage()%>"
+                                                    src="<%=happeningEvent.getPosterImage()%>"
                                                     alt="g1"
                                                     class="d-block w-100"
                                                     />
                                                 <div class="info p-3 text-center">
                                                     <h3><%=happeningEvent.getEventName()%></h3>
-                                                    <p>Start Time: <%=happeningEvent.getStartTime().toString()%></p>
-                                                    <p>End Time: <%=happeningEvent.getEndTime().toString()%></p>
+                                                    <p>Date: <%=happeningEvent.getDate().toString()%></p>
                                                     <p>Location: <%=happeningEvent.getLocationName()%></p>
                                                     <div class="content__detail">
                                                         <div class="content__detail-icon">
@@ -408,14 +405,13 @@
                                         <div class="item shadow overflow-hidden mb-4">
                                             <a href="MainController?action=ShowDetailEventHome&eventID=<%= comingEvent.getEventID()%>" target="_blank">
                                                 <img
-                                                    src="<%=comingEvent.getImage()%>"
+                                                    src="<%=comingEvent.getPosterImage()%>"
                                                     alt="g1"
                                                     class="d-block w-100"
                                                     />
                                                 <div class="info p-3 text-center">
                                                     <h3><%=comingEvent.getEventName()%></h3>
-                                                    <p>Start Time: <%=comingEvent.getStartTime().toString()%></p>
-                                                    <p>End Time: <%=comingEvent.getEndTime().toString()%></p>
+                                                    <p>Date: <%=comingEvent.getDate().toString()%></p>
                                                     <p>Location: <%=comingEvent.getLocationName()%></p>
                                                     <div class="content__detail">
                                                         <div class="content__detail-icon">
@@ -444,14 +440,13 @@
                                         <div class="item shadow overflow-hidden mb-4">
                                             <a href="MainController?action=ShowDetailEventHome&eventID=<%= tookPlaceEvent.getEventID()%>" target="_blank">
                                                 <img
-                                                    src="<%=tookPlaceEvent.getImage()%>"
+                                                    src="<%=tookPlaceEvent.getPosterImage()%>"
                                                     alt="g1"
                                                     class="d-block w-100"
                                                     />
                                                 <div class="info p-3 text-center">
                                                     <h3><%=tookPlaceEvent.getEventName()%></h3>
-                                                    <p>Start Time: <%=tookPlaceEvent.getStartTime().toString()%></p>
-                                                    <p>End Time: <%=tookPlaceEvent.getEndTime().toString()%></p>
+                                                    <p>Date: <%=tookPlaceEvent.getDate().toString()%></p>
                                                     <p>Location: <%=tookPlaceEvent.getLocationName()%></p>
                                                     <div class="content__detail">
                                                         <div class="content__detail-icon">
@@ -487,14 +482,13 @@
                                         <div class="item shadow overflow-hidden mb-4">
                                             <a href="MainController?action=ShowDetailEventHome&eventID=<%= followedEvent.getEventID()%>" target="_blank">
                                                 <img
-                                                    src="<%=followedEvent.getImage()%>"
+                                                    src="<%=followedEvent.getPosterImage()%>"
                                                     alt="g1"
                                                     class="d-block w-100"
                                                     />
                                                 <div class="info p-3 text-center">
                                                     <h3><%=followedEvent.getEventName()%></h3>
-                                                    <p>Start Time: <%=followedEvent.getStartTime().toString()%></p>
-                                                    <p>End Time: <%=followedEvent.getEndTime().toString()%></p>
+                                                    <p>Date: <%=followedEvent.getDate().toString()%></p>
                                                     <p>Location: <%=followedEvent.getLocationName()%></p>
                                                     <div class="content__detail">
                                                         <div class="content__detail-icon">
