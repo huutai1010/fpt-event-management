@@ -73,7 +73,7 @@
                         <tr class="tr">
                             <th scope="row" class="item">
                                 <div class="item_img">
-                                    <a href="MainController?action=ShowDetailEventHome&eventID=<%= registeredEvent.getEventID()%>"><img src="<%= registeredEvent.getImage()%>" alt=""></a>
+                                    <a href="MainController?action=ShowDetailEventHome&eventID=<%= registeredEvent.getEventID()%>"><img src="<%= registeredEvent.getPosterImage()%>" alt=""></a>
                                     <a href="MainController?action=ShowDetailEventHome&eventID=<%= registeredEvent.getEventID()%>"><span style="font-size: 20px; margin-left: 15px;"><%= registeredEvent.getEventName()%></span></a>
                                 </div>
                             </th>
@@ -96,7 +96,7 @@
                         <tr class="tr">
                             <th scope="row" class="item">
                                 <div class="item_img">
-                                    <a href="MainController?action=ShowDetailEventHome&eventID=<%= searchRegisteredEvents.getEventID()%>"><img src="<%= searchRegisteredEvents.getImage()%>" alt=""></a>
+                                    <a href="MainController?action=ShowDetailEventHome&eventID=<%= searchRegisteredEvents.getEventID()%>"><img src="<%= searchRegisteredEvents.getPosterImage()%>" alt=""></a>
                                     <a href="MainController?action=ShowDetailEventHome&eventID=<%= searchRegisteredEvents.getEventID()%>"><span style="font-size: 20px; margin-left: 15px;"><%= searchRegisteredEvents.getEventName()%></span></a>
                                 </div>
                             </th>

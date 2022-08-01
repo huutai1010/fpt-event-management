@@ -19,6 +19,8 @@ import sample.utils.DBUtils;
  *
  * @author DELL
  */
+
+
 public class RegisterDAO {
     
     //private static final String ADD_REGISTER="INSERT INTO tblRegister(registerID, userID, eventID, registerStatus) VALUES (?,?,?,1)" ;
@@ -27,7 +29,7 @@ public class RegisterDAO {
     //private static final String UNREGISTER_EVENT = "UPDATE tblRegister SET registerStatus=? WHERE eventID=? AND userID=? ";
     private static final String UPDATE_EVENT_REGISTER_STATUS="UPDATE tblRegister SET registerStatus=? WHERE eventID=? AND userID=?";
     private static final String CHECK_REGISTER_EXISTENT = "SELECT userID,eventID FROM tblRegister WHERE userID = ? AND eventID=?";
-    private static final String CHECK_REGISTER_EXISTENT_ACTIVE = "SELECT userID,eventID FROM tblRegister WHERE userID = ? AND eventID=? AND registerStatus = 1";
+    private static final String CHECK_REGISTER_EXISTENT_ACTIVE = "SELECT userID, eventID FROM tblRegister WHERE userID = ? AND eventID=? AND registerStatus = 1";
     private static final String SHOW_REGISTERED_EVENT="SELECT *\n" +
 "FROM tblEvent e, tblLocation l, tblCategory c, tblRegister r\n" +
 "WHERE e.categoryID = c.categoryID AND e.locationID = l.locationID AND r.eventID = e.eventID AND r.registerStatus = 1 AND r.userID = ?";
@@ -216,7 +218,8 @@ public class RegisterDAO {
         return check;
     }
     
-     public boolean registerEvent(int userID, int eventID) throws ClassNotFoundException, SQLException {
+    
+    public boolean registerEvent(int userID, int eventID) throws ClassNotFoundException, SQLException {
         boolean check = false;
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -271,7 +274,7 @@ public class RegisterDAO {
     }
     
     /* */
-     public boolean isEventRegisterExistentActive(int userID, int eventID) throws SQLException, ClassNotFoundException {
+    public boolean isEventRegisterExistentActive(int userID, int eventID) throws SQLException, ClassNotFoundException {
         boolean check = false;
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -299,13 +302,10 @@ public class RegisterDAO {
             }           
         }
         return check;
-    }
-    
-    
-    
+    }          
     
     /* */
-    
+   
     /* */
     public boolean updateEventRegisterStatus(int userID, int eventID, int registerStatus) throws SQLException, ClassNotFoundException{
         boolean check = false;

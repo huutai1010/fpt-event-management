@@ -265,7 +265,7 @@
                                     <!--Start One Event-->
                                     <div class="col-12 col-sm-6 col-md-4">
                                         <div class="item shadow overflow-hidden mb-4">
-                                            <a href="MainController?action=ShowDetailEventLogin&eventID=<%=searchEvent.getEventID()%>" target="_blank">
+                                            <a href="MainController?action=ShowDetailEventLogin&eventID=<%=searchEvent.getEventID()%>">
                                                 <img
                                                     src="<%= searchEvent.getPosterImage()%>"
                                                     alt="g1"
@@ -297,7 +297,7 @@
 
                                     <div class="col-12 col-sm-6 col-md-4">
                                         <div class="item shadow overflow-hidden mb-4">
-                                            <a href="MainController?action=ShowDetailEventLogin&eventID=<%=event.getEventID()%>" target="_blank">
+                                            <a href="MainController?action=ShowDetailEventLogin&eventID=<%=event.getEventID()%>">
                                                 <img
                                                     src="<%=event.getPosterImage()%>"
                                                     alt="g1"
@@ -340,7 +340,7 @@
                                     <!--Start One Event-->
                                     <div class="col-12 col-sm-6 col-md-4">
                                         <div class="item shadow overflow-hidden mb-4">
-                                            <a href="MainController?action=ShowDetailEventLogin&eventID=<%=happeningEvent.getEventID()%>" target="_blank">
+                                            <a href="MainController?action=ShowDetailEventLogin&eventID=<%=happeningEvent.getEventID()%>">
                                                 <img
                                                     src="<%=happeningEvent.getPosterImage()%>"
                                                     alt="g1"
@@ -379,7 +379,7 @@
                                     <!--Start One Event-->
                                     <div class="col-12 col-sm-6 col-md-4">
                                         <div class="item shadow overflow-hidden mb-4">
-                                            <a href="MainController?action=ShowDetailEventLogin&eventID=<%=comingEvent.getEventID()%>" target="_blank">
+                                            <a href="MainController?action=ShowDetailEventLogin&eventID=<%=comingEvent.getEventID()%>">
                                                 <img
                                                     src="<%=comingEvent.getPosterImage()%>"
                                                     alt="g1"
@@ -414,7 +414,7 @@
                                     %>
                                     <div class="col-12 col-sm-6 col-md-4">
                                         <div class="item shadow overflow-hidden mb-4">
-                                            <a href="MainController?action=ShowDetailEventLogin&eventID=<%=tookPlaceEvent.getEventID()%>" target="_blank">
+                                            <a href="MainController?action=ShowDetailEventLogin&eventID=<%=tookPlaceEvent.getEventID()%>">
                                                 <img
                                                     src="<%=tookPlaceEvent.getPosterImage()%>"
                                                     alt="g1"

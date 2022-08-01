@@ -121,7 +121,7 @@
                         <%
                             String backgroundImage = "";
                         %>
-                        <img src="<%=event.getPosterImage() != null ? event.getPosterImage() : backgroundImage%>" alt="...">
+                        <img src="<%=event.getBackgroundImage() != null ? event.getBackgroundImage() : backgroundImage%>" alt="...">
                     </div>
                 </section>
 
@@ -299,20 +299,20 @@
                                 </div>
                                 <div class="mt-2 text-right">
                                     <input type="hidden" name="action" value="PublishComment"/>
-                                    <input type="hidden" name="userID" value="<%=loginUser.getUserID()%>">
+                                    
+                                    <input type="hidden" name="userID" value="<%=loginUser.getUserID()%>">                                   
                                     <input type="hidden" name="eventID" value="<%=event.getEventID()%>">
-
-
                                     <input type="hidden" name="categoryName" value="<%=event.getCategoryName()%>"/>
                                     <input type="hidden" name="locationName" value="<%=event.getLocationName()%>"/>
                                     <input type="hidden" name="eventName" value="<%=event.getEventName()%>"/>
                                     <input type="hidden" name="eventDetail" value="<%=event.getEventDetail()%>"/>
-                                    <input type="hidden" name="image" value="<%=event.getPosterImage()%>"/>
-                                    <input type="hidden" name="image" value="<%=event.getBackgroundImage()%>"/>
+                                    <input type="hidden" name="posterImage" value="<%=event.getPosterImage()%>"/>
+                                    <input type="hidden" name="backgroundImage" value="<%=event.getBackgroundImage()%>"/>
                                     <input type="hidden" name="date" value="<%=event.getDate()%>"/>
                                     <input type="hidden" name="numberOfAttendees" value="<%=event.getNumberOfAttendees()%>"/>
                                     <input type="hidden" name="formality" value="<%=event.getFormality()%>"/>
                                     <input type="hidden" name="ticketPrice" value="<%=event.getTicketPrice()%>"/>
+                                    <input type="hidden" name="status" value="<%=event.getStatus()%>"/>
 
 
 

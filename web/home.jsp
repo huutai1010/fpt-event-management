@@ -290,7 +290,7 @@
                                     <!--Start One Event-->
                                     <div class="col-12 col-sm-6 col-md-4">
                                         <div class="item shadow overflow-hidden mb-4">
-                                            <a href="MainController?action=ShowDetailEventHome&eventID=<%= searchEvent.getEventID()%>" target="_blank">
+                                            <a href="MainController?action=ShowDetailEventHome&eventID=<%= searchEvent.getEventID()%>">
                                                 <img
                                                     src="<%=searchEvent.getPosterImage()%>"
                                                     alt="g1"
@@ -320,7 +320,7 @@
                                     %>
                                     <div class="col-12 col-sm-6 col-md-4">
                                         <div class="item shadow overflow-hidden mb-4">
-                                            <a href="MainController?action=ShowDetailEventHome&eventID=<%= event.getEventID()%>" target="_blank">
+                                            <a href="MainController?action=ShowDetailEventHome&eventID=<%= event.getEventID()%>">
                                                 <img
                                                     src="<%=event.getPosterImage()%>"
                                                     alt="g1"
@@ -364,7 +364,7 @@
                                     <!--Start One Event-->
                                     <div class="col-12 col-sm-6 col-md-4">
                                         <div class="item shadow overflow-hidden mb-4">
-                                            <a href="MainController?action=ShowDetailEventHome&eventID=<%= happeningEvent.getEventID()%>" target="_blank">
+                                            <a href="MainController?action=ShowDetailEventHome&eventID=<%= happeningEvent.getEventID()%>">
                                                 <img
                                                     src="<%=happeningEvent.getPosterImage()%>"
                                                     alt="g1"
@@ -403,7 +403,7 @@
                                     <!--Start One Event-->
                                     <div class="col-12 col-sm-6 col-md-4">
                                         <div class="item shadow overflow-hidden mb-4">
-                                            <a href="MainController?action=ShowDetailEventHome&eventID=<%= comingEvent.getEventID()%>" target="_blank">
+                                            <a href="MainController?action=ShowDetailEventHome&eventID=<%= comingEvent.getEventID()%>">
                                                 <img
                                                     src="<%=comingEvent.getPosterImage()%>"
                                                     alt="g1"
@@ -438,7 +438,7 @@
                                     %>
                                     <div class="col-12 col-sm-6 col-md-4">
                                         <div class="item shadow overflow-hidden mb-4">
-                                            <a href="MainController?action=ShowDetailEventHome&eventID=<%= tookPlaceEvent.getEventID()%>" target="_blank">
+                                            <a href="MainController?action=ShowDetailEventHome&eventID=<%= tookPlaceEvent.getEventID()%>">
                                                 <img
                                                     src="<%=tookPlaceEvent.getPosterImage()%>"
                                                     alt="g1"
@@ -480,7 +480,7 @@
 
                                     <div class="col-12 col-sm-6 col-md-4">
                                         <div class="item shadow overflow-hidden mb-4">
-                                            <a href="MainController?action=ShowDetailEventHome&eventID=<%= followedEvent.getEventID()%>" target="_blank">
+                                            <a href="MainController?action=ShowDetailEventHome&eventID=<%= followedEvent.getEventID()%>">
                                                 <img
                                                     src="<%=followedEvent.getPosterImage()%>"
                                                     alt="g1"
@@ -528,19 +528,10 @@
                     </div>
                     <div class="about_content">
                         <p>
-                            Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                            Molestiae sit praesentium unde obcaecati ullam inventore quidem
-                            sint non dolorem numquam velit nulla minima ipsa, voluptate harum
-                            ex, neque atque totam ipsam quisquam accusamus itaque ducimus, ut
-                            labore. Ut, asperiores ipsam? Expedita, perferendis porro facilis
-                            temporibus magnam veritatis sint ipsum aliquam distinctio
-                            inventore molestiae velit vero libero et saepe sunt culpa fuga
-                            laboriosam nostrum quisquam. Tempore dolor voluptates tempora,
-                            saepe unde suscipit necessitatibus facilis velit impedit tenetur
-                            cupiditate, laboriosam corporis in deleniti asperiores pariatur
-                            aperiam voluptatibus blanditiis dignissimos facere accusantium
-                            provident. Quae, at. Qui delectus beatae minima praesentium
-                            aperiam earum explicabo!
+                            The difference of FPT University compared to other universities is training in the form of close association with businesses, 
+                            training with practitioners, research and development and modern companies. best . Modern educational philosophy and methods; Comprehensive and harmonious human training; 
+                            Stay up to date with the program and comply with international technologies; Pay special attention to foreign language skills; Increased training in production organization, 
+                            teamwork skills and other technical individuals are the points that will ensure graduates have the best job opportunities after graduation.
                         </p>
                     </div>
                 </div>
