@@ -16,6 +16,7 @@ public class QuestionDTO {
     private String userName;
     private String avatar;
     private String questionDetail;
+    public String defaultImage = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8bwlD9_T78ny8Bd1c0lAjGolcKIsCq6xG5E6Dzs9jFVtYIvS_UI3QVAIPbcPT-hHpCMU&usqp=CAU";
 
     public QuestionDTO() {
     }

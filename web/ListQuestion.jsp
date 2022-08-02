@@ -100,11 +100,13 @@
                                             <input type="hidden" name="locationName" value="<%=event.getLocationName()%>"/>
                                             <input type="hidden" name="eventName" value="<%=event.getEventName()%>"/>
                                             <input type="hidden" name="eventDetail" value="<%=event.getEventDetail()%>"/>
-                                            <input type="hidden" name="image" value="<%=event.getImage()%>"/>
-                                            <input type="hidden" name="endTime" value="<%=event.getDate()%>"/>
+                                            <input type="hidden" name="posterImage" value="<%=event.getPosterImage()%>"/>
+                                            <input type="hidden" name="backgroundImage" value="<%=event.getBackgroundImage()%>"/>
+                                            <input type="hidden" name="date" value="<%=event.getDate()%>"/>
                                             <input type="hidden" name="numberOfAttendees" value="<%=event.getNumberOfAttendees()%>"/>
                                             <input type="hidden" name="formality" value="<%=event.getFormality()%>"/>
                                             <input type="hidden" name="ticketPrice" value="<%=event.getTicketPrice()%>"/>
+                                            <input type="hidden" name="status" value="<%=event.getStatus()%>"/>
 
                                             <input class="btn btn-success btn-sm shadow-none" type="submit" value="Gửi"/>
                                         </div>
@@ -135,7 +137,7 @@
                                     <div class="QA_title">
                                         <a href="#">
                                             <div class="QA_title-img">
-                                                <img src="<%= question.getAvatar()%>" style="width: 50px; height: 50px; border-radius: 50%;"
+                                                <img src="<%=question.getAvatar() == "" ? question.defaultImage : question.getAvatar() %>" style="width: 50px; height: 50px; border-radius: 50%;"
                                                      alt="avatar">
                                                 <input type="hidden" name="<%= question.getQuestionID()%>" />
                                             </div>

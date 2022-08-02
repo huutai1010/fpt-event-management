@@ -49,7 +49,7 @@ public class QuestionsController extends HttpServlet {
             QuestionDAO questionDAO = new QuestionDAO();
             boolean check = questionDAO.createQuestion(userID, eventID, questionDetail);
             if (check) {
-                // QuestionDTO question = new QuestionDTO(eventID, userID, userID, eventName, image, questionDetail);
+                // QuestionDTO question = new QuestionDTO(eventID,  , userID, eventName, image, questionDetail);
                 //List<QuestionDTO> listQuestion = questionDAO.getAllQuestion(eventID);
                 //request.setAttribute("LIST_QUESTION", question);
                 EventDTO event = new EventDTO(eventID, categoryName, locationName, eventName, eventDetail, posterImage, backgroundImage, date, numberOfAttendees, formality, ticketPrice, status);

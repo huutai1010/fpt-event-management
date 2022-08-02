@@ -89,7 +89,8 @@
                                 <textarea class="form-control ml-1 shadow-none textarea" placeholder="Type reply" ></textarea>
                             </div>
                             <div class="mt-2 text-right">
-                                <button class="btn btn-success btn-sm shadow-none" type="button">Post</button>
+                                <!--<button class="btn btn-success btn-sm shadow-none" type="button">Post</button>-->
+                                <a href="MainController?action=PostReply" class="btn btn-success btn-sm shadow-none">Post</a>
                             </div>
                         </div>
                         <%                            

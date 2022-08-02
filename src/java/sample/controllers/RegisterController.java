@@ -32,7 +32,7 @@ public class RegisterController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-                        
+              
             HttpSession session = request.getSession();
             UserDTO loginUser = (UserDTO) session.getAttribute("LOGIN_USER");
             
@@ -48,10 +48,11 @@ public class RegisterController extends HttpServlet {
             int numberOfAttendees = Integer.parseInt(request.getParameter("numberOfAttendees"));
             String formality = request.getParameter("formality");
             float ticketPrice = Float.parseFloat(request.getParameter("ticketPrice"));
-            int price = Integer.parseInt(request.getParameter("price"));
+            //int price = Integer.parseInt(request.getParameter("price"));
             int status = Integer.parseInt(request.getParameter("status"));
             RegisterDAO registerDAO = new RegisterDAO(); 
             
+            System.out.println("Before check");
             boolean check = false;
             boolean isEventRegisterExistent = registerDAO.isEventRegisterExistent(userID, eventID);
             if (isEventRegisterExistent) {
@@ -59,6 +60,7 @@ public class RegisterController extends HttpServlet {
             }else{
                 check = registerDAO.registerEvent(userID, eventID); // Add new register to tblRegister
             }           
+            System.out.println("RegisterController check = " + check);
             String message = "";
             if(check){
                 System.out.println("Current login user email = " + loginUser.getEmail());
@@ -71,7 +73,7 @@ public class RegisterController extends HttpServlet {
             request.setAttribute("DETAIL_EVENT", event);
             //request.setAttribute("REGISTER_CHECK", check);
             
-            request.setAttribute("MESSAGE_REGISTER", message);           
+            request.setAttribute("MESSAGE_REGISTER", message);      
         } catch (Exception e) {
             log("Error at RegisterController: " + e.toString());
         } finally {
