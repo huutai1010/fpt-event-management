@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import sample.dto.QuestionDTO;
 import sample.dto.ReplyDTO;
@@ -20,12 +21,12 @@ import sample.utils.DBUtils;
  */
 public class QuestionDAO {
 
-    private static final String LIST_QUESTION = "SELECT q.questionID, q.questionDetail, u.userName, u.avatar, u.userID FROM tblUsers u, tblQuestion q WHERE u.userID = q.userID AND eventID=?";
+    private static final String LIST_QUESTION = "SELECT q.questionID, q.questionDetail, FORMAT(date, 'yyyy-MM-dd') AS date, u.userName, u.avatar, u.userID FROM tblUsers u, tblQuestion q WHERE u.userID = q.userID AND eventID=?";
 
     private static final String DETAIL_QUESTION = "SELECT q.questionID, q.questionDetail, u.userName, u.avatar, u.userID "
             + "FROM tblUsers u, tblQuestion q WHERE u.userID = q.userID AND q.questionID=? ";
 
-    private static final String LIST_REPLY="SELECT u.userID, u.userName, u.avatar , r.replyDetail , q.questionID "
+    private static final String LIST_REPLY="SELECT u.userID, u.userName, u.avatar , r.replyDetail , q.questionID, FORMAT(r.date, 'yyyy-MM-dd') AS date "
             + "FROM tblQuestion q, tblReply r, tblUsers u "
             + "WHERE q.questionID = r.questionID AND r.userID = u.userID AND q.questionID=?";
     
@@ -76,7 +77,8 @@ public class QuestionDAO {
                     String userName = rs.getString("userName");
                     String avatar = rs.getString("avatar");
                     int userID = rs.getInt("userID");
-                    listQuestion.add(new QuestionDTO(eventID, questionID, userID, userName, avatar, questionDetail));
+                    Date date = rs.getDate("date");
+                    listQuestion.add(new QuestionDTO(eventID, questionID, userID, userName, avatar, questionDetail, date));
                 }
             }
         } catch (Exception e) {
@@ -114,7 +116,8 @@ public class QuestionDAO {
                     String userName = rs.getString("userName");
                     String avatar = rs.getString("avatar");
                     int userID = rs.getInt("userID");
-                    listAllQuestion.add(new QuestionDTO(eventID, questionID, userID, userName, avatar, questionDetail));
+                    Date date = rs.getDate("date");
+                    listAllQuestion.add(new QuestionDTO(eventID, questionID, userID, userName, avatar, questionDetail, date));
                 }
             }
         } catch (Exception e) {
@@ -151,7 +154,8 @@ public class QuestionDAO {
                 String userName = rs.getString("userName");
                 String avatar = rs.getString("avatar");
                 int userID = rs.getInt("userID");
-                question = new QuestionDTO(eventID, questionID, userID, userName, avatar, questionDetail);
+                Date date = rs.getDate(("date"));
+                question = new QuestionDTO(eventID, questionID, userID, userName, avatar, questionDetail, date);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -171,7 +175,6 @@ public class QuestionDAO {
     
     /* Lấy hết danh sách Reply*/
     public List<ReplyDTO> getAllReply(int questionID) throws SQLException{
-        System.out.println("questionID DAO = " + questionID);
         List<ReplyDTO> listAllReply = new ArrayList();
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -188,7 +191,8 @@ public class QuestionDAO {
                     String userName = rs.getString("userName");
                     String avatar = rs.getString("avatar");
                     String replyDetail = rs.getString("replyDetail");
-                    listAllReply.add(new ReplyDTO(userID, userName, avatar, questionID, replyDetail));
+                    Date date = rs.getDate("date");
+                    listAllReply.add(new ReplyDTO(userID, userName, avatar, questionID, replyDetail, date));
                 }
             }
         } catch (Exception e) {

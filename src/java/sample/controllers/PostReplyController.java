@@ -6,54 +6,70 @@ package sample.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import sample.dao.QuestionDAO;
+import sample.dao.ReplyDAO;
 import sample.dto.QuestionDTO;
 import sample.dto.ReplyDTO;
 
 /**
  *
- * @author DELL
+ * @author maihuutai
  */
-@WebServlet(name = "DetailQuestionController", urlPatterns = {"/DetailQuestionController"})
-public class DetailQuestionController extends HttpServlet {
-    
-    private static final String ERROR="error.jsp";
-    private static final String SUCCESS="DetailQuestion.jsp";
+@WebServlet(name = "PostReplyController", urlPatterns = {"/PostReplyController"})
+public class PostReplyController extends HttpServlet {
+
+    private static final String ERROR = "error.jsp";
+    private static final String SUCCESS = "DetailQuestion.jsp";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url=ERROR;
-        try{      
-            HttpSession session = request.getSession();
+        String url = ERROR;
+        try {
+            String reply = request.getParameter("reply");
+            int loginUserID = Integer.parseInt(request.getParameter("loginUserID"));
+            
             int eventID = Integer.parseInt(request.getParameter("eventID"));
             int questionID = Integer.parseInt(request.getParameter("questionID"));
             int userID = Integer.parseInt(request.getParameter("userID"));
             String userName = request.getParameter("userName");
             String avatar = request.getParameter("avatar");
             String questionDetail = request.getParameter("questionDetail");
-            String strDate = request.getParameter("date");
+            String date = request.getParameter("date");
+//            request.setAttribute("eventID", eventID);
+//            request.setAttribute("questionID", questionID);
+//            request.setAttribute("userID", userID);
+//            request.setAttribute("userName", userName);
+//            request.setAttribute("avatar", avatar);
+//            request.setAttribute("questionDetail", questionDetail);
+//            request.setAttribute("date", date);
+            System.out.println(date);
+            ReplyDAO replyDAO = new ReplyDAO();
+            QuestionDAO questionDAO = new QuestionDAO();
+            QuestionDTO question = new QuestionDTO(eventID, questionID, userID, userName, avatar, questionDetail, new SimpleDateFormat("yyyy-MM-dd").parse(date));
+            request.removeAttribute("QUESTION_DETAIL");
+            request.removeAttribute("LIST_REPLIES");
             
-            QuestionDAO dao = new QuestionDAO();           
-            QuestionDTO question = new QuestionDTO(eventID, questionID, userID, userName, avatar, questionDetail, new SimpleDateFormat("yyyy-MM-dd").parse(strDate));
-            List<ReplyDTO> listReplies = dao.getAllReply(questionID);
-            request.setAttribute("LIST_REPLIES", listReplies);
+            
+            boolean check = replyDAO.createReply(loginUserID, questionID, reply, new Date(System.currentTimeMillis()));
+            List<ReplyDTO> listReplies = questionDAO.getAllReply(questionID);
             request.setAttribute("QUESTION_DETAIL", question);
-            if(listReplies.size() >=0){
-                url = SUCCESS; 
-            }       
-        }catch(Exception e){
-            log("Error at DetailQuestionController", e);
-        }finally{
+            request.setAttribute("LIST_REPLIES", listReplies);
+            
+            if (check) {
+                url = SUCCESS;
+            }
+        } catch (Exception e){
+            log("Error at PostReplyController", e);
+        } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
     }

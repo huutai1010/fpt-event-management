@@ -4,6 +4,8 @@
  */
 package sample.dto;
 
+import java.util.Date;
+
 /**
  *
  * @author DELL
@@ -16,18 +18,20 @@ public class QuestionDTO {
     private String userName;
     private String avatar;
     private String questionDetail;
+    private Date date;
     public String defaultImage = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8bwlD9_T78ny8Bd1c0lAjGolcKIsCq6xG5E6Dzs9jFVtYIvS_UI3QVAIPbcPT-hHpCMU&usqp=CAU";
 
     public QuestionDTO() {
     }
 
-    public QuestionDTO(int eventID, int questionID, int userID, String userName, String avatar, String questionDetail) {
+    public QuestionDTO(int eventID, int questionID, int userID, String userName, String avatar, String questionDetail, Date date) {
         this.eventID = eventID;
         this.questionID = questionID;
         this.userID = userID;
         this.userName = userName;
         this.avatar = avatar;
         this.questionDetail = questionDetail;
+        this.date = date;
     }
 
     public int getEventID() {
@@ -76,6 +80,22 @@ public class QuestionDTO {
 
     public void setQuestionDetail(String questionDetail) {
         this.questionDetail = questionDetail;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public String getDefaultImage() {
+        return defaultImage;
+    }
+
+    public void setDefaultImage(String defaultImage) {
+        this.defaultImage = defaultImage;
     }
 
     

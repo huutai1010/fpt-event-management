@@ -68,6 +68,8 @@ public class MainController extends HttpServlet {
     private static final String ADMIN_CONTROLLER = "AdminController";
     private static final String DELETE = "Delete";
     private static final String DELETE_CONTROLLER = "DeleteController";
+    private static final String POST_REPLY = "PostReply";
+    private static final String POST_REPLY_CONTROLLER = "PostReplyController";
     
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -126,6 +128,8 @@ public class MainController extends HttpServlet {
                 url = ADMIN_CONTROLLER;
             }else if(DELETE.equals(action)) {
                 url = DELETE_CONTROLLER;
+            } else if (POST_REPLY.equals(action)) {
+                url = POST_REPLY_CONTROLLER;
             }
         } catch (Exception e) {
             e.printStackTrace();

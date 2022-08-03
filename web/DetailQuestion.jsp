@@ -4,6 +4,8 @@
     Author     : DELL
 --%>
 
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="sample.dto.UserDTO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="sample.dto.ReplyDTO"%>
 <%@page import="java.util.List"%>
@@ -44,6 +46,14 @@
         <%
             QuestionDTO question = (QuestionDTO) request.getAttribute("QUESTION_DETAIL");
             
+                UserDTO loginUser = (UserDTO) session.getAttribute("LOGIN_USER");
+                if (loginUser == null || !loginUser.getRoleName().equals("US")) {
+                    response.sendRedirect("login.jsp");
+                    return;
+                }
+
+            
+            
         %>
         <div class="wrapper">
             <header class="header">
@@ -68,7 +78,7 @@
                             <aside class="container__sidebar">
                                 <a href="#">
                                     <div class="answer_title-img">
-                                        <img src="<%= question.getAvatar()%>" style="width: 50px; height: 50px; border-radius: 50%;"
+                                        <img src="<%= question.getAvatar() == null ? question.defaultImage : question.getAvatar() %>" style="width: 50px; height: 50px; border-radius: 50%;"
                                              alt="avatar">
                                     </div>
                                     <div class="answer_title-name">
@@ -84,14 +94,28 @@
                             </main>
                         </div>
                         <div class="comment-text bg-line px-5 pt-2">
+                            <form action="MainController">
                             <div class="d-flex flex-row align-items-start">
-                                <img src="./img/02-3.jpg" alt="" class="rounded-circle" width="45">
-                                <textarea class="form-control ml-1 shadow-none textarea" placeholder="Type reply" ></textarea>
+                                <img src="<%=loginUser.getUrlAvatar()%>" alt="" class="rounded-circle" width="45">
+                                <input type="text" class="form-control ml-1 shadow-none textarea" name="reply" placeholder="Type reply"/>
                             </div>
                             <div class="mt-2 text-right">
                                 <!--<button class="btn btn-success btn-sm shadow-none" type="button">Post</button>-->
-                                <a href="MainController?action=PostReply" class="btn btn-success btn-sm shadow-none">Post</a>
+                                <input type="hidden" name="action" value="PostReply"/>
+                                <input type="hidden" name="loginUserID" value="<%=loginUser.getUserID()%>">
+                                
+                                <input type="hidden" name="eventID" value="<%=question.getEventID()%>">
+                                <input type="hidden" name="questionID" value="<%=question.getQuestionID()%>">
+                                <input type="hidden" name="userID" value="<%=question.getUserID()%>">
+                                <input type="hidden" name="userName" value="<%=question.getUserName()%>">
+                                <input type="hidden" name="avatar" value="<%=question.getAvatar()%>">
+                                <input type="hidden" name="questionDetail" value="<%=question.getQuestionDetail()%>">
+                                <input type="hidden" name="date" value="<%= new SimpleDateFormat("yyyy-MM-dd").format(question.getDate())%>">
+                                
+                                
+                                <input type="submit" class="btn btn-success btn-sm shadow-none">
                             </div>
+                            </form>
                         </div>
                         <%                            
                             List<ReplyDTO> listReplies = (List<ReplyDTO>)request.getAttribute("LIST_REPLIES");
@@ -104,7 +128,7 @@
                             <div class="QA_title">
                                 <a href="#">
                                     <div class="QA_title-img">
-                                        <img src="<%= reply.getAvatar() %>" style="width: 50px; height: 50px; border-radius: 50%;" alt="avatar">
+                                        <img src="<%= reply.getAvatar() == null ?  reply.defaultImage : reply.getAvatar() %>" style="width: 50px; height: 50px; border-radius: 50%;" alt="avatar">
                                     </div>
                                     <div class="QA_title-name">
                                         <span style="font-size:15px;"><%= reply.getUserName() %></span>
@@ -119,7 +143,7 @@
                                 </div>
                                 <div class="QA_info">
                                     <div class="QA_info-time">
-                                        <span><b>june 25, 2022</b></span>
+                                        <span><b><%=reply.getDate()%></b></span>
                                     </div>
                                 </div>
                             </div>

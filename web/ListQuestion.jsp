@@ -137,7 +137,7 @@
                                     <div class="QA_title">
                                         <a href="#">
                                             <div class="QA_title-img">
-                                                <img src="<%=question.getAvatar() == "" ? question.defaultImage : question.getAvatar() %>" style="width: 50px; height: 50px; border-radius: 50%;"
+                                                <img src="<%=question.getAvatar() == null ? question.defaultImage : question.getAvatar() %>" style="width: 50px; height: 50px; border-radius: 50%;"
                                                      alt="avatar">
                                                 <input type="hidden" name="<%= question.getQuestionID()%>" />
                                             </div>
@@ -148,7 +148,8 @@
                                     </div>
                                     <div class="QA_comment">
                                         <div class="QA_content">
-                                            <a href="MainController?action=ShowDetailQuestion&questionID=<%= question.getQuestionID()%>&userID=<%= question.getUserID()%>&userName=<%= question.getUserName()%>&avatar=<%= question.getAvatar()%>&questionDetail=<%= question.getQuestionDetail()%>&eventID=<%=question.getEventID()%>">
+                                            <a href="MainController?action=ShowDetailQuestion&questionID=<%= question.getQuestionID()%>&userID=<%= question.getUserID()%>&userName=<%= question.getUserName()%>&avatar=<%= question.getAvatar()%>&questionDetail=<%= question.getQuestionDetail()%>
+                                               &eventID=<%=question.getEventID()%>&date=<%=question.getDate().toString()%>">
                                                 <div class="content"><%= question.getQuestionDetail()%></div>
                                             </a>
                                         </div>
@@ -158,7 +159,7 @@
                                                 <span>10</span>
                                             </div>
                                             <div class="QA_info-time">
-                                                <span><b>june 25, 2022</b></span>
+                                                <span><b><%=question.getDate()%></b></span>
                                             </div>
                                         </div>
                                     </div>
