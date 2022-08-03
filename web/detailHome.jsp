@@ -203,7 +203,7 @@
                             
                             <!--dang sua-->
                             <a class="nav-link" href="MainController?action=QuestionList&eventID=<%= event.getEventID()%>&userID=<%= loginUser.getUserID() %>&posterImage=<%= event.getPosterImage()%>&backgroundImage=<%=event.getBackgroundImage()%>&categoryName=<%= event.getCategoryName()%>
-                               &locationName=<%= event.getLocationName()%>&date=<%= event.getDate()%>&numberOfAttendees=<%= event.getNumberOfAttendees()%>&formality=<%= event.getFormality()%>
+                               &locationName=<%= event.getLocationName()%>&date=<%= event.getDate().toString()%>&numberOfAttendees=<%= event.getNumberOfAttendees()%>&formality=<%= event.getFormality()%>
                                &ticketPrice=<%= event.getTicketPrice()%>&eventDetail=<%= event.getEventDetail()%>&eventName=<%= event.getEventName()%>&status=<%=event.getStatus()%>">Q/A</a>
                         </nav>
                     </div>

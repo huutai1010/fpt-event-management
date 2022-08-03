@@ -4,6 +4,7 @@
     Author     : DELL
 --%>
 
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="sample.dao.QuestionDAO"%>
 <%@page import="sample.dto.UserDTO"%>
 <%@page import="sample.dto.EventDTO"%>
@@ -102,8 +103,8 @@
                                             <input type="hidden" name="eventDetail" value="<%=event.getEventDetail()%>"/>
                                             <input type="hidden" name="posterImage" value="<%=event.getPosterImage()%>"/>
                                             <input type="hidden" name="backgroundImage" value="<%=event.getBackgroundImage()%>"/>
-                                            <input type="hidden" name="date" value="<%=event.getDate()%>"/>
-                                            <input type="hidden" name="numberOfAttendees" value="<%=event.getNumberOfAttendees()%>"/>
+                                            <input type="hidden" name="date" value="<%=new SimpleDateFormat("yyyy-MM-dd").format(event.getDate())%>"/>
+                                            <input type="hidden" name="numberOfAttendees" value="<%= event.getNumberOfAttendees()%>"/>
                                             <input type="hidden" name="formality" value="<%=event.getFormality()%>"/>
                                             <input type="hidden" name="ticketPrice" value="<%=event.getTicketPrice()%>"/>
                                             <input type="hidden" name="status" value="<%=event.getStatus()%>"/>

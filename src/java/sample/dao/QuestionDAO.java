@@ -9,7 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 import sample.dto.QuestionDTO;
 import sample.dto.ReplyDTO;
@@ -30,12 +30,12 @@ public class QuestionDAO {
             + "FROM tblQuestion q, tblReply r, tblUsers u "
             + "WHERE q.questionID = r.questionID AND r.userID = u.userID AND q.questionID=?";
     
-    private static final String CREATE_QUESTION = "INSERT INTO tblQuestion(userID, eventID, questionDetail) VALUES (?,?,?)";
+    private static final String CREATE_QUESTION = "INSERT INTO tblQuestion(userID, eventID, questionDetail, date) VALUES (?,?,?,?)";
     
     private static final String GET_QUESTION = "SELECT u.avatar,q.questionID,u.userID, u.userName, q.questionDetail, e.eventID FROM tblQuestion q, tblUsers u, tblEvent e WHERE q.userID = u.userID AND q.eventID = e.eventID AND e.eventID=?";
     
      //TAO MOT QUESTION
-     public boolean createQuestion(int userID, int eventID, String questionDetail) throws SQLException, ClassNotFoundException {
+     public boolean createQuestion(int userID, int eventID, String questionDetail, Date date) throws SQLException, ClassNotFoundException {
         boolean check = false;
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -46,6 +46,7 @@ public class QuestionDAO {
                 ptm.setInt(1, userID);
                 ptm.setInt(2, eventID);
                 ptm.setString(3, questionDetail);
+                ptm.setDate(4, date);
                 check = ptm.executeUpdate() > 0 ? true : false ;
             }
         }finally{

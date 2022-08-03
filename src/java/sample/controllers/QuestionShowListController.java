@@ -7,6 +7,7 @@ package sample.controllers;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,7 +28,7 @@ public class QuestionShowListController extends HttpServlet {
     private static final String ERROR = "error.jsp";
     private static final String SUCCESS = "ListQuestion.jsp";
 
-    /* */
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -41,12 +42,13 @@ public class QuestionShowListController extends HttpServlet {
             String eventDetail = request.getParameter("eventDetail");
             String posterImage = request.getParameter("posterImage");
             String backgroundImage = request.getParameter("backgroundImage");
-            Date date = Date.valueOf(request.getParameter("date"));
+            String date = request.getParameter("date");
+            System.out.println("Date showlist = " + date);
             int numberOfAttendees = Integer.parseInt(request.getParameter("numberOfAttendees"));
             String formality = request.getParameter("formality");
             float ticketPrice = Float.parseFloat(request.getParameter("ticketPrice"));
             int status = Integer.parseInt(request.getParameter("status"));
-            EventDTO event = new EventDTO(eventID, categoryName, locationName, eventName, eventDetail, posterImage, backgroundImage, date, numberOfAttendees, formality, ticketPrice, status);
+            EventDTO event = new EventDTO(eventID, categoryName, locationName, eventName, eventDetail, posterImage, backgroundImage, new SimpleDateFormat("yyyy-MM-dd").parse(date), numberOfAttendees, formality, ticketPrice, status);
             request.setAttribute("DETAIL_EVENT", event);
             
             QuestionDAO questionDAO = new QuestionDAO();

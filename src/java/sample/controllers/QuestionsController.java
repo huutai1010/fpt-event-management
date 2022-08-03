@@ -6,6 +6,7 @@ package sample.controllers;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -31,6 +32,7 @@ public class QuestionsController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
+            System.out.println("QuestionController");
             int eventID = Integer.parseInt(request.getParameter("eventID"));
             int userID = Integer.parseInt(request.getParameter("userID"));
             String categoryName = request.getParameter("categoryName");
@@ -39,29 +41,29 @@ public class QuestionsController extends HttpServlet {
             String eventDetail = request.getParameter("eventDetail");
             String posterImage = request.getParameter("posterImage");
             String backgroundImage = request.getParameter("backgroundImage");
-            Date date = Date.valueOf(request.getParameter("date"));
+            String date = request.getParameter("date");
+            System.out.println("Date = " + date);
             int numberOfAttendees = Integer.parseInt(request.getParameter("numberOfAttendees"));
             String formality = request.getParameter("formality");
             float ticketPrice = Float.parseFloat(request.getParameter("ticketPrice"));
             String questionDetail = request.getParameter("questionDetail");
             int status = Integer.parseInt(request.getParameter("status"));
-
+            
+            request.removeAttribute("DETAIL_EVENT");
             QuestionDAO questionDAO = new QuestionDAO();
-            boolean check = questionDAO.createQuestion(userID, eventID, questionDetail);
-            if (check) {
-                // QuestionDTO question = new QuestionDTO(eventID,  , userID, eventName, image, questionDetail);
-                //List<QuestionDTO> listQuestion = questionDAO.getAllQuestion(eventID);
-                //request.setAttribute("LIST_QUESTION", question);
-                EventDTO event = new EventDTO(eventID, categoryName, locationName, eventName, eventDetail, posterImage, backgroundImage, date, numberOfAttendees, formality, ticketPrice, status);
-                request.setAttribute("DETAIL_EVENT", event);
+            boolean check = questionDAO.createQuestion(userID, eventID, questionDetail, new Date(System.currentTimeMillis()));
+            EventDTO event = new EventDTO(eventID, categoryName, locationName, eventName, eventDetail, posterImage, backgroundImage, new SimpleDateFormat("yyyy-MM-dd").parse(date), numberOfAttendees, formality, ticketPrice, status);
+            System.out.println("After create event");
+            request.setAttribute("DETAIL_EVENT", event);
+            if (check) {             
                 url = SUCCESS;
             }
+            System.out.println("End QuestionController");
         } catch (Exception e) {
             log("Error at QuestionsController", e);
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
