@@ -83,7 +83,7 @@
             <div class="container">
                 <div class="profile">
                     <div class="profile__left">
-                        <img src="<%= loginUser.getUrlAvatar()%>" width="100%"  height="100%" alt="...">
+                        <img src="ShowImageController?<%= loginUser.getUrlAvatar()%>" width="100%"  height="100%" alt="...">
                         <p></p>
                     </div>
     
@@ -100,11 +100,11 @@
                             </div>
                             <div class="info">
                                 <h4>Phone:</h4>
-                                <p><%= loginUser.getPhone()%></p>
+                                <p> <%= loginUser.getPhone() == null ? " " : loginUser.getPhone()%> </p>
                             </div>
                             <div class="info">
                                 <h4>Address:</h4>
-                                <p><%= loginUser.getAddress()%></p>
+                                <p><%= loginUser.getAddress() ==null ? " " : loginUser.getAddress()%></p>
                             </div>
                             
                         </div>

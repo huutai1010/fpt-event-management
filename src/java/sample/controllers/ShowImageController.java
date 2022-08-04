@@ -4,58 +4,52 @@
  */
 package sample.controllers;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import sample.dao.QuestionDAO;
-import sample.dao.ReplyDAO;
-import sample.dto.QuestionDTO;
-import sample.dto.ReplyDTO;
+import sample.dto.UserDTO;
 
 /**
  *
- * @author DELL
+ * @author maihuutai
  */
-@WebServlet(name = "DetailQuestionController", urlPatterns = {"/DetailQuestionController"})
-public class DetailQuestionController extends HttpServlet {
-    
-    private static final String ERROR="error.jsp";
-    private static final String SUCCESS="DetailQuestion.jsp";
-    
+@WebServlet(name = "ShowImageController", urlPatterns = {"/ShowImageController"})
+public class ShowImageController extends HttpServlet {
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url=ERROR;
-        try{      
+        try {
             HttpSession session = request.getSession();
-            int eventID = Integer.parseInt(request.getParameter("eventID"));
-            int questionID = Integer.parseInt(request.getParameter("questionID"));
-            int userID = Integer.parseInt(request.getParameter("userID"));
-            String userName = request.getParameter("userName");
-            String avatar = request.getParameter("avatar");
-            String questionDetail = request.getParameter("questionDetail");
-            String strDate = request.getParameter("date");
-            
-            ReplyDAO replyDAO = new ReplyDAO();           
-            QuestionDTO question = new QuestionDTO(eventID, questionID, userID, userName, avatar, questionDetail, new SimpleDateFormat("yyyy-MM-dd").parse(strDate));
-            List<ReplyDTO> listReplies = replyDAO.getAllReply(questionID);
-            request.setAttribute("LIST_REPLIES", listReplies);
-            request.setAttribute("QUESTION_DETAIL", question);
-            if(listReplies.size() >=0){
-                url = SUCCESS; 
-            }       
-        }catch(Exception e){
-            log("Error at DetailQuestionController", e);
-        }finally{
-            request.getRequestDispatcher(url).forward(request, response);
+            UserDTO loginUser = (UserDTO) session.getAttribute("LOGIN_USER");
+            FileInputStream fis = new FileInputStream(new File(loginUser.getUrlAvatar()));
+            BufferedInputStream bis = new BufferedInputStream(fis);
+            BufferedOutputStream output = new BufferedOutputStream(response.getOutputStream());
+            for (int data; (data = bis.read()) > -1;) {
+                output.write(data);
+            }
+        } catch (IOException e) {
+
+        } finally {
+
         }
     }
 

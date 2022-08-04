@@ -4,6 +4,7 @@
     Author     : DELL
 --%>
 
+<%@page import="sample.dao.ReplyDAO"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="sample.dao.QuestionDAO"%>
 <%@page import="sample.dto.UserDTO"%>
@@ -123,10 +124,14 @@
                         <%
                             QuestionDAO questionDAO = new QuestionDAO();
                             List<QuestionDTO> listQuestions = questionDAO.getListQuestion(event.getEventID());
+                            ReplyDAO replyDAO = new ReplyDAO();
+                            List<Integer> listCountReplies = replyDAO.countReply(event.getEventID());
+                            
                             //QuestionDTO question = (QuestionDTO) request.getAttribute("DETAIL_QUESTION");
                             //  List<QuestionDTO> listQuestions = (List<QuestionDTO>) request.getAttribute("LIST_QUESTION");
                             for (int i = 0; i < listQuestions.size(); i++) {
                                 QuestionDTO question = listQuestions.get(i);
+                                
                                 //                        
                                 //                        if (listQuestions != null) {
                                 //                            if (listQuestions.size() > 0) {
@@ -157,7 +162,7 @@
                                         <div class="QA_info">
                                             <div class="QA_info-reply">
                                                 <span><b>Repies:</b></span>
-                                                <span>10</span>
+                                                <span><%= listCountReplies.get(i)%></span> <!<!-- Count Replies -->
                                             </div>
                                             <div class="QA_info-time">
                                                 <span><b><%=question.getDate()%></b></span>
@@ -178,7 +183,7 @@
                         </div>
                         <%
                             }
-
+                         
                         %>     
 
                     </div>  

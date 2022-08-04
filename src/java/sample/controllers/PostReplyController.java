@@ -60,7 +60,7 @@ public class PostReplyController extends HttpServlet {
             
             
             boolean check = replyDAO.createReply(loginUserID, questionID, reply, new Date(System.currentTimeMillis()));
-            List<ReplyDTO> listReplies = questionDAO.getAllReply(questionID);
+            List<ReplyDTO> listReplies = replyDAO.getAllReply(questionID);
             request.setAttribute("QUESTION_DETAIL", question);
             request.setAttribute("LIST_REPLIES", listReplies);
             

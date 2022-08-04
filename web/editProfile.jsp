@@ -81,74 +81,73 @@
             </div>
         </div>
 
+
         <div class="section">
             <div class="container">
                 <form action="MainController">
-                    <div class="box" >
-                        <h4>Edit profile</h4>
-                        <div class="editprofile">
-                            <div class="picture">
-                                <img src="<%= loginUser.getUrlAvatar()%>" alt="">
-                                <div class="upload">
-                                    <!-- Upload avatar from device -->
-                                    <button class="btn btn-Warning" type="button" name="button">
-                                        <i class="fa fa-upload"></i> Upload avatar
-                                        <input type="file" name="urlAvatar" id="images" required="required" multiple="multiple"
-                                               accept="image/png, image/jpeg" onchange="previewImg()"/> 
-                                        <div id="preview-img"></div>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div class="profile" >
-                                <div class="info">
-                                    <label for="userID"></label>
-                                    <input type="hidden" name="userID" value="<%= loginUser.getUserID()%>" placeholder="User ID">
-                                </div>
-                                <div class="info">
-                                    <label for="role Name"></label>
-                                    <input type="hidden" name="roleName" value="<%= loginUser.getRoleName()%>" placeholder="Role Name">
-                                </div>
-                                <div class="info">
-                                    <label for="Email"></label>
-                                    <input type="hidden" name="userEmail" value="<%= loginUser.getEmail()%>" placeholder="Role Name">
-                                </div>
-                                
-                                
-<!--                                <div>
-                                    <label for="Images"></label> 
-                                   <input type="file" name="images" id="images" required="required" multiple="multiple"
-                                           accept="image/png, image/jpeg"  onchange="previewImg()"/>
-                                    <div id="preview-img"></div>
-                                </div>-->
-
-                                <div class="info">
-                                    <label for="name">Name</label>
-                                    <input type="text" name="userName" value="<%= loginUser.getUserName()%>" placeholder="Name">
-                                </div>
-                                <div class="info">
-                                    <label for="phone">Phone</label>
-                                    <input type="text" name="phone" value="<%= loginUser.getPhone()%>"  placeholder="Phone">
-                                </div>
-                                <div class="info">
-                                    <label for="Address">Address</label>
-                                    <input type="text" name="address" value="<%= loginUser.getAddress()%>" placeholder="Address">
-                                </div>
-                                <div class="info">
-                                    <label for="Password">Password</label>
-                                    <input type="password" name="password" value="<%= loginUser.getPassword()%>" placeholder="Password">
+                <div class="box">
+                    <h4>Edit profile</h4>
+                    <div class="editprofile">
+                        <div class="picture">
+                            <!-- sửa -->
+                            <div class="Form">
+                                <div class="grid">
+                                    <div class="form-element">
+                                        <input type="file" id="file-1" name="urlAvatar" accept="image/*" />
+                                        <label for="file-1" id="file-1-preview">
+                                            <img src="ShowImageController?<%=loginUser.getUrlAvatar()%>" alt="" />
+                                            <div>
+                                                <span>+</span>
+                                            </div>
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="btn">                      
-                            <button><a href="profile.jsp">Cancel</a></button>
-                            <button type="submit" name="action" value="Edit">OK</button>                                                   
-                            <!--<button><a href="MainController?action=Edit&userID=<%= loginUser.getUserID()%>&userEmail=<%= loginUser.getEmail()%>&userName=<%= loginUser.getUserName()%>&phone=<%= loginUser.getPhone()%>&address=<%= loginUser.getAddress()%>&urlAvatar=<%= loginUser.getUrlAvatar()%>&password=<%= loginUser.getPassword()%>" >OK</a></button>-->
+                        <div class="profile">
+                            <div class="info">
+                                <label for="userID"></label>
+                                <input type="hidden" name="userID" value="<%= loginUser.getUserID()%>" placeholder="User ID">
+                            </div>
+                            <div class="info">
+                                <label for="role Name"></label>
+                                <input type="hidden" name="roleName" value="<%= loginUser.getRoleName()%>" placeholder="Role Name">
+                            </div>
+                            <div class="info">
+                                <label for="Email"></label>
+                                <input type="hidden" name="userEmail" value="<%= loginUser.getEmail()%>" placeholder="Role Name">
+                            </div>
+                            <div class="info">
+                                <label for="name">Name</label>
+                                <input type="text" name="userName" value="<%= loginUser.getUserName()%>" placeholder="Name">
+                            </div>
+                            <div class="info">
+                                <label for="phone">Phone</label>
+                                <input type="text" name="phone" value="<%= loginUser.getPhone()%>"  placeholder="Phone">
+                            </div>
+                            <div class="info">
+                                <label for="Address">Address</label>
+                                <input type="text" name="address" value="<%= loginUser.getAddress()%>" placeholder="Address">
+                            </div>
+                            <div class="info">
+                                <label for="Password">Password</label>
+                                <input type="password" name="password" value="<%= loginUser.getPassword()%>" placeholder="Password">
+                            </div>
                         </div>
-                    </div>                   
-                </form>
+                    </div>
+                    <div class="btn">
+                        <button><a href="profile.jsp">Cancel</a></button>
+                        <button type="submit" name="action" value="Edit">OK</button>
+                    </div>
+                </div>
+            </form>
             </div>
-        </div>
+        </div>              
+
+
+
+
+
         <div class="footer">
             <div class="container">
                 <div class="list">

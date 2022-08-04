@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import sample.dao.QuestionDAO;
+import sample.dao.ReplyDAO;
 import sample.dto.EventDTO;
 import sample.dto.QuestionDTO;
 
@@ -34,6 +35,7 @@ public class QuestionShowListController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
+            System.out.println("QuestionshowlistController");
             int eventID = Integer.parseInt(request.getParameter("eventID"));
             int userID = Integer.parseInt(request.getParameter("userID"));
             String categoryName = request.getParameter("categoryName");
@@ -43,19 +45,18 @@ public class QuestionShowListController extends HttpServlet {
             String posterImage = request.getParameter("posterImage");
             String backgroundImage = request.getParameter("backgroundImage");
             String date = request.getParameter("date");
-            System.out.println("Date showlist = " + date);
             int numberOfAttendees = Integer.parseInt(request.getParameter("numberOfAttendees"));
             String formality = request.getParameter("formality");
             float ticketPrice = Float.parseFloat(request.getParameter("ticketPrice"));
             int status = Integer.parseInt(request.getParameter("status"));
             EventDTO event = new EventDTO(eventID, categoryName, locationName, eventName, eventDetail, posterImage, backgroundImage, new SimpleDateFormat("yyyy-MM-dd").parse(date), numberOfAttendees, formality, ticketPrice, status);
             request.setAttribute("DETAIL_EVENT", event);
-            
+                       
             QuestionDAO questionDAO = new QuestionDAO();
             List<QuestionDTO> listQuestion = questionDAO.getAllQuestion(eventID);
             request.setAttribute("LIST_QUESTION", listQuestion);
             url = SUCCESS;
-
+            System.out.println("End question show list controller");
         } catch (Exception e) {
             log("Error at QuestionController: " + e.toString());
         } finally {

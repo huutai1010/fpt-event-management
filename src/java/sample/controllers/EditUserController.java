@@ -39,11 +39,12 @@ public class EditUserController extends HttpServlet {
             String phone = request.getParameter("phone");
             String address = request.getParameter("address");  
             UserDAO dao = new UserDAO();
-            UserDTO user = new UserDTO(userID, userEmail, password, userName, urlAvatar, phone, address, roleName, 1);
+            UserDTO user = new UserDTO(userID, userEmail, password, userName, "/Users/maihuutai/Downloads/"+urlAvatar, phone, address, roleName, 1);
             boolean check = dao.updateUser(user);
             if (check) {
                 url = SUCCESS;
                 HttpSession session = request.getSession();
+                session.removeAttribute("LOGIN_USER");
                 session.setAttribute("LOGIN_USER", user);
             }
         } catch (Exception e) {

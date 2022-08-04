@@ -26,9 +26,7 @@ public class QuestionDAO {
     private static final String DETAIL_QUESTION = "SELECT q.questionID, q.questionDetail, u.userName, u.avatar, u.userID "
             + "FROM tblUsers u, tblQuestion q WHERE u.userID = q.userID AND q.questionID=? ";
 
-    private static final String LIST_REPLY="SELECT u.userID, u.userName, u.avatar , r.replyDetail , q.questionID, FORMAT(r.date, 'yyyy-MM-dd') AS date "
-            + "FROM tblQuestion q, tblReply r, tblUsers u "
-            + "WHERE q.questionID = r.questionID AND r.userID = u.userID AND q.questionID=?";
+    
     
     private static final String CREATE_QUESTION = "INSERT INTO tblQuestion(userID, eventID, questionDetail, date) VALUES (?,?,?,?)";
     
@@ -174,43 +172,7 @@ public class QuestionDAO {
         return question;
     }
     
-    /* Lấy hết danh sách Reply*/
-    public List<ReplyDTO> getAllReply(int questionID) throws SQLException{
-        List<ReplyDTO> listAllReply = new ArrayList();
-        Connection conn = null;
-        PreparedStatement ptm = null;
-        ResultSet rs = null;
-        try {
-            conn = DBUtils.getConnection();
-            if (conn != null) {
-                ptm = conn.prepareStatement(LIST_REPLY);
-                ptm.setInt(1, questionID);
-                
-                rs = ptm.executeQuery();
-                while (rs.next()) {
-                    int userID = rs.getInt("userID");
-                    String userName = rs.getString("userName");
-                    String avatar = rs.getString("avatar");
-                    String replyDetail = rs.getString("replyDetail");
-                    Date date = rs.getDate("date");
-                    listAllReply.add(new ReplyDTO(userID, userName, avatar, questionID, replyDetail, date));
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (rs != null) {
-                rs.close();
-            }
-            if (ptm != null) {
-                ptm.close();
-            }
-            if (conn != null) {
-                conn.close();
-            }
-        }
-        return  listAllReply;
-    }
+    
     
     
 
