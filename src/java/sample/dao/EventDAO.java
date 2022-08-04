@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,7 +24,7 @@ public class EventDAO {
     private static final String SEARCH_ALL_EVENTS = "SELECT eventID, categoryName, locationName, eventName, eventDetail, posterImage, backgroundImage, FORMAT(date, 'yyyy-MM-dd') AS date, numberOfAttendees, formality, ticketPrice, status FROM tblEvent e, tblLocation l, tblCategory c WHERE e.locationID = l.locationID AND e.categoryID = c.categoryID";
     private static final String SEARCH_EVENTS = "SELECT eventID, categoryName, locationName, eventName, eventDetail, posterImage, backgroundImage, FORMAT(date, 'yyyy-MM-dd') AS date, numberOfAttendees, formality, ticketPrice, status FROM tblEvent e, tblLocation l, tblCategory c WHERE e.locationID = l.locationID AND e.categoryID = c.categoryID AND e.eventName LIKE ? AND status = '1'";
     private static final String DETAIL_EVENT = "SELECT categoryName, locationName, eventName, eventDetail, posterImage, backgroundImage, FORMAT(date, 'yyyy-MM-dd') AS date, numberOfAttendees, formality, ticketPrice, status FROM tblEvent e, tblLocation l, tblCategory c WHERE e.locationID = l.locationID AND e.categoryID = c.categoryID AND eventID=? AND status = '1'";
-    
+    private static final String CREATE_EVENT = "INSERT INTO tblEvent VALUES (?, ?, NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)";
 
     public int checkTimeOfEvent(EventDTO event) {
         Date today = new Date();
@@ -172,6 +173,38 @@ public class EventDAO {
             }
         }
         return event;
+    }
+
+    public boolean createEvent(String categoryID, String locationID, int userID, String eventName, String eventDetail, String date, String backgroundImage, String posterImage, int numberOfAttendees, String formality, float ticketPrice, int status) throws ClassNotFoundException, SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(CREATE_EVENT);
+                ptm.setString(1, categoryID);
+                ptm.setString(2, locationID);
+                ptm.setInt(3, userID);
+                ptm.setString(4, eventName);
+                ptm.setString(5, eventDetail);
+                ptm.setString(6, date);
+                ptm.setString(7, backgroundImage);
+                ptm.setString(8, posterImage);
+                ptm.setInt(9, numberOfAttendees);
+                ptm.setString(10, formality);
+                ptm.setFloat(11, ticketPrice);
+                check = ptm.executeUpdate() > 0 ? true : false;
+            }
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
     }
 
     

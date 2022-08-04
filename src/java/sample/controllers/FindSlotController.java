@@ -6,29 +6,51 @@ package sample.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import sample.dao.BookingDAO;
 
 /**
  *
  * @author maihuutai
  */
-
-
 @WebServlet(name = "FindSlotController", urlPatterns = {"/FindSlotController"})
 public class FindSlotController extends HttpServlet {
-    
+
+    private static final String SUCCESS = "organize.jsp";
+    private static final String ERROR = "error.jsp";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        
+        String url = ERROR;
+        try {
+            
+            response.setContentType("text/html;charset=UTF-8");
+            String date = request.getParameter("date");
+            String locationID = request.getParameter("place");
+            BookingDAO bookingDAO = new BookingDAO();
+            List<String> listBookings = bookingDAO.getListBooking(new Date(new SimpleDateFormat("yyyy-MM-dd").parse(date).getTime()), locationID);
+            request.setAttribute("LIST_BOOKING", listBookings);
+            request.setAttribute("DATE", date);
+            request.setAttribute("PLACE", locationID);
+            if (listBookings.size() >= 0) {
+                url = SUCCESS;
+            }
+        } catch (Exception e) {
+
+        } finally {
+            request.getRequestDispatcher(url).forward(request, response);
+        }
+
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

@@ -63,15 +63,21 @@
                                     <div class="input-field">
                                         <label for="">Chọn phòng</label>
                                         <div>
-                                            <select name="place" required onfocus="this.size = 10;" onblur="this.size = 10;"
+                                            <select name="place" onfocus="this.size = 10;" onblur="this.size = 10;"
                                                     onfocusout="this.size=null;" onchange="this.size = 10; this.blur();">
-                                                <option disabled selected>Select room</option>
+                                                <!--<option disabled selected>Select room</option>-->
                                                 <%
                                                     LocationDAO locationDAO = new LocationDAO();
                                                     List<LocationDTO> listLocations = locationDAO.getAllLocations();
                                                     for (LocationDTO location : listLocations) {
                                                 %>
-                                                <option value="<%=location.getLocationID()%>"><%=location.getLocationName()%></option>
+                                                <option value="<%=location.getLocationID()%>" 
+                                                        <% if (request.getAttribute("PLACE") != null && request.getAttribute("PLACE").equals(location.getLocationID())) { 
+                                                        %> 
+                                                            selected 
+                                                        <%
+                                                            }
+                                                        %>><%=location.getLocationName()%></option>
                                                 <%
                                                     }
                                                 %>
@@ -81,7 +87,7 @@
                                     </div>
                                     <div class="input-field">
                                         <label for="">Chọn ngày</label>
-                                        <input type="date" name="date" id="" required>
+                                        <input type="date" name="date" id="" value="<%=request.getAttribute("DATE") != null ? request.getAttribute("DATE") : ""%>">
                                     </div>
                                     <input class="submit-field" type="submit" name="action" value="FindSlot">
                                 </form>
@@ -91,70 +97,48 @@
                             <div class="form_right">
                                 <span>danh sách slot</span>
                                 <div class="slot">
-                                    <article class="feature1" <% if (true) {%> style="background-color: gray"<%}%>>
-                                        <input type="checkbox" id="feature1" <% if (true) {%> disabled <%}%>/>
+
+                                    <%
+                                        List<String> listBooking = (List<String>) request.getAttribute("LIST_BOOKING");
+                                        if (listBooking != null) {
+                                            if (listBooking.size() >= 0) {
+                                                for (int i = 1; i <= 8; i++) {
+                                                
+                                        
+                                    %>
+
+                                    <article class="feature1" 
+                                             <% for (String slotID: listBooking) {
+                                             if (slotID.equals("SL" + i)) {
+                                             %> 
+                                             style="background-color: gray"
+                                             <% 
+                                                 break;
+                                                 }
+                                               }
+                                             %>>
+                                        <input type="checkbox" id="feature1" name="slot<%=i%>" value="SL<%=i%>" 
+                                             <% for (String slotID: listBooking) {
+                                                if (slotID.equals("SL" + i)) {
+                                             %>
+                                               disabled 
+                                               <%
+                                                   break;
+                                                   }
+                                                }
+                                               %>/>
                                         <div>
                                             <span>
-                                                slot 1: 7h-8h30
+                                                slot <%=i%>
                                             </span>
                                         </div>
                                     </article>
-                                    <article class="feature2">
-                                        <input type="checkbox" id="feature1" />
-                                        <div>
-                                            <span>
-                                                slot 2: 8h45-10h15
-                                            </span>
-                                        </div>
-                                    </article>
-                                    <article class="feature3">
-                                        <input type="checkbox" id="feature1" />
-                                        <div>
-                                            <span>
-                                                slot 3: 10h30-12h
-                                            </span>
-                                        </div>
-                                    </article>
-                                    <article class="feature4">
-                                        <input type="checkbox" id="feature1" />
-                                        <div>
-                                            <span>
-                                                slot 4: 12h30-14h
-                                            </span>
-                                        </div>
-                                    </article>
-                                    <article class="feature5">
-                                        <input type="checkbox" id="feature1" />
-                                        <div>
-                                            <span>
-                                                slot 5: 14h15-15h45
-                                            </span>
-                                        </div>
-                                    </article>
-                                    <article class="feature6">
-                                        <input type="checkbox" id="feature6" />
-                                        <div>
-                                            <span>
-                                                slot 6: 16h-17h30
-                                            </span>
-                                        </div>
-                                    </article>
-                                    <article class="feature7">
-                                        <input type="checkbox" id="feature1" />
-                                        <div>
-                                            <span>
-                                                slot 7: 17h30-19h
-                                            </span>
-                                        </div>
-                                    </article>
-                                    <article class="feature8">
-                                        <input type="checkbox" id="feature1" />
-                                        <div>
-                                            <span>
-                                                slot 8: 19h-20h30
-                                            </span>
-                                        </div>
-                                    </article>
+
+                                    <%
+                                                }
+                                            }
+                                        }
+                                    %>
                                 </div>
                             </div>
                         </div>
@@ -162,31 +146,31 @@
                             <div class="title">
                                 <div class="form-group">
                                     <label for="exampleFormControlTextarea1">Tên sự kiện</label>
-                                    <input class="form-control" id="exampleFormControlTextarea1" rows="1"></input>
+                                    <input class="form-control" id="exampleFormControlTextarea1" rows="1" name="eventName"></input>
                                 </div>
                             </div>
                             <div class="title_option">
                                 <div class="option">
                                     <div class="form-group">
                                         <label for="exampleFormControlTextarea1">Loại sự kiện</label>
-                                        <select required>
+                                        <select required name="categoryID">
                                             <option disabled selected>Loại sự kiện</option>
-                                            <option>Ngon ngu anh</option>
-                                            <option>Thiet ke do hoa</option>
-                                            <option>Kinh doanh quoc te</option>
-                                            <option>Cong nghe thong tin</option>
-                                            <option>Cac the loai khac</option>
-                                            <option>Cac nganh khac</option>
+                                            <option value="EL">Ngon ngu anh</option>
+                                            <option value="GD">Thiet ke do hoa</option>
+                                            <option value="IB">Kinh doanh quoc te</option>
+                                            <option value="IT">Cong nghe thong tin</option>
+                                            <option value="OG">Cac the loai khac</option>
+                                            <option value="IT">Cac nganh khac</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="option">
                                     <div class="form-group">
-                                        <label for="exampleFormControlTextarea1">Loại sự kiện</label>
-                                        <select required>
+                                        <label for="exampleFormControlTextarea1">Hình thức</label>
+                                        <select required name="formality">
                                             <option disabled selected>Hình thức</option>
-                                            <option>Offline</option>
-                                            <option>Online</option>
+                                            <option value="Offline">Offline</option>
+                                            <option value="Online">Online</option>
                                         </select>
                                     </div>
                                 </div>
@@ -194,23 +178,23 @@
                             <div class="tiket">
                                 <div class="form-group">
                                     <label for="exampleFormControlTextarea1">Giá vé</label>
-                                    <input type="text" name="Giá" id="" placeholder="Giá">
+                                    <input type="text" name="ticketPrice" id="" placeholder="Giá">
                                 </div>
                             </div>
 
                             <div class="tiket">
                                 <div class="form-group">
                                     <label for="exampleFormControlTextarea1">So nguoi tham gia</label>
-                                    <input type="text" name="Giá" id="" placeholder="Giá">
+                                    <input type="text" name="numberOfAttendees" id="" placeholder="So nguoi tham du">
                                 </div>
                             </div>
 
                             <div class="content_text">
                                 <div class="form">
                                     <label for="exampleFormControlTextarea1">Nội dung sự kiện</label>
-                                    <form class="" method="post">
-                                        <input id="mytextarea"></input>
-                                    </form>
+                                    <!--<form class="" method="post">-->
+                                        <input id="mytextarea" name="eventDetail"></input>
+                                    <!--</form>-->
                                 </div>
                             </div>
 
@@ -218,7 +202,7 @@
                                 <h4>chọn ảnh cho sự kiện</h4>
                                 <div class="grid">
                                     <div class="form-element">
-                                        <input type="file" id="file-1" accept="image/*">
+                                        <input type="file" id="file-1" accept="image/*" name="posterImage">
                                         <label for="file-1" id="file-1-preview">
                                             <img src="https://bit.ly/3ubuq5o" alt="">
                                             <div>
@@ -227,7 +211,7 @@
                                         </label>
                                     </div>
                                     <div class="form-element">
-                                        <input type="file" id="file-2" accept="image/*">
+                                        <input type="file" id="file-2" accept="image/*" name="backgroundImage">
                                         <label for="file-2" id="file-2-preview">
                                             <img src="https://bit.ly/3ubuq5o" alt="">
                                             <div>
