@@ -50,10 +50,10 @@
         <div class="wrapper">
             <%
                 UserDTO loginUser = (UserDTO) session.getAttribute("LOGIN_USER");
-                if (loginUser == null || !loginUser.getRoleName().equals("US")) {
-                    response.sendRedirect("login.jsp");
-                    return;
-                }
+//                if (loginUser == null || !loginUser.getRoleName().equals("US")) {
+//                    response.sendRedirect("login.jsp");
+//                    return;
+//                }
 
             %>
             <header class="header">
@@ -64,7 +64,7 @@
                     <div class="header__nav">
                         <div class="action">
                             <a href="profile.jsp">
-                                <img src="<%= loginUser.getUrlAvatar()%>" alt="">
+                                <img src="ShowImageController?<%= loginUser.getUrlAvatar()%>" alt="">
                                 <span><%= loginUser.getUserName() == null ? loginUser.getEmail() : loginUser.getUserName()%></span>
                             </a>
                         </div>
@@ -94,7 +94,14 @@
                                 <div class="child">
                                     <ul>
                                         <li><i class="fa fa-user"></i><a href="profile.jsp">Profile</a></li>
-                                        <li><i class="fa fa-sign-out-alt"></i><a href="MainController?action=Logout">Logout</a></li>                                  
+                                        <li><i class="fa fa-sign-out-alt"></i><a href="MainController?action=Logout">Logout</a></li>  
+                                        <%
+                                         if (loginUser.getRoleName().equals("OG")) { 
+                                        %>
+                                        <li><i class="fa fa-user"></i><a href="organize.jsp">Create Event</a></li>
+                                        <%
+                                            }  
+                                        %>
                                     </ul>
                                 </div>
                             </div>

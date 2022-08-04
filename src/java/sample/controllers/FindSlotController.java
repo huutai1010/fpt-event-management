@@ -11,56 +11,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import sample.dao.UserDAO;
-import sample.dto.UserDTO;
 
 /**
  *
- * @author Acer
+ * @author maihuutai
  */
-@WebServlet(name = "EditUserController", urlPatterns = {"/EditUserController"})
-public class EditUserController extends HttpServlet {
 
-    private static final String ERROR = "error.jsp";
-    private static final String SUCCESS = "profile.jsp";
 
+@WebServlet(name = "FindSlotController", urlPatterns = {"/FindSlotController"})
+public class FindSlotController extends HttpServlet {
+    
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
-        try {
-            HttpSession session = request.getSession();
-            UserDTO loginUser = (UserDTO) session.getAttribute("LOGIN_USER");
-
-            String loginUserAvatar = loginUser.getUrlAvatar();
-
-            int userID = Integer.parseInt(request.getParameter("userID"));
-            String roleName = request.getParameter("roleName");
-            String userEmail = request.getParameter("userEmail");
-            String password = request.getParameter("password");
-            String userName = request.getParameter("userName");
-            String urlAvatar = request.getParameter("urlAvatar");
-            String phone = request.getParameter("phone");
-            String address = request.getParameter("address");
-            UserDAO dao = new UserDAO();
-            UserDTO user = null;
-            if (urlAvatar.equals("")) {
-                user = new UserDTO(userID, userEmail, password, userName, loginUserAvatar, phone, address, roleName, 1);
-            } else {
-                user = new UserDTO(userID, userEmail, password, userName, "/Users/maihuutai/Downloads/" + urlAvatar, phone, address, roleName, 1);
-            }
-            boolean check = dao.updateUser(user);
-            if (check) {
-                url = SUCCESS;
-                session.removeAttribute("LOGIN_USER");
-                session.setAttribute("LOGIN_USER", user);
-            }
-        } catch (Exception e) {
-            log("Error at UpdateController: " + e.toString());
-        } finally {
-            request.getRequestDispatcher(url).forward(request, response);
-        }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

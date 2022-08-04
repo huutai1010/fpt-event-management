@@ -28,8 +28,8 @@ public class LoginController extends HttpServlet {
     private static final String AD = "AD";
    // private static final String ADMIN_PAGE = "admin.jsp";
     private static final String ADMIN_CONTROLLER = "AdminController";
-    private static final String MT = "MT";
-    private static final String MENTOR_PAGE = "mentor.jsp";
+    private static final String OG = "OG";
+    private static final String ORGANIZER_PAGE = "sign.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -41,7 +41,7 @@ public class LoginController extends HttpServlet {
             String eventID = request.getParameter("eventID");
             UserDAO dao = new UserDAO();
             UserDTO loginUser = dao.checkLogin(userEmail, password);
-            //xacs thuc
+            
             if (loginUser != null) {
                 request.setAttribute("eventID", eventID);
                 //phan quyen
@@ -49,12 +49,12 @@ public class LoginController extends HttpServlet {
                 HttpSession session = request.getSession();
                 session.setAttribute("LOGIN_USER", loginUser);
                 if (AD.equals(roleName)) {
-                  //  url = ADMIN_PAGE;
                    url = ADMIN_CONTROLLER;
-                } else if (US.equals(roleName)) {
+                } else if (OG.equals(roleName)) {
+                    url = "home.jsp";
+                } 
+                else if (US.equals(roleName)) {
                     url = USER_PAGE;
-                } else if (MT.equals(roleName)) {
-                    url = MENTOR_PAGE;
                 } else {
                     request.setAttribute("ERROR", "Your role is not supported!");
                 } 

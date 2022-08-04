@@ -75,7 +75,7 @@
                     <div class="header__nav">
                         <div class="action">
                             <a href="#">
-                                <img src="<%=loginUser.getUrlAvatar()%>" alt="">
+                                <img src="ShowImageController?<%=loginUser.getUrlAvatar()%>" alt="">
                                 <span><%=loginUser.getUserName()%></span>
                             </a>
                         </div>

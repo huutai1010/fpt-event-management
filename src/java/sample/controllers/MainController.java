@@ -70,6 +70,11 @@ public class MainController extends HttpServlet {
     private static final String DELETE_CONTROLLER = "DeleteController";
     private static final String POST_REPLY = "PostReply";
     private static final String POST_REPLY_CONTROLLER = "PostReplyController";
+    private static final String FIND_SLOT = "FindSlot";
+    private static final String FIND_SLOT_CONTROLLER = "FindSlotController";
+    private static final String CREATE_EVENT = "CreateEvent";
+    private static final String CREATE_EVENT_CONTROLLER = "CreateEventController";
+ 
     
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -130,6 +135,10 @@ public class MainController extends HttpServlet {
                 url = DELETE_CONTROLLER;
             } else if (POST_REPLY.equals(action)) {
                 url = POST_REPLY_CONTROLLER;
+            } else if (FIND_SLOT.equals(action)) {
+                url = FIND_SLOT_CONTROLLER;
+            } else if (CREATE_EVENT.equals(action)) {
+                url = CREATE_EVENT_CONTROLLER;
             }
         } catch (Exception e) {
             e.printStackTrace();
