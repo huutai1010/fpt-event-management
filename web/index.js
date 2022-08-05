@@ -19,7 +19,7 @@ var x = setInterval(function () {
 
     // Output the result in an element with id="demo"
     document.getElementById("demo").innerHTML = days + "d " + hours + "h "
-        + minutes + "m " + seconds + "s ";
+            + minutes + "m " + seconds + "s ";
     // If the count down is over, write some text 
     if (distance < 0) {
         clearInterval(x);
@@ -47,7 +47,7 @@ var x = setInterval(function () {
 
     // Output the result in an element with id="demo"
     document.getElementById("demo2").innerHTML = days + "d " + hours + "h "
-        + minutes + "m " + seconds + "s ";
+            + minutes + "m " + seconds + "s ";
     // If the count down is over, write some text 
     if (distance < 0) {
         clearInterval(x);
@@ -75,10 +75,134 @@ var x = setInterval(function () {
 
     // Output the result in an element with id="demo"
     document.getElementById("demo3").innerHTML = days + "d " + hours + "h "
-        + minutes + "m " + seconds + "s ";
+            + minutes + "m " + seconds + "s ";
     // If the count down is over, write some text 
     if (distance < 0) {
         clearInterval(x);
         document.getElementById("demo3").innerHTML = "EXPIRED";
     }
 }, 1000);
+
+document.getElementById('btn_nav').onclick = function () {
+    let menu = document.getElementById('menu');
+    let blur = document.getElementById('blur');
+    menu.style.visibility = 'visible';
+    blur.style.display = 'block';
+    menu.style.opacity = '1';
+
+    blur.onclick = function () {
+        menu.style.visibility = 'hidden';
+        menu.style.opacity = '0';
+        blur.style.display = 'none';
+
+    }
+}   
+
+let fileInput = document.getElementById("images");
+let previewImgContainer = document.getElementById("preview-img");
+function previewImg() {
+
+    if(fileInput.files.length>2){
+        alert('You are only allowed to upload a maximum of 2 images!');
+        return false;
+    }
+
+    previewImgContainer.innerHTML = "";
+
+    for (i of fileInput.files) {
+        let reader = new FileReader();
+        let figure = document.createElement("div");
+        let figCap = document.createElement("figcaption");
+        figCap.innerText = "";
+        figure.appendChild(figCap);
+        reader.onload = () => {     
+            let img = document.createElement("img");
+            img.setAttribute("src", reader.result);
+            figure.insertBefore(img, figCap);
+        }
+        previewImgContainer.appendChild(figure);
+        reader.readAsDataURL(i);
+    }
+}
+
+/*let fileinput = document.getElementById("file-input");
+let imageContainer = document.getElementById("images");
+let numOfFiles = document.getElementById("num-of-files");
+let removeFiles = document.getElementById("removeFiles");
+
+function preview() {
+    imageContainer.innerHTML = "";
+    numOfFiles.textContent = `${fileInput.files.length}
+    Files Selected`;
+    
+    for(i of fileInput.files){
+        let reader = new FileReader();
+        let figure = document.createElement("figure");
+        let figCap = document.createElement("figcaption");
+        
+        figCap.innerHTML = i.name;
+        figure.appendChild(figCap);
+        reader.onload=()=> {
+            let img = document.createElement("img");
+            img.setAttribute("src", reader.result);
+            figure.insertBefore(img,figCap);
+        }
+        imageContainer.appendChild(figure);
+        reader.readAsDataURL(i);
+    }
+}*/
+
+const showContainers = document.querySelectorAll('.show-replies');
+showContainers.forEach(btn => btn.addEventListener('click', (e) => {
+    let parentContainer = e.target.closest('.comment_container');
+    let _id = parentContainer.id;
+    if(_id){
+        let childrenContainer = parentContainer.querySelectorAll(`[dataset=${_id}]`);
+        childrenContainer.forEach(child => child.classList.toggle('opened'));
+    }
+}))
+
+
+
+
+
+
+document.getElementById('btn_nav').onclick = function () {
+    let menu = document.getElementById('menu');
+    let blur = document.getElementById('blur');
+    menu.style.visibility = 'visible';
+    blur.style.display = 'block';
+    menu.style.opacity = '1';
+
+    blur.onclick = function () {
+        menu.style.visibility = 'hidden';
+        menu.style.opacity = '0';
+        blur.style.display = 'none';
+
+    }
+}
+
+var a = document.getElementById("blah");
+function readUrl(input) {
+    if (input.files) {
+        var reader = new FileReader();
+        reader.readAsDataURL(input.files[0]);
+        reader.onload = (e) => {
+            a.src = e.target.result;
+        }
+    }
+}
+// sửa
+function previewBeforeUpload(id){
+    document.querySelector("#"+id).addEventListener("change",function(e){
+      if(e.target.files.length == 0){
+        return;
+      }
+      let file = e.target.files[0];
+      let url = URL.createObjectURL(file);
+      document.querySelector("#"+id+"-preview div").innerText = file.name;
+      document.querySelector("#"+id+"-preview img").src = url;
+    });
+  }
+  
+  previewBeforeUpload("file-1");
