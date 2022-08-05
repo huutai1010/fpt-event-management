@@ -34,6 +34,7 @@ public class CreateEventController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
     String url = ERROR;
     try {
+        System.out.println("Create event controller");
         HttpSession session = request.getSession();
         UserDTO loginUser= (UserDTO) session.getAttribute("LOGIN_USER");
         float ticketPrice = Float.parseFloat(request.getParameter("ticketPrice"));
@@ -56,8 +57,10 @@ public class CreateEventController extends HttpServlet {
         }
         
         EventDAO eventDAO = new EventDAO();
+        System.out.println("Before create event");
         eventDAO.createEvent(categoryID, locationID, loginUser.getUserID(), eventName, eventDetail, date, backgroundImage, posterImage, numberOfAttendees, formality, ticketPrice, 1);
-        
+        System.out.println("After create event");
+
         List<EventDTO> listAllEvents = eventDAO.getAllEvents();
         int eventID = listAllEvents.get(listAllEvents.size() - 1).getEventID();
         
@@ -67,6 +70,7 @@ public class CreateEventController extends HttpServlet {
         }
         
         url = SUCCESS;
+        System.out.println("End Create Event Controller");
     } catch (Exception e) {
         
     } finally {

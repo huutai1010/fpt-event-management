@@ -48,7 +48,7 @@ public class EditUserController extends HttpServlet {
             if (urlAvatar.equals("")) {
                 user = new UserDTO(userID, userEmail, password, userName, loginUserAvatar, phone, address, roleName, 1);
             } else {
-                user = new UserDTO(userID, userEmail, password, userName, "/Users/maihuutai/Downloads/" + urlAvatar, phone, address, roleName, 1);
+                user = new UserDTO(userID, userEmail, password, userName, "images/" + urlAvatar, phone, address, roleName, 1);
             }
             boolean check = dao.updateUser(user);
             if (check) {

@@ -95,7 +95,7 @@
                                     <div class="form-element">
                                         <input type="file" id="file-1" name="urlAvatar" accept="image/*" />
                                         <label for="file-1" id="file-1-preview">
-                                            <img src="ShowImageController?<%=loginUser.getUrlAvatar()%>" alt="" />
+                                            <img src="<%=loginUser.getUrlAvatar()%>" alt="" />
                                             <div>
                                                 <span>+</span>
                                             </div>

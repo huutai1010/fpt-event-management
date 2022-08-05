@@ -189,8 +189,8 @@ public class EventDAO {
                 ptm.setString(4, eventName);
                 ptm.setString(5, eventDetail);
                 ptm.setString(6, date);
-                ptm.setString(7, backgroundImage);
-                ptm.setString(8, posterImage);
+                ptm.setString(7, "images/"+backgroundImage);
+                ptm.setString(8, "images/"+posterImage);
                 ptm.setInt(9, numberOfAttendees);
                 ptm.setString(10, formality);
                 ptm.setFloat(11, ticketPrice);

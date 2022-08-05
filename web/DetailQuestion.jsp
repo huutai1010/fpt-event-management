@@ -47,10 +47,10 @@
             QuestionDTO question = (QuestionDTO) request.getAttribute("QUESTION_DETAIL");
             
                 UserDTO loginUser = (UserDTO) session.getAttribute("LOGIN_USER");
-                if (loginUser == null || !loginUser.getRoleName().equals("US")) {
-                    response.sendRedirect("login.jsp");
-                    return;
-                }
+//                if (loginUser == null || !loginUser.getRoleName().equals("US")) {
+//                    response.sendRedirect("login.jsp");
+//                    return;
+//                }
 
             
             

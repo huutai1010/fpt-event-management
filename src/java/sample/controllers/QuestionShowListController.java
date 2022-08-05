@@ -56,7 +56,6 @@ public class QuestionShowListController extends HttpServlet {
             List<QuestionDTO> listQuestion = questionDAO.getAllQuestion(eventID);
             request.setAttribute("LIST_QUESTION", listQuestion);
             url = SUCCESS;
-            System.out.println("End question show list controller");
         } catch (Exception e) {
             log("Error at QuestionController: " + e.toString());
         } finally {
