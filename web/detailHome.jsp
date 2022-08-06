@@ -121,7 +121,7 @@
                         <%
                             String backgroundImage = "";
                         %>
-                        <img src="<%=event.getBackgroundImage() != null ? event.getBackgroundImage() : backgroundImage%>" alt="...">
+                        <img src="images/<%=event.getBackgroundImage() != null ? event.getBackgroundImage() : backgroundImage%>" alt="...">
                     </div>
                 </section>
 
@@ -202,7 +202,7 @@
                             <a class="nav-link" href="#comment">Bình luận</a>
                             
                             <!--dang sua-->
-                            <a class="nav-link" href="MainController?action=QuestionList&eventID=<%= event.getEventID()%>&userID=<%= loginUser.getUserID() %>&posterImage=<%= event.getPosterImage()%>&backgroundImage=<%=event.getBackgroundImage()%>&categoryName=<%= event.getCategoryName()%>
+                            <a class="nav-link" href="MainController?action=QuestionList&eventID=<%= event.getEventID()%>&userID=<%= loginUser.getUserID() %>&posterImage=images/<%= event.getPosterImage()%>&backgroundImage=images/<%=event.getBackgroundImage()%>&categoryName=<%= event.getCategoryName()%>
                                &locationName=<%= event.getLocationName()%>&date=<%= event.getDate().toString()%>&numberOfAttendees=<%= event.getNumberOfAttendees()%>&formality=<%= event.getFormality()%>
                                &ticketPrice=<%= event.getTicketPrice()%>&eventDetail=<%= event.getEventDetail()%>&eventName=<%= event.getEventName()%>&status=<%=event.getStatus()%>">Q/A</a>
                         </nav>

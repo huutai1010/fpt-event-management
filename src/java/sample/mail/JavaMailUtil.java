@@ -21,14 +21,14 @@ public class JavaMailUtil {
 
     public static void sendMail(String recepient, String userName, String eventName, String eventImage) throws Exception {
         Properties properties = new Properties();
-
+        System.out.println("poster image: " + eventImage);
         properties.put("mail.smtp.auth", "true");
         properties.put("mail.smtp.starttls.enable", "true");
         properties.put("mail.smtp.host", "smtp.gmail.com");
         properties.put("mail.smtp.port", "587");
 
-        final String myAccountEmail = "taimhse150315@fpt.edu.vn"; // Your email account here
-        final String password = "01232034458abcdE"; // Your password in here
+        final String myAccountEmail = "hiepttse150326@fpt.edu.vn"; // Your email account here
+        final String password = "09490848aA"; // Your password in here
 
         Session session = Session.getInstance(properties, new Authenticator() {
 
@@ -48,9 +48,13 @@ public class JavaMailUtil {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(myAccountEmail));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(recepient));
+
             message.setSubject("Đăng kí sự kiện " + eventName + " thành công");
-            String htmlCode = "<body> <h3>Thân mời bạn " + userName +  " đến dự nhé. </h3>  <br/> <img src=\""+ eventImage + "\"/>";
+            String htmlCode = "<body> <h3>Thân mời bạn " + userName + " đến dự nhé. </h3>  <br/>" + "<img src=\"https://znews-photo.zingcdn.me/w660/Uploaded/wobjcak/2022_08_06/lew.jpeg\">";
+
             message.setContent(htmlCode, "text/html; charset=utf-8");
+            
+            
             return message;
         } catch (Exception ex) {
             System.out.println("Fail in send email");

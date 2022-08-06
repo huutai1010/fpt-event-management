@@ -35,6 +35,8 @@ public class UserDAO {
     
     private static final String GET_LIST_USER = "SELECT u.userID, u.email, u.userName, u.phone, r.roleName, u.status, u.avatar, u.address FROM tblUsers u, tblRoles r WHERE u.roleID = r.roleID AND r.roleName = N'US'";
     
+    private static final String GET_LIST_ORGANIZER = "SELECT u.userID, u.email, u.userName, u.phone, r.roleName, u.status, u.avatar, u.address FROM tblUsers u, tblRoles r WHERE u.roleID = r.roleID AND r.roleName = N'OG'";
+    
     private static final String DELETE_USER = "UPDATE tblUsers SET status = 0 WHERE userID =?";
     
     
@@ -299,6 +301,47 @@ public class UserDAO {
         }
         return listUser;
     }
+    
+     public List<UserDTO> getListOrganizer() throws SQLException {
+        List<UserDTO> listUser = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+         try {
+            conn = DBUtils.getConnection();
+            if(conn != null){
+                ptm = conn.prepareStatement(GET_LIST_ORGANIZER);
+                rs = ptm.executeQuery();
+                while(rs.next()){
+                    int userID = Integer.parseInt(rs.getString("userID"));
+                    String email = rs.getString("email");
+                    String userName = rs.getString("userName");
+                    String phone = rs.getString("phone");
+                    String roleName = rs.getString("roleName");
+                    int status = Integer.parseInt(rs.getString("status"));
+                    String avatar = rs.getString("avatar");
+                    String address = rs.getString("address");
+                    listUser.add(new UserDTO(userID, email, avatar, userName, avatar, phone, address, roleName, status));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+             if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return listUser;
+    }
+    
+    
+    
     
     
     public boolean deleteUser(int userID) throws SQLException, ClassNotFoundException{

@@ -5,15 +5,13 @@
 package sample.controllers;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import sample.dao.EventDAO;
 import sample.dao.UserDAO;
-import sample.dto.UserDTO;
 
 /**
  *
@@ -21,30 +19,33 @@ import sample.dto.UserDTO;
  */
 @WebServlet(name = "DeleteController", urlPatterns = {"/DeleteController"})
 public class DeleteController extends HttpServlet {
-    
+
     private static final String ERROR = "error.jsp";
-    private static final String SUCCESS = "AdminController"; 
-   
+    private static final String SUCCESS = "AdminController";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
+        //delete organizer voi user dung chung controller
         try {
             int userID = Integer.parseInt(request.getParameter("userID"));
             UserDAO dao = new UserDAO();
+            System.out.println("Co userID la: " + userID);
             boolean check = dao.deleteUser(userID);
-        //   List<UserDTO> listUser = dao.getListUser();
-            if(check){
+            System.out.println("toi da check: " + check);
+            if (check) {
                 url = SUCCESS;
-             //   request.setAttribute("LIST_USER", listUser);
+                //   request.setAttribute("LIST_USER", listUser);
             }
+            
         } catch (Exception e) {
-            log("Error at DeleteController: " +e.toString());
+            log("Error at DeleteController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
     }
-    
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

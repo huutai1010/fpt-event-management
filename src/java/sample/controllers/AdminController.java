@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import sample.dao.EventDAO;
 import sample.dao.UserDAO;
+import sample.dto.EventDTO;
 import sample.dto.UserDTO;
 
 
@@ -28,21 +29,27 @@ public class AdminController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-        //    HttpSession session = request.getSession();
-          //  String searchAdmin = request.getParameter("searchAdmin");
+        
             UserDAO userDao = new UserDAO();
             EventDAO eventDao = new EventDAO();
            // List<UserDTO> listUser = userDao.getListUser(searchAdmin);
             
             List<UserDTO> listUser = userDao.getListUser();
-        //    List<EventDTO> listEventAdmin = eventDao.getListEvent();
-            if(listUser.size() > 0) {
-                
+            List<EventDTO> listEventAdmin = eventDao.getListEventAdmin();
+            List<UserDTO> listOrganizer = userDao.getListOrganizer();
+            if(listUser.size() > 0) {               
                 request.setAttribute("LIST_USER", listUser);
                // session.setAttribute("searchAdmin", searchAdmin);
                 url = SUCCESS;
             }
-            
+            if(listEventAdmin.size() > 0) {
+                request.setAttribute("LIST_EVENT_ADMIN", listEventAdmin);
+                url = SUCCESS;
+            }
+            if(listOrganizer.size() > 0){
+                request.setAttribute("LIST_ORGANIZER", listOrganizer);
+                url = SUCCESS;
+            }
         } catch (Exception e) {
             log("Error at AdminController: " +e.toString());
         } finally {

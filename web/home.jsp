@@ -164,13 +164,13 @@
                                     if (listComingEvents.indexOf(comingEvent1) == 0) {
                             %>
                             <div class="carousel-item active">
-                                <a href="MainController?action=ShowDetailEventHome&eventID=<%= comingEvent1.getEventID()%>" ><img class="" src="<%=comingEvent1.getPosterImage()%>" alt="First slide" /></a>
+                                <a href="MainController?action=ShowDetailEventHome&eventID=<%= comingEvent1.getEventID()%>" ><img class="" src="images/<%=comingEvent1.getPosterImage()%>" alt="First slide" /></a>
                             </div>   
                             <%
                             } else {
                             %>
                             <div class="carousel-item">
-                                <a href="MainController?action=ShowDetailEventHome&eventID=<%= comingEvent1.getEventID()%>"><img class="" src="<%=comingEvent1.getPosterImage()%>" alt="First slide" /></a>
+                                <a href="MainController?action=ShowDetailEventHome&eventID=<%= comingEvent1.getEventID()%>"><img class="" src="images/<%=comingEvent1.getPosterImage()%>" alt="First slide" /></a>
                             </div>      
                             <%
                                     }
@@ -299,7 +299,7 @@
                                         <div class="item shadow overflow-hidden mb-4">
                                             <a href="MainController?action=ShowDetailEventHome&eventID=<%= searchEvent.getEventID()%>">
                                                 <img
-                                                    src="<%=searchEvent.getPosterImage()%>"
+                                                    src="images/<%=searchEvent.getPosterImage()%>"
                                                     alt="g1"
                                                     class="d-block w-100"
                                                     />
@@ -329,7 +329,7 @@
                                         <div class="item shadow overflow-hidden mb-4">
                                             <a href="MainController?action=ShowDetailEventHome&eventID=<%= event.getEventID()%>">
                                                 <img
-                                                    src="<%=event.getPosterImage()%>"
+                                                    src="images/<%=event.getPosterImage()%>"
                                                     alt="g1"
                                                     class="d-block w-100"
                                                     />
@@ -373,7 +373,7 @@
                                         <div class="item shadow overflow-hidden mb-4">
                                             <a href="MainController?action=ShowDetailEventHome&eventID=<%= happeningEvent.getEventID()%>">
                                                 <img
-                                                    src="<%=happeningEvent.getPosterImage()%>"
+                                                    src="images/<%=happeningEvent.getPosterImage()%>"
                                                     alt="g1"
                                                     class="d-block w-100"
                                                     />
@@ -412,7 +412,7 @@
                                         <div class="item shadow overflow-hidden mb-4">
                                             <a href="MainController?action=ShowDetailEventHome&eventID=<%= comingEvent.getEventID()%>">
                                                 <img
-                                                    src="<%=comingEvent.getPosterImage()%>"
+                                                    src="images/<%=comingEvent.getPosterImage()%>"
                                                     alt="g1"
                                                     class="d-block w-100"
                                                     />
@@ -447,7 +447,7 @@
                                         <div class="item shadow overflow-hidden mb-4">
                                             <a href="MainController?action=ShowDetailEventHome&eventID=<%= tookPlaceEvent.getEventID()%>">
                                                 <img
-                                                    src="<%=tookPlaceEvent.getPosterImage()%>"
+                                                    src="images/<%=tookPlaceEvent.getPosterImage()%>"
                                                     alt="g1"
                                                     class="d-block w-100"
                                                     />
@@ -489,7 +489,7 @@
                                         <div class="item shadow overflow-hidden mb-4">
                                             <a href="MainController?action=ShowDetailEventHome&eventID=<%= followedEvent.getEventID()%>">
                                                 <img
-                                                    src="<%=followedEvent.getPosterImage()%>"
+                                                    src="images/<%=followedEvent.getPosterImage()%>"
                                                     alt="g1"
                                                     class="d-block w-100"
                                                     />

@@ -72,7 +72,7 @@
             <main>
                 <section class="background">
                     <div class="background_img">
-                        <img src="<%=event.getPosterImage()%>" alt="...">
+                        <img src="images/<%=event.getPosterImage()%>" alt="...">
                     </div>
                 </section>
 

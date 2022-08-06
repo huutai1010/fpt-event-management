@@ -66,8 +66,11 @@ public class MainController extends HttpServlet {
     private static final String SEARCH_QUESTION_LIST_CONTROLLER="SearchQuestionListController";
     private static final String ADMIN = "SearchInAdmin";
     private static final String ADMIN_CONTROLLER = "AdminController";
+    
     private static final String DELETE = "Delete";
     private static final String DELETE_CONTROLLER = "DeleteController";
+    private static final String DELETE_EVENT = "DeleteEvent";
+    private static final String DELETE_EVENT_CONTROLLER = "DeleteEventController";
     private static final String POST_REPLY = "PostReply";
     private static final String POST_REPLY_CONTROLLER = "PostReplyController";
     private static final String FIND_SLOT = "FindSlot";
@@ -139,6 +142,8 @@ public class MainController extends HttpServlet {
                 url = FIND_SLOT_CONTROLLER;
             } else if (CREATE_EVENT.equals(action)) {
                 url = CREATE_EVENT_CONTROLLER;
+            }else if (DELETE_EVENT.equals(action)) {
+                url = DELETE_EVENT_CONTROLLER;
             }
         } catch (Exception e) {
             e.printStackTrace();

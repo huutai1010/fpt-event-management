@@ -25,7 +25,11 @@ public class EventDAO {
     private static final String SEARCH_EVENTS = "SELECT eventID, categoryName, locationName, eventName, eventDetail, posterImage, backgroundImage, FORMAT(date, 'yyyy-MM-dd') AS date, numberOfAttendees, formality, ticketPrice, status FROM tblEvent e, tblLocation l, tblCategory c WHERE e.locationID = l.locationID AND e.categoryID = c.categoryID AND e.eventName LIKE ? AND status = '1'";
     private static final String DETAIL_EVENT = "SELECT categoryName, locationName, eventName, eventDetail, posterImage, backgroundImage, FORMAT(date, 'yyyy-MM-dd') AS date, numberOfAttendees, formality, ticketPrice, status FROM tblEvent e, tblLocation l, tblCategory c WHERE e.locationID = l.locationID AND e.categoryID = c.categoryID AND eventID=? AND status = '1'";
     private static final String CREATE_EVENT = "INSERT INTO tblEvent VALUES (?, ?, NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)";
+    private static final String GET_LIST_EVENT_ADMIN = "SELECT e.eventID, c.categoryName, l.locationName, e.eventName, e.eventDetail, FORMAT(e.date, 'yyyy-MM-dd') AS date, e.posterImage,e.backgroundImage, e.numberOfAttendees, e.formality, e.ticketPrice, e.status \n"
+            + "                                FROM tblEvent e, tblCategory c, tblLocation l WHERE e.categoryID = c.categoryID AND e.locationID = l.locationID";
 
+    private static final String DELETE_EVENT = "UPDATE tblEvent SET status = 0 WHERE eventID =?";
+    
     public int checkTimeOfEvent(EventDTO event) {
         Date today = new Date();
         System.out.println("TODAY" + today.toString());
@@ -36,7 +40,7 @@ public class EventDAO {
             ans = 0;
         } else if (event.getDate().after(today)) {
             ans = 1;
-        } 
+        }
 //        if (event.getStartTime().before(today) && event.getEndTime().before(today)) {
 //            ans = -1;
 //        } else if (event.getStartTime().before(today) && event.getEndTime().after(today)) {
@@ -189,8 +193,8 @@ public class EventDAO {
                 ptm.setString(4, eventName);
                 ptm.setString(5, eventDetail);
                 ptm.setString(6, date);
-                ptm.setString(7, "images/"+backgroundImage);
-                ptm.setString(8, "images/"+posterImage);
+                ptm.setString(7, backgroundImage);
+                ptm.setString(8, posterImage);
                 ptm.setInt(9, numberOfAttendees);
                 ptm.setString(10, formality);
                 ptm.setFloat(11, ticketPrice);
@@ -207,11 +211,70 @@ public class EventDAO {
         return check;
     }
 
-    
-    
-    
-    
-    
+    public List<EventDTO> getListEventAdmin() throws SQLException {
+        List<EventDTO> listEvent = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                stm = conn.prepareStatement(GET_LIST_EVENT_ADMIN);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    int eventID = rs.getInt("eventID");
+                    String categoryName = rs.getString("categoryName");
+                    String locationName = rs.getString("locationName");
+                    String eventName = rs.getString("eventName");
+                    String eventDetail = rs.getString("eventDetail");
+                    String posterImage = rs.getString("posterImage");
+                    String backgroundImage = rs.getString("backgroundImage");
+                    Date date = rs.getDate("date");
+                    int numberOfAttendees = rs.getInt("numberOfAttendees");
+                    String formality = rs.getString("formality");
+                    float ticketPrice = rs.getFloat("ticketPrice");
+                    int status = rs.getInt("status");
+                    listEvent.add(new EventDTO(eventID, categoryName, locationName, eventName, eventDetail, posterImage, backgroundImage, date, numberOfAttendees, formality, ticketPrice, status));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return listEvent;
+    }
 
-    
+    public boolean deleteEvent(int eventID) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(DELETE_EVENT);
+                ptm.setInt(1, eventID);
+                check = ptm.executeUpdate() > 0 ? true : false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+
 }
